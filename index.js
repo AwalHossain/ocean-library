@@ -11,7 +11,7 @@ const bodyParser = require("body-parser");
 
 
 
-const domainsFromEnv = process.env.CORS_DOMAINS || "http://localhost:3000"
+const domainsFromEnv = "https://healthcare-services-c55cf.web.app/"|| "http://localhost:3000"
 
 console.log(domainsFromEnv);
 
