@@ -16,7 +16,7 @@ const reviewSchema = new mongoose.Schema({
     },
     isApprove:{
         type: Boolean,
-        default:false
+        default:true
     }
 })
 
