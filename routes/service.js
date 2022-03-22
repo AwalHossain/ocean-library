@@ -5,7 +5,7 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const Service = require("../model/serviceModel");
 const ErrorHandler = require("../utils/errorHandler");
 const { route } = require("./user");
-
+const ApiFeatures = require("../utils/apifeature")
 
 // create Service
 
@@ -49,14 +49,35 @@ router.delete("/deleteService/:id", catchAsyncErrors(async (req, res, next) => {
  }))
 
 
-//  Get all the service
+
+
+
+//  Get all the service with pagination
 router.get("/getAllServices/", catchAsyncErrors(async (req, res, next) => {
 
-const service = await Service.find({})
+  const resultPerPage = 4;
+
+
+  const productsCount = await Service.countDocuments();
+
+  const apiFeature = new ApiFeatures(Service.find(), req.query)
+    .search()
+    .filter();
+
+  let service = await apiFeature.query;
+
+
+  apiFeature.pagination(resultPerPage);
+
+  service = await apiFeature.query;
+
 res.status(200).json({
     success: true,
-    service
-  });
+service ,
+resultPerPage,
+productsCount
+
+});
 
 }))
 

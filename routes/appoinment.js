@@ -24,7 +24,20 @@ router.get("/getServicId/:email",  catchAsyncErrors(async (req, res, next) => { 
 
 console.log(req.params.email);
 
-    const appointmenId = await Appointment.findOne({email: req.params.email}).distinct("serviceId")
+    const appointmenId = await Appointment.find({email: req.params.email})
+
+    res.status(200).json({
+        success: true,
+        appointmenId,
+      });
+}))
+
+
+router.get("/appointId/:email",  catchAsyncErrors(async (req, res, next) => { 0
+
+console.log(req.params.email);
+
+    const appointmenId = await Appointment.findOne({email: req.params.email})
 
     res.status(200).json({
         success: true,

@@ -4,6 +4,12 @@ const appointSchema = new mongoose.Schema({
     name:{
         type: String
     },
+    title:{
+        type: String
+    },
+    time:{
+        type: String
+    },
     displayName:{
         type: String
     },
