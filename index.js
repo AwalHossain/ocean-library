@@ -27,7 +27,6 @@ const bodyParser = require("body-parser");
 //   credentials: true,
 // }
 app.use(cors(
-  
 ))
 
 app.use(express.json());

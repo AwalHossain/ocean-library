@@ -6,7 +6,7 @@ const crypto = require("crypto");
 
 const userSchema = new mongoose.Schema(
   {
-    name:{
+    displayName:{
       type: String,
     },
     email: {
@@ -17,10 +17,11 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "Enter your password"],
-      minlength: [6, "password should be six character long"],
-      select: false,
     },
+    isAdmin:{
+      type: Boolean,
+      default: false
+    }
 
   },
   { timestamps: true }

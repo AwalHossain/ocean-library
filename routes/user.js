@@ -14,35 +14,26 @@ router.post(
     console.log(req.body);
     // const { name, email, password, firstName } = req.body;
     const user = await User.create(req.body);
- sendToken(user, 200, res);
+    res.status(200).json({
+      success: true,
+      user,
+    });
   })
 );
 
+
+
 // Login user
-router.post(
-  "/login",
+router.get(
+  "/getAdmin/:email",
   catchAsyncErrors(async (req, res, next) => {
-    const { email, password } = req.body;
 
-    // checking if user has given password and email both
-    console.log(email, password, "haldsl");
-    if (!email || !password) {
-      return next(new ErrorHandler("Please Enter Email & Password", 400));
-    }
+    const isAdmin = await User.findOne({email:req.params.email}).distinct("isAdmin")
 
-    const user = await User.findOne({ email }).select("+password");
-    console.log(user);
-    if (!user) {
-      return next(new ErrorHandler("Invalid email or password", 401));
-    }
-
-    const isPasswordMatched = await user.comparePassword(password);
-
-    if (!isPasswordMatched) {
-      return next(new ErrorHandler("Invalid  password", 401));
-    }
-
-    sendToken(user, 200, res);
+    res.status(200).json({
+      success: true,
+      isAdmin,
+    });
   })
 );
 
