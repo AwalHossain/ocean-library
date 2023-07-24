@@ -1,0 +1,49 @@
+{
+    "books": [
+      {
+        "name": "Slow Horses (Deluxe Edition) 2nd",
+        "author": "Mick Herron",
+        "thumbnail": "https://m.media-amazon.com/images/I/51Ga5GuElyL._SX331_BO1,204,203,200_.jpg",
+        "price": "19",
+        "rating": "4",
+        "featured": false,
+        "id": 1
+      },
+      {
+        "name": "The Last Thing He Told Me: A Novelee",
+        "author": "Kali linux",
+        "thumbnail": "https://m.media-amazon.com/images/P/1501171348.01._SCLZZZZZZZ_SX500_.jpg",
+        "price": "13.99",
+        "rating": "2",
+        "featured": true,
+        "id": 2
+      },
+      {
+        "name": "Eloquent JavaScript, 4h Edition",
+        "author": "Marijn Haverbeke",
+        "thumbnail": "https://m.media-amazon.com/images/I/51InjRPaF7L._SX377_BO1,204,203,200_.jpg",
+        "price": "23.99",
+        "rating": "3",
+        "featured": false,
+        "id": 4
+      },
+      {
+        "name": "Psychology of Money",
+        "author": "Morgan Housel",
+        "thumbnail": "https://images.unsplash.com/photo-1592496431122-2349e0fbc666?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1512&q=80",
+        "price": "25",
+        "rating": "4",
+        "featured": true,
+        "id": 5
+      },
+      {
+        "name": "The subtle art of ",
+        "author": "Mark Manson",
+        "thumbnail": "https://images.unsplash.com/photo-1621827979802-6d778e161b28?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80",
+        "price": "22",
+        "rating": "3",
+        "featured": true,
+        "id": 6
+      }
+    ]
+  }
