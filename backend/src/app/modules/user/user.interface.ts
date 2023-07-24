@@ -1,17 +1,17 @@
 /* eslint-disable no-unused-vars */
 import { Model } from "mongoose";
 
-export type Iuser = {
+export type IUser = {
     email: string;
     password: string;
 }
 
 
 export type UserModel ={
-    isUserExist(email:string):Promise<Pick<Iuser,'email'>>;
+    isUserExist(email:string):Promise<Pick<IUser,'email'>>;
     isPasswordMatch(
         givenPassword:string,
         savePassword:string
     ):Promise<boolean>;
 }
-& Model<Iuser>
+& Model<IUser>
