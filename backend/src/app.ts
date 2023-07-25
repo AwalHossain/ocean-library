@@ -25,7 +25,7 @@ app.get('/', async (req: Request, res: Response) => {
     success: true,
     message: 'Welcome to the API',
   });
-})
+});
 
 //global error handler
 app.use(globalErrorHandler);

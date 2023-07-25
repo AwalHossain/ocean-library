@@ -112,10 +112,8 @@ const refreshToken = async (token: string): Promise<ILoginUserResponse> => {
   };
 };
 
-
-
 export const UserService = {
   createUser,
   loginUser,
-  refreshToken
+  refreshToken,
 };
