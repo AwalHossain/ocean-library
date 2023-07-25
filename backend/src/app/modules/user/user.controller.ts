@@ -32,6 +32,34 @@ const createUser: RequestHandler = catchAsync(
   );
 
 
+
+const loginUser: RequestHandler = catchAsync(
+    async (req: Request, res: Response) => {
+      const  userData  = req.body;
+      console.log(userData,'userData');
+      
+      const result = await UserService.loginUser( userData);
+      const { refreshToken, ...others } = result;
+
+      // set refresh token into cookie
+      const cookieOptions = {
+        secure: config.env === 'production',
+        httpOnly: true,
+      };
+    
+      res.cookie('refreshToken', refreshToken, cookieOptions);
+    
+      sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: 'User logged in successfully !',
+        data: others,
+      });
+    }
+  );
+
+
   export const UserController = {
-    createUser
+    createUser,
+    loginUser
     }
