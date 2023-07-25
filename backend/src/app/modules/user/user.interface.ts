@@ -6,6 +6,11 @@ export type IUser = {
     password: string;
 }
 
+export type ILoginUserResponse = {
+    refreshToken?: string ;
+    accessToken: string;
+  };
+
 
 export type UserModel ={
     isUserExist(email:string):Promise<Pick<IUser,'email'>>;
