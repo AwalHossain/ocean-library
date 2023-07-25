@@ -16,16 +16,16 @@ const createUser = async (user: IUser): Promise<ILoginUserResponse> => {
 
   //create access token & refresh token
 
-  const { email, _id } = result;
+  const { email, role } = result;
 
   const accessToken = jwtHelpers.createToken(
-    { email, _id },
+    { email, role },
     config.jwt.secret as Secret,
     config.jwt.expires_in as string
   );
 
   const refreshToken = jwtHelpers.createToken(
-    { email, _id },
+    { email, role },
     config.jwt.refresh_secret as Secret,
     config.jwt.refresh_expires_in as string
   );
@@ -52,18 +52,18 @@ const loginUser = async (user: IUser): Promise<ILoginUserResponse> => {
 
   //create access token & refresh token
 
-  const { email, _id } = isUserExist;
+  const { email, role } = isUserExist;
 
   console.log(isUserExist, 'isUserExist');
 
   const accessToken = jwtHelpers.createToken(
-    { email, _id },
+    { email, role },
     config.jwt.secret as Secret,
     config.jwt.expires_in as string
   );
 
   const refreshToken = jwtHelpers.createToken(
-    { email, _id },
+    { email, role },
     config.jwt.refresh_secret as Secret,
     config.jwt.refresh_expires_in as string
   );
@@ -100,8 +100,8 @@ const refreshToken = async (token: string): Promise<ILoginUserResponse> => {
 
   const newAccessToken = jwtHelpers.createToken(
     {
-      _id: isUserExist._id,
       email: isUserExist.email,
+      role: isUserExist.role,
     },
     config.jwt.secret as Secret,
     config.jwt.expires_in as string

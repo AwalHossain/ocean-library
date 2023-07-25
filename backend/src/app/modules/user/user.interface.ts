@@ -15,7 +15,7 @@ export type ILoginUserResponse = {
 
 
 export type UserModel ={
-    isUserExist(email:string):Promise<Pick<IUser,'email'| 'password' |'_id' >>;
+    isUserExist(email:string):Promise<Pick<IUser,'email'| 'password' |'_id' |'role' >>;
     isPasswordMatch(
         givenPassword:string,
         savePassword:string
