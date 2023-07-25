@@ -12,7 +12,6 @@ export type IBook = {
   price: string;
   rating: string;
   featured: boolean;
-  id?: number;
   genre: string;
   publicationYear: string;
   reviews?: reviews[];
