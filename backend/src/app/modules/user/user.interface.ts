@@ -4,6 +4,7 @@ import { Model } from "mongoose";
 export type IUser = {
     email: string;
     password: string;
+    role: string;
     _id: string;
 }
 
