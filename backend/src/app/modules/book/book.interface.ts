@@ -20,4 +20,11 @@ export type IBook = {
   finishedList?: Schema.Types.ObjectId[];
 };
 
+export type IbookFilters = {
+  searchTerm?: string;
+  genre?: string;
+  publicationYear?: string;
+};
+
+
 export type BookModel = Model<IBook, Record<string, unknown>>;

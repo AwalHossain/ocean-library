@@ -1,101 +1,148 @@
- [
-    {
-      "name": "Slow Horses (Deluxe Edition) 2nd",
-      "author": "Mick Herron",
-      "thumbnail": "https://m.media-amazon.com/images/I/51Ga5GuElyL._SX331_BO1,204,203,200_.jpg",
-      "price": "19",
-      "rating": "4",
-      "featured": false,
-      "id": 1,
-      "genre": "Thriller",
-      "publicationYear": "2018"
-    },
-    {
-      "name": "The Last Thing He Told Me: A Novelee",
-      "author": "Kali linux",
-      "thumbnail": "https://m.media-amazon.com/images/P/1501171348.01._SCLZZZZZZZ_SX500_.jpg",
-      "price": "13.99",
-      "rating": "2",
-      "featured": true,
-      "id": 2,
-      "genre": "Mystery",
-      "publicationYear": "2021"
-    },
-    {
-      "name": "Eloquent JavaScript, 4h Edition",
-      "author": "Marijn Haverbeke",
-      "thumbnail": "https://m.media-amazon.com/images/I/51InjRPaF7L._SX377_BO1,204,203,200_.jpg",
-      "price": "23.99",
-      "rating": "3",
-      "featured": false,
-      "id": 4,
-      "genre": "Computer Programming",
-      "publicationYear": "2020"
-    },
-    {
-      "name": "Psychology of Money",
-      "author": "Morgan Housel",
-      "thumbnail": "https://images.unsplash.com/photo-1592496431122-2349e0fbc666?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1512&q=80",
-      "price": "25",
-      "rating": "4",
-      "featured": true,
-      "id": 5,
-      "genre": "Personal Finance",
-      "publicationYear": "2019"
-    },
-    {
-      "name": "The subtle art of",
-      "author": "Mark Manson",
-      "thumbnail": "https://images.unsplash.com/photo-1621827979802-6d778e161b28?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80",
-      "price": "22",
-      "rating": "3",
-      "featured": true,
-      "id": 6,
-      "genre": "Self-help",
-      "publicationYear": "2016"
-    },
-    {
-      "name": "Dune",
-      "author": "Frank Herbert",
-      "thumbnail": "https://images.unsplash.com/photo-1584649347538-16cb08632599?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-      "price": "18.99",
-      "rating": "5",
-      "featured": true,
-      "id": 7,
-      "genre": "Science Fiction",
-      "publicationYear": "1965"
-    },
-    {
-      "name": "To Kill a Mockingbird",
-      "author": "Harper Lee",
-      "thumbnail": "https://images.unsplash.com/photo-1535019410827-5951a60b9f53?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80",
-      "price": "15.50",
-      "rating": "4",
-      "featured": false,
-      "id": 8,
-      "genre": "Classic",
-      "publicationYear": "1960"
-    },
-    {
-      "name": "The Great Gatsby",
-      "author": "F. Scott Fitzgerald",
-      "thumbnail": "https://images.unsplash.com/photo-1531565675874-045cfb71b29d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80",
-      "price": "12.75",
-      "rating": "4",
-      "featured": true,
-      "id": 9,
-      "genre": "Classic",
-      "publicationYear": "1925"
-    },
-    {
-      "name": "Pride and Prejudice",
-      "author": "Jane Austen",
-      "thumbnail": "https://m.media-amazon.com/images/I/41HiDvK0sQS._SX324_BO1,204,203,200_.jpg",
-      "price": "16.80",
-      "rating": "5",
-      "featured": true,
-      "id": 10,
-      "genre": "Classic",
-      "publicationYear": "1813"
-    }
-  ]
+[
+  {
+    "name": "Slow Horses (Deluxe Edition) 2nd",
+    "author": "Mick Herron",
+    "thumbnail": "https://m.media-amazon.com/images/I/51Ga5GuElyL._SX331_BO1,204,203,200_.jpg",
+    "price": "19",
+    "rating": "4",
+    "genre": "Thriller",
+    "publicationYear": "2018",
+    "reviews": [
+      {
+        "userId": "user_id_1",
+        "review": "A thrilling read!"
+      },
+      {
+        "userId": "user_id_2",
+        "review": "Couldn't put it down!"
+      }
+    ],
+    "wishlist": ["user_id_3", "user_id_4"],
+    "readingList": ["user_id_5"],
+    "finishedList": ["user_id_6"]
+  },
+  {
+    "name": "The Last Thing He Told Me: A Novelee",
+    "author": "Kali linux",
+    "thumbnail": "https://m.media-amazon.com/images/P/1501171348.01._SCLZZZZZZZ_SX500_.jpg",
+    "price": "13.99",
+    "rating": "2",
+    "genre": "Mystery",
+    "publicationYear": "2021",
+    "reviews": [],
+    "wishlist": ["user_id_7"],
+    "readingList": [],
+    "finishedList": []
+  },
+  {
+    "name": "Eloquent JavaScript, 4th Edition",
+    "author": "Marijn Haverbeke",
+    "thumbnail": "https://m.media-amazon.com/images/I/51InjRPaF7L._SX377_BO1,204,203,200_.jpg",
+    "price": "23.99",
+    "rating": "3",
+    "genre": "Computer Programming",
+    "publicationYear": "2020",
+    "reviews": [
+      {
+        "userId": "user_id_8",
+        "review": "Great book for learning JavaScript!"
+      }
+    ],
+    "wishlist": ["user_id_9"],
+    "readingList": [],
+    "finishedList": ["user_id_10"]
+  },
+  {
+    "name": "Psychology of Money",
+    "author": "Morgan Housel",
+    "thumbnail": "https://images.unsplash.com/photo-1592496431122-2349e0fbc666?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1512&q=80",
+    "price": "25",
+    "rating": "4",
+    "genre": "Personal Finance",
+    "publicationYear": "2019",
+    "reviews": [
+      {
+        "userId": "user_id_11",
+        "review": "Highly recommended for anyone interested in personal finance."
+      }
+    ],
+    "wishlist": ["user_id_12"],
+    "readingList": ["user_id_13"],
+    "finishedList": []
+  },
+  {
+    "name": "The Subtle Art of Not Giving a F*ck",
+    "author": "Mark Manson",
+    "thumbnail": "https://images.unsplash.com/photo-1621827979802-6d778e161b28?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80",
+    "price": "22",
+    "rating": "3",
+    "genre": "Self-help",
+    "publicationYear": "2016",
+    "reviews": [
+      {
+        "userId": "user_id_14",
+        "review": "A thought-provoking read!"
+      }
+    ],
+    "wishlist": ["user_id_15"],
+    "readingList": [],
+    "finishedList": ["user_id_16"]
+  },
+  {
+    "name": "Dune",
+    "author": "Frank Herbert",
+    "thumbnail": "https://images.unsplash.com/photo-1584649347538-16cb08632599?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+    "price": "18.99",
+    "rating": "5",
+    "genre": "Science Fiction",
+    "publicationYear": "1965",
+    "reviews": [],
+    "wishlist": [],
+    "readingList": ["user_id_17"],
+    "finishedList": ["user_id_18"]
+  },
+  {
+    "name": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "thumbnail": "https://images.unsplash.com/photo-1535019410827-5951a60b9f53?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80",
+    "price": "15.50",
+    "rating": "4",
+    "genre": "Classic",
+    "publicationYear": "1960",
+    "reviews": [],
+    "wishlist": [],
+    "readingList": ["user_id_19"],
+    "finishedList": []
+  },
+  {
+    "name": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "thumbnail": "https://images.unsplash.com/photo-1531565675874-045cfb71b29d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80",
+    "price": "12.75",
+    "rating": "4",
+    "genre": "Classic",
+    "publicationYear": "1925",
+    "reviews": [
+      {
+        "userId": "user_id_20",
+        "review": "A classic that never gets old!"
+      }
+    ],
+    "wishlist": [],
+    "readingList": [],
+    "finishedList": ["user_id_21"]
+  },
+  {
+    "name": "Pride and Prejudice",
+    "author": "Jane Austen",
+    "thumbnail": "https://m.media-amazon.com/images/I/41HiDvK0sQS._SX324_BO1,204,203,200_.jpg",
+    "price": "16.80",
+    "rating": "5",
+    "genre": "Classic",
+    "publicationYear": "1813",
+    "reviews": [],
+    "wishlist": [],
+    "readingList": ["user_id_22"],
+    "finishedList": ["user_id_23"]
+  }
+]

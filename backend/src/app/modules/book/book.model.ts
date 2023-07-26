@@ -10,10 +10,6 @@ const BookSchema = new Schema<IBook>({
     type: String,
     required: true,
   },
-  featured: {
-    type: Boolean,
-    required: true,
-  },
   genre: {
     type: String,
     required: true,

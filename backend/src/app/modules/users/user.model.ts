@@ -29,6 +29,7 @@ UserSchema.statics.isUserExist = async function (
     {
       email: 1,
       _id: 1,
+      role: 1,
     }
   );
 };

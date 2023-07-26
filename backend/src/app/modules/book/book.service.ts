@@ -1,6 +1,7 @@
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
-import { IBook } from './book.interface';
+import { IPaginationOptions } from '../../../interfaces/pagination';
+import { IBook, IbookFilters } from './book.interface';
 import { Book } from './book.model';
 
 const addBook = async (data: IBook) => {
@@ -9,11 +10,17 @@ const addBook = async (data: IBook) => {
 
     return result;
   } catch (err) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Book already exists');
+    console.log(err, 'err');
+    
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Something went wrong');
   }
 };
 
-const getAllBooks = async () => {
+const getAllBooks = async (
+  filters: IbookFilters,
+  paginationOptions: IPaginationOptions,
+) => {
+  
   const result = await Book.find({});
 
   return result;
