@@ -27,6 +27,7 @@ const getAllBooks = async (
   
   const {searchTerm, ...filtersData}  = filters;
 
+  console.log(filtersData, 'filtersData');
 
   const { limit, skip,page, sortBy, sortOrder} = paginationHelpers.calculatePagination(paginationOptions);
 
@@ -53,6 +54,7 @@ const getAllBooks = async (
       }))
     });
   }
+  
 
   // dynamic sort needs fild to do sorting on
 
@@ -70,7 +72,7 @@ const getAllBooks = async (
   .limit(limit)
 
   const total = await Book.countDocuments();
-
+  
   return {
     meta:{
       page,

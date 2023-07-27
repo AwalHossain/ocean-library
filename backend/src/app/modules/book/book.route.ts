@@ -12,6 +12,13 @@ router.post('/add',
 auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
 validateRequest(bookValidation.bookZodSchema),
 BookController.addBook);
+router.get('/all',
+auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
+BookController.getAllBooks);
+// router.get('/single/:id',
+// auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
+// BookController.getSingleBook);
+
 
 
 export const BookRoutes = router;
