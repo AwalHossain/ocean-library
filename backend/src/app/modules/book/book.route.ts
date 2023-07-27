@@ -15,9 +15,9 @@ BookController.addBook);
 router.get('/all',
 auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
 BookController.getAllBooks);
-// router.get('/single/:id',
-// auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
-// BookController.getSingleBook);
+router.get('/:id',
+auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
+BookController.getSingleBook);
 
 
 
