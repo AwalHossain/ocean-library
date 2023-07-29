@@ -1,19 +1,12 @@
-import './App.css'
-import Login from './pages/Login'
+import "./App.css";
+import MainLayout from "./layout/MainLayout";
 
 function App() {
   return (
     <div>
-        {/* <Navbar />
-        <Hero />
-        <BookCard />
-        <Footer /> */}
-        {/* <BookPage /> */}
-        {/* <Signup /> */}
-        <Login/>
-      </div>
-    
-  )
+      <MainLayout />
+    </div>
+  );
 }
 
-export default App
+export default App;

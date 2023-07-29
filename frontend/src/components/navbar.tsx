@@ -1,6 +1,17 @@
 
 
 import { Disclosure } from "@headlessui/react";
+import { Link } from "react-router-dom";
+import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from "./ui/dropdown-menu";
+
 
 const Navbar = () => {
   const navigation = [
@@ -64,9 +75,32 @@ const Navbar = () => {
                           {item}
                       </a>
                     ))}
-                    <a href="/" className="w-full px-6 py-2 mt-3 text-center text-white bg-indigo-600 rounded-md lg:ml-5">         
-                        Get Started
-                    </a>
+       <li className="ml-5">
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="outline-none">
+                    <Avatar>
+                      <AvatarImage src="https://github.com/shadcn.png" />
+                      <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem className="cursor-pointer">
+                      Profile
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer">
+                      Billing
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer">
+                      Team
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer">
+                      Subscription
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </li>
                   </>
                 </Disclosure.Panel>
               </div>
@@ -88,9 +122,26 @@ const Navbar = () => {
         </div>
 
         <div className="hidden mr-3 space-x-4 lg:flex nav__item">
-          <a href="/" className="px-6 py-2 text-white bg-indigo-600 rounded-md md:ml-5">
-              Get Started
-          </a>
+        <li className="ml-5 ">
+                <DropdownMenu>  
+                <DropdownMenuTrigger className="focus:outline-blue-500 bg-gray-200 rounded-full p-1">
+                    <Avatar>
+                      <AvatarImage src="https://github.com/shadcn.png" />
+                      <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="bg-slate-600">
+                    <DropdownMenuLabel>Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem className="cursor-pointer">
+                      <Link to="/Login">Login</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer">
+                      <Link to="/signup"> Signup</Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </li>
 
           {/* <ThemeChanger /> */}
         </div>

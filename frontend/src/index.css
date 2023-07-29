@@ -28,3 +28,9 @@
     --tw-text-opacity: 1;
     color: rgb(88 80 236 / var(--tw-text-opacity));
   }
+
+  ::marker {
+    display: inline;
+    /* // color bg-slate-600 */
+    color: #2d3748;
+  }
