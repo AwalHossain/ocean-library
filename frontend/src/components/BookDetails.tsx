@@ -28,7 +28,7 @@ function BookDetails({book, key} : {book: IBook, key: number} ) {
          );
        }
   return (
-    <div key={key} className="flex flex-col md:flex-row items-center md:items-start border border-gray-200 rounded-lg p-4 shadow-md">
+    <div key={key} className="flex flex-col md:flex-col items-center md:items-start border border-gray-200 rounded-lg p-4 shadow-md">
     <div className="flex items-center md:justify-center mb-4 md:mb-0 md:mr-4">
       <img
         className="h-[240px] w-[170px] object-cover md:w-48 md:h-64 lws-bookThumbnail"
@@ -72,7 +72,7 @@ function BookDetails({book, key} : {book: IBook, key: number} ) {
       </div>
   
       <div className="space-y-2 mt-1 md:mt-0">
-        <h4 className="text-lg md:text-xl font-semibold capitalize">{book.name}</h4>
+        <h4 className="text-lg md:text-xl font-semibold capitalize">{book.title}</h4>
         <p className="text-sm md:text-base text-gray-600">{book.author}</p>
         <div className="flex space-x-1 md:space-x-2">
           {/* Render stars dynamically based on book rating */}

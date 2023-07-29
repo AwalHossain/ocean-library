@@ -1,16 +1,14 @@
 import './App.css'
-import { BookCard } from './components/BookCard'
-import Footer from './components/Footer'
-import Hero from './components/Hero'
-import Navbar from './components/navbar'
+import BookPage from './pages/books'
 
 function App() {
   return (
     <div>
-        <Navbar />
+        {/* <Navbar />
         <Hero />
         <BookCard />
-        <Footer />
+        <Footer /> */}
+        <BookPage />
         <p>what the heck is happening</p>
       </div>
     
