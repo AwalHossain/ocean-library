@@ -1,5 +1,5 @@
 import './App.css'
-import BookPage from './pages/books'
+import Signup from './pages/Signup'
 
 function App() {
   return (
@@ -8,8 +8,8 @@ function App() {
         <Hero />
         <BookCard />
         <Footer /> */}
-        <BookPage />
-        <p>what the heck is happening</p>
+        {/* <BookPage /> */}
+        <Signup />
       </div>
     
   )

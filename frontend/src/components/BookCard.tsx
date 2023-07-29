@@ -15,9 +15,6 @@ export const BookCard = () => {
     <div className='container'>
 
     <div className='grid grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-3 px-5'>
-    <p>
-      Heyman what the heck is happening
-    </p>
 { 
         data?.map((book:IBook) => <BookDetails book={book} key={book.id} />)
 }
