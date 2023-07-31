@@ -9,6 +9,7 @@ const store = configureStore({
         [userApi.reducerPath] : userApi.reducer,
         userState: userReducer
     },
+    devTools: true,
     middleware:(getDefaultMiddleware)=>
         getDefaultMiddleware().concat(
             [

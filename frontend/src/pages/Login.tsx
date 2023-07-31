@@ -23,11 +23,7 @@ import { IUser } from "../types";
             try {
                 const {data:response} = await loginUser(data);
                 const cookie = response.data.refreshToken;
-                console.log(cookie, "cookie");
-                
             Cookies.set("refreshToken", cookie, { expires: 365 }); 
-            //    localStorage.setItem(token, )
-                console.log(response, "response");
             } catch (error) {
                 console.log(error);
             } finally {

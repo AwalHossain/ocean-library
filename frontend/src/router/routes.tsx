@@ -12,25 +12,27 @@ const router = createBrowserRouter([
         path: "/",
         element: <App />,
         children: [
-            { path: "/home",
+            {
+                path: "/home",
 
-            element:(
-                
+                element: (
+
                     <Home />
-            )
-        
-        }
+                )
+
+            }
         ]
     },
     {
         path: "/login",
         element: <Login />,
     },
-    { path: "/books", element: 
-    <AuthenticatedLayout allowedRoles={['user','admin']}>
-                 <Books  />
-         </AuthenticatedLayout> 
- },
+    {
+        path: "/books", element:
+            <AuthenticatedLayout allowedRoles={['user', 'admin']}>
+                <Books />
+            </AuthenticatedLayout>
+    },
     {
         path: "/signup",
         element: <Signup />,
@@ -39,7 +41,7 @@ const router = createBrowserRouter([
         path: "*",
         element: <h1>Not Found</h1>
     }
-])  
+])
 
 
 

@@ -3,6 +3,7 @@
 import { Disclosure } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
+import { useAppSelector } from "../redux/hooks";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +15,7 @@ import {
 
 
 const Navbar = () => {
+  const {user}  = useAppSelector(state => state.userState)
   const navigation = [
     "Product",
     "Features",
@@ -75,7 +77,7 @@ const Navbar = () => {
                           {item}
                       </a>
                     ))}
-       <li className="ml-5">
+       {/* <li className="ml-5">
                 <DropdownMenu>
                   <DropdownMenuTrigger className="outline-none">
                     <Avatar>
@@ -100,7 +102,7 @@ const Navbar = () => {
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
-              </li>
+              </li> */}
                   </>
                 </Disclosure.Panel>
               </div>
@@ -122,26 +124,31 @@ const Navbar = () => {
         </div>
 
         <div className="hidden mr-3 space-x-4 lg:flex nav__item">
-        <li className="ml-5 ">
-                <DropdownMenu>  
-                <DropdownMenuTrigger className="focus:outline-blue-500 bg-gray-200 rounded-full p-1">
-                    <Avatar>
-                      <AvatarImage src="https://github.com/shadcn.png" />
-                      <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-slate-600">
-                    <DropdownMenuLabel>Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem className="cursor-pointer">
-                      <Link to="/Login">Login</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="cursor-pointer">
-                      <Link to="/signup"> Signup</Link>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </li>
+          {
+            user?.email  ?
+            <li className="ml-5 ">
+            <DropdownMenu>  
+            <DropdownMenuTrigger className="focus:outline-blue-500 bg-gray-200 rounded-full p-1">
+                <Avatar>
+                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-slate-600">
+                <DropdownMenuLabel>Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="cursor-pointer">
+                  <Link to="/Login">Logout</Link>
+                </DropdownMenuItem>
+  
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </li> : 
+          <>
+           <Link to="/Login">Login</Link>
+          </>
+          }
+
 
           {/* <ThemeChanger /> */}
         </div>
