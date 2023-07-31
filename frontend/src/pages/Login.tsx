@@ -26,7 +26,7 @@ import { IUser } from "../types";
                 console.log(cookie, "cookie");
                 
             Cookies.set("refreshToken", cookie, { expires: 365 }); 
-               
+            //    localStorage.setItem(token, )
                 console.log(response, "response");
             } catch (error) {
                 console.log(error);

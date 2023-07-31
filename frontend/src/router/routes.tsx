@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
+import AuthenticatedLayout from "../layout/AuthenticatedLayout";
 import Books from "../pages/Books";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
@@ -11,14 +12,25 @@ const router = createBrowserRouter([
         path: "/",
         element: <App />,
         children: [
-            { path: "/", element: <Home /> },
-            { path: "/books", element: <Books/> },
+            { path: "/home",
+
+            element:(
+                
+                    <Home />
+            )
+        
+        }
         ]
     },
     {
         path: "/login",
         element: <Login />,
     },
+    { path: "/books", element: 
+    <AuthenticatedLayout allowedRoles={['user','admin']}>
+                 <Books  />
+         </AuthenticatedLayout> 
+ },
     {
         path: "/signup",
         element: <Signup />,

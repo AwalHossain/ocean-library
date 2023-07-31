@@ -1,27 +1,44 @@
-import Cookies from "js-cookie";
-import { useRefreshTokenMutation } from "../redux/feature/auth/authApi";
+import { ReactNode } from "react";
+import { Navigate, useLocation } from "react-router";
+import { userApi } from "../redux/api/userApi";
 
 
-interface Props {
-    children: React.ReactNode;
+interface IProps {
+  children: ReactNode;
+  allowedRoles: string[]
 }
 
+function AuthenticatedLayout({ allowedRoles, children }: IProps) {
+  //  const cookie =  Cookies.get("refreshToken")
+   const location = useLocation();
+const {isLoading, isFetching} = userApi.endpoints.getMe.useQuery(null,{
+  skip: false,
+  refetchOnMountOrArgChange: true
+})
 
-function AuthenticatedLayout({ children }: Props) {
-   const cookie =  Cookies.get("refreshToken")
-const [refreshToken] = useRefreshTokenMutation();
+const loading = isLoading || isFetching;
+
+// console.log(loading,'checki');
 
 
-const handleRefreshToken = async () => {
-  const { data } = await refreshToken(cookie);
-  // Handle the response from the server
-  console.log(data, "cookie");
-};
+const {data} = userApi.endpoints.getMe.useQueryState(null,{
+  selectFromResult: (data) => data!,
+})
 
-  handleRefreshToken();  
-    return <div>
-        {children}
-    </div>
+console.log(data,'user');
+
+
+if(loading){
+  return <div>Loading.....</div>
+}
+
+    return data && allowedRoles.includes(data.role) ? (
+      
+        children
+      
+    ): (
+      <Navigate to="/login" state={{from:location}} replace />
+    )
         
 }
 

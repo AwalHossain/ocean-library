@@ -24,4 +24,10 @@ router.post(
   UserController.refreshToken
 );
 
+router.get(
+  '/me',
+  auth(ENUM_USER_ROLE.USER),
+  UserController.getMe
+)
+
 export const UserRoutes = router;

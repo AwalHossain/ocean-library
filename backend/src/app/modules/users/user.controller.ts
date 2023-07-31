@@ -72,17 +72,11 @@ const loginUser: RequestHandler = catchAsync(
 
 
 const refreshToken = catchAsync(async (req: Request, res: Response) => {
-  const { refreshToken } = req.body;
+  const { refreshToken } = req.cookies;
 
   const result = await UserService.refreshToken(refreshToken);
 
   // set refresh token into cookie
-  // const cookieOptions = {
-  //   secure: config.env === 'production',
-  //   httpOnly: true,
-  // };
-
-  // res.cookie('refreshToken', refreshToken, cookieOptions);
 
   sendResponse<ILoginUserResponse>(res, {
     statusCode: 200,
@@ -92,8 +86,20 @@ const refreshToken = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getMe = catchAsync(async (req: Request, res: Response) => {
+
+  const user = req.user;
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'User profile !',
+    data: user,
+  });
+})
+
 export const UserController = {
   createUser,
   loginUser,
   refreshToken,
+  getMe
 };
