@@ -36,12 +36,13 @@ const loginUser: RequestHandler = catchAsync(
     console.log(userData, 'userData');
 
     const result = await UserService.loginUser(userData);
-    const { refreshToken, ...others } = result;
+    // const { others } = result;
 
     // set refresh token into cookie
     const cookieOptions = {
       secure: config.env === 'production',
       httpOnly: true,
+      
     };
 
     res.cookie('refreshToken', refreshToken, cookieOptions);
@@ -50,23 +51,38 @@ const loginUser: RequestHandler = catchAsync(
       statusCode: 200,
       success: true,
       message: 'User logged in successfully !',
-      data: others,
+      data: result,
     });
   }
 );
 
+
+// const getMe: RequestHandler = catchAsync(async (req: Request, res: Response) => {
+
+//   const result = await UserService.getMe();
+
+//   sendResponse(res, {
+//     statusCode: 200,
+//     success: true,
+//     message: 'User logged in successfully !',
+//     data: result,
+//   });
+// }
+// );
+
+
 const refreshToken = catchAsync(async (req: Request, res: Response) => {
-  const { refreshToken } = req.cookies;
+  const { refreshToken } = req.body;
 
   const result = await UserService.refreshToken(refreshToken);
 
   // set refresh token into cookie
-  const cookieOptions = {
-    secure: config.env === 'production',
-    httpOnly: true,
-  };
+  // const cookieOptions = {
+  //   secure: config.env === 'production',
+  //   httpOnly: true,
+  // };
 
-  res.cookie('refreshToken', refreshToken, cookieOptions);
+  // res.cookie('refreshToken', refreshToken, cookieOptions);
 
   sendResponse<ILoginUserResponse>(res, {
     statusCode: 200,
