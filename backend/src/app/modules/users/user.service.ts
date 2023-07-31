@@ -74,6 +74,8 @@ const loginUser = async (user: IUser): Promise<ILoginUserResponse> => {
   };
 };
 
+
+
 const refreshToken = async (token: string): Promise<ILoginUserResponse> => {
   //verify token
   // invalid token - synchronous
