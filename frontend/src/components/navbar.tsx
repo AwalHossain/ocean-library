@@ -3,7 +3,8 @@
 import { Disclosure } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
-import { useAppSelector } from "../redux/hooks";
+import { logout } from "../redux/feature/userSlice";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,13 +17,17 @@ import {
 
 const Navbar = () => {
   const {user}  = useAppSelector(state => state.userState)
-  const navigation = [
-    "Product",
-    "Features",
-    "Pricing",
-    "Company",
-    "Blog",
-  ];
+
+  const dispatch = useAppDispatch();
+  const navigation = {
+    "Home": "/",
+    "Books": "/books",
+    "About": "/about",
+  }
+
+  const handleLogout = () => {
+    dispatch(logout())
+  }
 
   return (
     <div className="w-full bg-slate-600">
@@ -72,11 +77,11 @@ const Navbar = () => {
 
                 <Disclosure.Panel className="flex flex-wrap w-full my-5 lg:hidden">
                   <>
-                    {navigation.map((item, index) => (
-                      <a key={index} href="/" className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 dark:focus:bg-gray-800 focus:outline-none">
-                          {item}
-                      </a>
-                    ))}
+                    {
+                      // map through all the navigation
+
+
+                    }
        {/* <li className="ml-5">
                 <DropdownMenu>
                   <DropdownMenuTrigger className="outline-none">
@@ -113,13 +118,14 @@ const Navbar = () => {
         {/* menu  */}
         <div className="hidden text-center lg:flex lg:items-center">
           <ul className="items-center justify-end flex-1 pt-6 list-none lg:pt-0 lg:flex">
-            {navigation.map((menu, index) => (
-              <li className="mr-3 nav__item" key={index}>
-                <a href="/" className="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md dark:text-gray-200 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-gray-800">
-                    {menu}
-                </a>
-              </li>
-            ))}
+            {
+              Object.entries(navigation).map(([key, value]) => (
+                <Link key={key} to={value} className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 dark:focus:bg-gray-800 focus:outline-none">
+                {key}
+            </Link>
+                ))
+            }
+            
           </ul>
         </div>
 
@@ -138,7 +144,9 @@ const Navbar = () => {
                 <DropdownMenuLabel>Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="cursor-pointer">
-                  <Link to="/Login">Logout</Link>
+                  <Link 
+                  onClick={handleLogout}
+                  to="/Login">Logout</Link>
                 </DropdownMenuItem>
   
               </DropdownMenuContent>

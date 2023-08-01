@@ -1,5 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import Cookies from 'js-cookie';
 import { IUser } from '../../types';
+
+
 
 
 interface IUserState {
@@ -14,7 +17,10 @@ export const userSlice = createSlice({
   initialState,
   name: 'userSlice',
   reducers: {
-    logout: () => initialState,
+    logout: (state) => {
+        state.user = null;
+        Cookies.remove('refreshToken');
+    },
     setUser: (state, action: PayloadAction<IUser>) => {
       state.user = action.payload;
     },
