@@ -11,7 +11,7 @@ import { Book } from './book.model';
 const addBook = async (data: IBook) => {
   try {
     const result = await Book.create(data);
-
+    
     return result;
   } catch (err) {
     console.log(err, 'err');
@@ -27,7 +27,6 @@ const getAllBooks = async (
   
   const {searchTerm, ...filtersData}  = filters;
 
-  console.log(filtersData, 'filtersData');
 
   const { limit, skip,page, sortBy, sortOrder} = paginationHelpers.calculatePagination(paginationOptions);
 
@@ -66,11 +65,12 @@ const getAllBooks = async (
 
   const whereCondition = andConditions.length > 0 ? { $and: andConditions } : {};
 
+  
   const result = await Book.find(whereCondition)
   .sort(sortCondition)
   .skip(skip)
   .limit(limit)
-
+  
   const total = await Book.countDocuments();
   
   return {

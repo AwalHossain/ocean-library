@@ -3,8 +3,6 @@ import Cookies from 'js-cookie';
 import { IUser } from '../../../types';
 
 
-
-
 interface IUserState {
   user: IUser | null;
 }

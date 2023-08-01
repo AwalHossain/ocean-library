@@ -1,22 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { useGetAllbooksQuery } from '../redux/feature/filter/filterApi'
 import { IBook } from '../types'
 import BookDetails from './BookDetails'
 
 export const BookCard = () => {
     const [data, setData] = useState([])
-    useEffect(() => {
-        fetch('./db.json')
-        .then(res => res.json())
-        .then(data =>setData(data))
-    }, [])
-    console.log(data, 'data');
+
+    const {data:books, isError,isLoading,isSuccess,} = useGetAllbooksQuery(undefined);
+    console.log(books, 'books');
     
   return (
     <div className='container'>
 
     <div className='grid grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-3 px-5'>
 { 
-        data?.map((book:IBook) => <BookDetails book={book} key={book.id} />)
+isLoading ? <h1>Loading...</h1> :
+        books.data.data?.map((book:IBook) => <BookDetails book={book} key={book.id} />)
 }
 
     </div>

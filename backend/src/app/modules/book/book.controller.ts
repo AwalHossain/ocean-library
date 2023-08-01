@@ -9,7 +9,6 @@ import { bookService } from './book.service';
 
 const addBook = catchAsync(async (req: Request, res: Response) => {
   const book = req.body;
-  console.log(book, 'book');
   
   const result = await bookService.addBook(book);
 

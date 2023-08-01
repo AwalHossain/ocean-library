@@ -10,7 +10,6 @@ const store = configureStore({
     reducer:{
         [userApi.reducerPath] : userApi.reducer,
         [api.reducerPath]: api.reducer,
-        // [userApi.reducerPath]
         userState: userReducer
     },
     devTools: true,
