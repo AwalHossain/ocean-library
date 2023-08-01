@@ -2,7 +2,7 @@ import { IBook } from "../types";
 
 function BookDetails({book, key} : {book: IBook, key: number} ) {
     const handleClick = (id:number) => {
-        console.log(id, 'id');
+        console.log(book, 'id');
         
     }
 

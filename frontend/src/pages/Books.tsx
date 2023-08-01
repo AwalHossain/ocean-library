@@ -17,6 +17,7 @@ import { ChevronDownIcon, FunnelIcon, Squares2X2Icon } from '@heroicons/react/20
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { Fragment, useState } from 'react'
 import { BookCard } from '../components/BookCard'
+import { useAppSelector } from '../redux/hooks'
 
 const sortOptions = [
   { name: 'Most Popular', href: '#', current: true },
@@ -32,12 +33,13 @@ const subCategories = [
 ]
 
 function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(' ')
 }
 
 export default function Books() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
+  const { book } = useAppSelector(state => state.bookState)
   return (
     <div className="bg-white">
       <div>
@@ -84,16 +86,33 @@ export default function Books() {
                     <h3 className="sr-only">Categories</h3>
                     <ul role="list" className="px-2 py-3 font-medium text-gray-900">
                       {/* {subCategories.map((category) => ( */}
-                        <li
+                      <li
+                      >
+                        <select
+                          // onChange={(e) => dispatch(filter(e.target.value))}
+                          className="select border-2 border-slate-500 select-ghost w-full max-w-[200px]"
                         >
-                          Genre
-                          {/* <a href={category.href} className="block px-2 py-3">
-                            {category.name}
-                          </a> */}
-                        </li>
-                        <li>
-                          Publication Year
-                          </li>
+                          <option disabled selected>
+                            Pick a Genre
+                          </option>
+                          <option value="Self-Help">Self-Help</option>
+                          <option value="Fiction">Fiction</option>
+                          <option value="Non-Fiction">Non-Fiction</option>
+                          <option value="Academic">Academic</option>
+                          <option value="Classic">Classic</option>
+                          <option value="Religion">Religion</option>
+                          <option value="Adventure">Adventure</option>
+                        </select>
+                        <button
+                          // onClick={() => dispatch(clearFilter())}
+                          className="btn btn-secondary"
+                        >
+                          Clear
+                        </button>
+                      </li>
+                      <li>
+                        Publication Year
+                      </li>
                     </ul>
 
                   </form>
@@ -176,11 +195,33 @@ export default function Books() {
               <form className="hidden lg:block">
                 <h3 className="sr-only">Categories</h3>
                 <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
-                  {subCategories.map((category) => (
-                    <li key={category.name}>
-                      <a href={category.href}>{category.name}</a>
-                    </li>
-                  ))}
+                  <li
+                  >
+                    <select
+                      // onChange={(e) => dispatch(filter(e.target.value))}
+                      className="select border-2 border-slate-500 select-ghost w-full max-w-[200px]"
+                    >
+                      <option disabled selected>
+                        Pick a Genre
+                      </option>
+                      {
+                        book?.map((book) => (
+                          <option key={book._id} value={book.genre}>
+                            {book.genre}
+                          </option>
+                        ))
+                      }
+                    </select>
+                    <button
+                      // onClick={() => dispatch(clearFilter())}
+                      className="btn btn-secondary"
+                    >
+                      Clear
+                    </button>
+                  </li>
+                  <li>
+                    Publication Year
+                  </li>
                 </ul>
 
               </form>

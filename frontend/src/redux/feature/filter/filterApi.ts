@@ -1,4 +1,7 @@
 import { api } from "../../api/apiSlice";
+import { IBook } from "../../api/types";
+import { setBook } from "./filterSlice";
+
 
 
 
@@ -11,10 +14,24 @@ const filterApi = api.injectEndpoints({
             })    
     }),
         getAllbooks: builder.query({
-            query: () => ({
-                url: `/book/all`,
-                method: 'GET',
-            })    
+            query() {
+                return {
+                  url: "book/all",
+                  credentials: "include",
+                };
+              },
+              transformResponse: (result: { data: {data:IBook}  }) =>
+              result.data,
+            async onQueryStarted(args, { dispatch, queryFulfilled }) {
+              try {
+                const { data } = await queryFulfilled;
+                console.log(data.data,"chekolo");   
+                dispatch(setBook(data.data));
+                
+                // dispatch(setUser(data));
+              } catch (error) {}
+            },
+
     })
 
 })

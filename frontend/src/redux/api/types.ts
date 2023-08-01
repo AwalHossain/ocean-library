@@ -8,3 +8,19 @@ export type IUser = {
     role: string;
     _id: string;
   };
+
+  export type IBook = {
+    title: string;
+    author: string;
+    thumbnail: string;
+    price: string;
+    rating: string;
+    featured: boolean;
+    genre: string;
+    publicationYear: string;
+    reviews?: string[];
+    wishlist?: string[];
+    readingList?: string[];
+    finishedList?: string[];
+    _id: string;
+  };
