@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import Cookies from "js-cookie";
-import { setUser } from "../feature/userSlice";
+import { setUser } from "../feature/auth/userSlice";
 import { IUser } from "./types";
 
 const cookie = Cookies.get('refreshToken')

@@ -24,7 +24,7 @@ import { IUser } from "../types";
         const [authLoading, setAuthLoading] = useState(false);
         const {user}  = useAppSelector(state => state.userState)
 
-
+        
 
         const navigate = useNavigate();
         const location = useLocation ();

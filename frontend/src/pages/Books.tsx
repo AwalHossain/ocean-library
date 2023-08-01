@@ -26,11 +26,9 @@ const sortOptions = [
   { name: 'Price: High to Low', href: '#', current: false },
 ]
 const subCategories = [
-  { name: 'Totes', href: '#' },
-  { name: 'Backpacks', href: '#' },
-  { name: 'Travel Bags', href: '#' },
-  { name: 'Hip Bags', href: '#' },
-  { name: 'Laptop Sleeves', href: '#' },
+  { name: 'genre', href: '#' },
+  { name: 'publicationYear', href: '#' },
+
 ]
 
 function classNames(...classes: string[]) {
@@ -85,13 +83,16 @@ export default function Books() {
                   <form className="mt-4 border-t border-gray-200">
                     <h3 className="sr-only">Categories</h3>
                     <ul role="list" className="px-2 py-3 font-medium text-gray-900">
-                      {subCategories.map((category) => (
-                        <li key={category.name}>
-                          <a href={category.href} className="block px-2 py-3">
+                      {/* {subCategories.map((category) => ( */}
+                        <li>
+                          Genre
+                          {/* <a href={category.href} className="block px-2 py-3">
                             {category.name}
-                          </a>
+                          </a> */}
                         </li>
-                      ))}
+                        <li>
+                          Publication Year
+                          </li>
                     </ul>
 
                   </form>

@@ -3,15 +3,15 @@
 import { Disclosure } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
-import { logout } from "../redux/feature/userSlice";
+import { logout } from "../redux/feature/auth/userSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger
 } from "./ui/dropdown-menu";
 
 

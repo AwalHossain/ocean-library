@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import { api } from "./api/apiSlice";
 import { userApi } from "./api/userApi";
-import userReducer from "./feature/userSlice";
+import userReducer from "./feature/auth/userSlice";
 
 
 

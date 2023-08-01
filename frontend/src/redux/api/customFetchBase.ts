@@ -1,11 +1,11 @@
 import {
-  BaseQueryFn,
-  FetchArgs,
-  fetchBaseQuery,
-  FetchBaseQueryError,
+    BaseQueryFn,
+    FetchArgs,
+    fetchBaseQuery,
+    FetchBaseQueryError,
 } from '@reduxjs/toolkit/query';
 import { Mutex } from 'async-mutex';
-import { logout } from '../feature/userSlice';
+import { logout } from '../feature/auth/userSlice';
   
   const baseUrl = `http://127.0.0.1:3000/api/v1/`;
   
