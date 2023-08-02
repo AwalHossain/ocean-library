@@ -1,6 +1,5 @@
 import httpStatus from 'http-status';
 import { JwtPayload, Secret } from 'jsonwebtoken';
-import { Types } from 'mongoose';
 import config from '../../../config';
 import ApiError from '../../../errors/ApiError';
 import { jwtHelpers } from '../../../helpers/jwtHelpers';
@@ -76,7 +75,7 @@ const loginUser = async (user: IUser): Promise<ILoginUserResponse> => {
 };
 
 
-const wishlist =   async (user: JwtPayload | null, productId:string) => {
+const wishlist =   async (user: JwtPayload | null, bookId:string) => {
 
     // want to push the product id in the wishlist
 
@@ -85,13 +84,13 @@ const wishlist =   async (user: JwtPayload | null, productId:string) => {
       throw new ApiError(httpStatus.BAD_REQUEST, 'User does not exist');
     }
 
-    existingUser.wishlist?.push(new Types.ObjectId(productId));
+    existingUser.wishlist?.push(bookId);
     await existingUser.save(); 
 
   }
 
 
-  const readingList =   async (user: JwtPayload | null, productId:string) => {
+  const readingList =   async (user: JwtPayload | null, bookId:string) => {
     // want to push the product id in the reading list
 
     const existingUser = await User.findOne({email: user?.email});
@@ -99,11 +98,11 @@ const wishlist =   async (user: JwtPayload | null, productId:string) => {
       throw new ApiError(httpStatus.BAD_REQUEST, 'User does not exist');
     }
 
-    existingUser.readingList?.push(new Types.ObjectId(productId));
+    existingUser.readingList?.push((productId));
     await existingUser.save(); 
 
   }
-  const finishedBooks =   async (user: JwtPayload | null, productId:string) => {
+  const finishedBooks =   async (user: JwtPayload | null, bookId:string) => {
     // want to push the product id in the reading list
 
     const existingUser = await User.findOne({email: user?.email});
@@ -111,7 +110,10 @@ const wishlist =   async (user: JwtPayload | null, productId:string) => {
       throw new ApiError(httpStatus.BAD_REQUEST, 'User does not exist');
     }
 
-    existingUser.readingList?.push(new Types.ObjectId(productId));
+
+    
+
+    existingUser.readingList?.push((bookId));
     await existingUser.save(); 
 
   }

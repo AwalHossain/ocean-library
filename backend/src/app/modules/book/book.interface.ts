@@ -1,4 +1,4 @@
-import { Model, Schema } from 'mongoose';
+import { Model, Schema, Types } from 'mongoose';
 
 export type reviews = {
   userId: Schema.Types.ObjectId;
@@ -15,7 +15,7 @@ export type IBook = {
   genre: string;
   publicationYear: string;
   reviews?: reviews[];
-
+  bookAddedBy: Types.ObjectId;
 };
 
 export type IbookFilters = {

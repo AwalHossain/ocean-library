@@ -58,9 +58,10 @@ const loginUser: RequestHandler = catchAsync(
 
 
 const wishlist = catchAsync(async (req: Request, res: Response) => {
-  const { productId } = req.body;
+  const {bookId}  = req.body;
   const user = req.user;
-  const result = await UserService.wishlist(user, productId);
+  console.log(bookId,'bookId wishlisht');
+  const result = await UserService.wishlist(user, bookId);
   
   sendResponse(res, {
     statusCode: 200,
@@ -85,9 +86,10 @@ const readingList = catchAsync(async (req: Request, res: Response) => {
 }
 )
 const finishedBooks = catchAsync(async (req: Request, res: Response) => {
-  const { productId } = req.body;
+  const { bookId } = req.body;
   const user = req.user;
-  const result = await UserService.finishedBooks(user, productId);
+  console.log(bookId,'bookId');
+  const result = await UserService.finishedBooks(user, bookId);
   
   sendResponse(res, {
     statusCode: 200,

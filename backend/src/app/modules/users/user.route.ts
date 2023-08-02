@@ -25,7 +25,7 @@ router.post(
 );
 
 router.post(
-  '/wishlish',
+  '/wishlist',
    auth(ENUM_USER_ROLE.USER),
    UserController.wishlist
 );

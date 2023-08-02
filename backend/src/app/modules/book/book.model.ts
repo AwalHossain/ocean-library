@@ -42,7 +42,12 @@ const BookSchema = new Schema<IBook>({
       },
     },
   ],
-
+  bookAddedBy: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  }
+    
 });
 
 export const Book = model<IBook, BookModel>('Book', BookSchema);
