@@ -20,6 +20,6 @@ export const api = createApi({
           }
         }
       }),
-    tagTypes:['Posts'],
+     tagTypes: ["Books", "Book", "Reviews", "Wishlist", "Booklist"],
     endpoints:()=>({})
 });

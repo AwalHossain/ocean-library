@@ -285,7 +285,7 @@ export default function Books() {
               {/* Product grid */}
               <div className="lg:col-span-3">
                 <BookCard
-                  books={books?.data.data}
+                  books={books?.data}
                  isFetching={isFetching}
                  isSuccess = {isSuccess}
                 />

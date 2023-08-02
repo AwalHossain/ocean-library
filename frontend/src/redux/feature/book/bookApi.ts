@@ -1,4 +1,6 @@
 import { api } from "../../api/apiSlice";
+import { IBook } from "../../api/types";
+import { setWishList } from "./bookSlice";
 
 
 const bookApi = api.injectEndpoints({
@@ -10,12 +12,32 @@ const bookApi = api.injectEndpoints({
                 credentials: "include",
                 body: data,
             }),
+            invalidatesTags: ["Wishlist"],
         }),
 
+    getWishList: builder.query({
+        query: () => ({
+            url: "users/wishlist",
+            method: "GET",
+            credentials: "include",
+        }),
+        providesTags:['Wishlist'],
+        transformResponse: (result: { data: { wishlist:IBook} }) =>
+        result.data,
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          console.log(data,"bookapi test");   
+          dispatch(setWishList(data.wishlist));
+          
+          // dispatch(setUser(data));
+        } catch (error) {}
+      }, 
     })
+})
 })
 
 
-export const { useAddToWishListMutation } = bookApi;
+export const { useAddToWishListMutation, useGetWishListQuery } = bookApi;
 
 

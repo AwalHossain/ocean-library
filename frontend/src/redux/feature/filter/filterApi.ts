@@ -8,10 +8,22 @@ import { setBook } from "./filterSlice";
 const filterApi = api.injectEndpoints({
     endpoints: (builder) => ({
         filterBooks: builder.query({
-            query: (data) => ({
-                url: `/book/all/${data}`,
-                method: 'GET',
-            })    
+          query(data) {
+            return {
+              url: `book/all/${data}`,
+              credentials: "include",
+            };
+          },
+          transformResponse: (result: { data: {data:IBook}  }) =>
+          result.data,
+        async onQueryStarted(args, { dispatch, queryFulfilled }) {
+          try {
+            const { data } = await queryFulfilled; 
+            dispatch(setBook(data.data));
+            
+            // dispatch(setUser(data));
+          } catch (error) {}
+        },   
     }),
         getAllbooks: builder.query({
             query() {

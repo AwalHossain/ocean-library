@@ -89,6 +89,16 @@ const wishlist =   async (user: JwtPayload | null, bookId:string) => {
 
   }
 
+  const getWishList = async (user: JwtPayload | null) => {
+    
+    //get the wishlist product
+    const existingUser = await User.findOne({email: user?.email}).populate('wishlist');
+
+    return existingUser;
+  }
+
+  
+
 
   const readingList =   async (user: JwtPayload | null, bookId:string) => {
     // want to push the product id in the reading list
@@ -98,10 +108,19 @@ const wishlist =   async (user: JwtPayload | null, bookId:string) => {
       throw new ApiError(httpStatus.BAD_REQUEST, 'User does not exist');
     }
 
-    existingUser.readingList?.push((productId));
+    existingUser.readingList?.push((bookId));
     await existingUser.save(); 
 
   }
+
+  const getReadingList = async (user: JwtPayload | null) => {
+    //get the reading list product
+    const existingUser = await User.findOne({email: user?.email}).populate('readingList');
+
+    return existingUser;
+  }
+
+
   const finishedBooks =   async (user: JwtPayload | null, bookId:string) => {
     // want to push the product id in the reading list
 
@@ -109,13 +128,16 @@ const wishlist =   async (user: JwtPayload | null, bookId:string) => {
     if (!existingUser) {
       throw new ApiError(httpStatus.BAD_REQUEST, 'User does not exist');
     }
-
-
-    
-
     existingUser.readingList?.push((bookId));
     await existingUser.save(); 
+  }
 
+
+  const getFinishedBooks = async (user: JwtPayload | null) => {
+    //get the reading list product
+    const existingUser = await User.findOne({email: user?.email}).populate('finishedBooks');
+
+    return existingUser;
   }
 
 const refreshToken = async (token: string): Promise<ILoginUserResponse> => {
@@ -163,4 +185,7 @@ export const UserService = {
   wishlist,
   readingList,
   finishedBooks,
+  getFinishedBooks,
+  getWishList,
+  getReadingList
 };

@@ -29,16 +29,31 @@ router.post(
    auth(ENUM_USER_ROLE.USER),
    UserController.wishlist
 );
+router.get(
+  '/wishlist',
+   auth(ENUM_USER_ROLE.USER),
+   UserController.getWishList
+);
 
 router.post(
   '/readinglist',
    auth(ENUM_USER_ROLE.USER),
    UserController.readingList
 );
+router.get(
+  '/readinglist',
+   auth(ENUM_USER_ROLE.USER),
+   UserController.getReadingList
+);
 router.post(
   '/finishedBook',
    auth(ENUM_USER_ROLE.USER),
    UserController.finishedBooks
+);
+router.get(
+  '/finishedBook',
+   auth(ENUM_USER_ROLE.USER),
+   UserController.getFinishedBooks
 );
 
 

@@ -3,7 +3,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import { api } from "./api/apiSlice";
 import { userApi } from "./api/userApi";
 import userReducer from "./feature/auth/userSlice";
+import wishListReducer from "./feature/book/bookSlice";
 import bookReducer from "./feature/filter/filterSlice";
+
+
 
 
 
@@ -12,7 +15,8 @@ const store = configureStore({
         [userApi.reducerPath] : userApi.reducer,
         [api.reducerPath]: api.reducer,
         userState: userReducer,
-        bookState: bookReducer
+        bookState: bookReducer,
+        wishListState: wishListReducer,
     },
     devTools: true,
     middleware:(getDefaultMiddleware)=>

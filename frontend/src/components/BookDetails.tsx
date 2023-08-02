@@ -1,18 +1,29 @@
 import { HeartIcon } from "lucide-react";
 import { toast } from "react-toastify";
-import { useAddToWishListMutation } from "../redux/feature/book/bookApi";
+import { useAddToWishListMutation, useGetWishListQuery } from "../redux/feature/book/bookApi";
+import { useAppSelector } from "../redux/hooks";
 import { IBook } from "../types";
 
 
-function BookDetails({ book, key }: { book: IBook, key: number }) {
+const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
 
   // 👇 API Login Mutation
   const [addToWishList] =
     useAddToWishListMutation();
 
+    const {data} = useGetWishListQuery(undefined)
+
+    const {wishlist}  = useAppSelector(state => state.wishListState)
+    const {user}  = useAppSelector(state => state.userState)
+    
+  // Empty dependency array ensures this effect runs only once when the component mounts
+  
+    
   const onWishlistClick = async (bookId: string) => {
     try {
       const result = await addToWishList({ bookId: bookId })
+      console.log(result, 'result');
+      
       if (result.data?.success) {
         toast.success('Books added successfully')
       }
@@ -24,23 +35,10 @@ function BookDetails({ book, key }: { book: IBook, key: number }) {
   }
 
 
-  // Use a for loop to render the correct number of stars
-  const stars = [];
-  for (let i = 0; i < book.rating.length; i++) {
-    stars.push(
-      <div className="flex">
-        <svg viewBox="0 0 20 20" fill="currentColor" className="w-[1rem] h-[1rem] text-amber-400">
-          <path
-            fill-rule="evenodd"
-            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-            clip-rule="evenodd"
-          />
-        </svg>
-      </div>
-    );
-  }
+  const wishlisted = wishlist?.some((wishlistBook: IBook) => wishlistBook._id === book._id);
 
 
+const verifiedUser = user?.email;
   
   return (
     <div key={key} className="flex flex-col md:flex-col items-center md:items-start border border-gray-200 rounded-lg p-4 shadow-md">
@@ -56,9 +54,18 @@ function BookDetails({ book, key }: { book: IBook, key: number }) {
 
           <div className="text-gray-500 space-x-2">
             {/* Wishlist Button */}
-            <button onClick={() => onWishlistClick(book._id)} className="transition ease-out duration-150">
-              <HeartIcon className="w-6 h-6" />
+          {
+            verifiedUser && 
+            <div>
+            {
+              
+              wishlisted  ? <p>"wishlisted" </p> :
+              <button onClick={() => onWishlistClick(book._id)}  className="transition ease-out duration-150">
+                <HeartIcon  className="w-6 h-6" /> 
             </button>
+            }
+            </div>
+          }
             {/* Delete Button */}
             {/* <button onClick={() => handleDelete(book.id)} className="transition ease-out duration-150">
             <TrashIcon className="w-6 h-6" />

@@ -42,7 +42,7 @@ const loginUser: RequestHandler = catchAsync(
     const cookieOptions = {
       secure: config.env === 'production',
       httpOnly: true,
-      
+
     };
 
     res.cookie('refreshToken', refreshToken, cookieOptions);
@@ -58,11 +58,11 @@ const loginUser: RequestHandler = catchAsync(
 
 
 const wishlist = catchAsync(async (req: Request, res: Response) => {
-  const {bookId}  = req.body;
+  const { bookId } = req.body;
   const user = req.user;
-  console.log(bookId,'bookId wishlisht');
+  console.log(bookId, 'bookId wishlisht');
   const result = await UserService.wishlist(user, bookId);
-  
+
   sendResponse(res, {
     statusCode: 200,
     success: true,
@@ -72,11 +72,26 @@ const wishlist = catchAsync(async (req: Request, res: Response) => {
 }
 );
 
+
+const getWishList = catchAsync(async (req: Request, res: Response) => {
+  const user = req.user;
+  const result = await UserService.getWishList(user);
+  
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Gett the wishlist !',
+    data: result,
+  });
+}
+)
+
+
 const readingList = catchAsync(async (req: Request, res: Response) => {
   const { productId } = req.body;
   const user = req.user;
   const result = await UserService.wishlist(user, productId);
-  
+
   sendResponse(res, {
     statusCode: 200,
     success: true,
@@ -85,12 +100,27 @@ const readingList = catchAsync(async (req: Request, res: Response) => {
   });
 }
 )
+
+
+const getReadingList = catchAsync(async (req: Request, res: Response) => {
+  const user = req.user;
+  const result = await UserService.getReadingList(user);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Added to wishlist !',
+    data: result,
+  });
+}
+)
+
 const finishedBooks = catchAsync(async (req: Request, res: Response) => {
   const { bookId } = req.body;
   const user = req.user;
-  console.log(bookId,'bookId');
+  console.log(bookId, 'bookId');
   const result = await UserService.finishedBooks(user, bookId);
-  
+
   sendResponse(res, {
     statusCode: 200,
     success: true,
@@ -100,18 +130,19 @@ const finishedBooks = catchAsync(async (req: Request, res: Response) => {
 }
 )
 
-// const getMe: RequestHandler = catchAsync(async (req: Request, res: Response) => {
 
-//   const result = await UserService.getMe();
+const getFinishedBooks = catchAsync(async (req: Request, res: Response) => {
+  const user = req.user;
+  const result = await UserService.getFinishedBooks(user);
 
-//   sendResponse(res, {
-//     statusCode: 200,
-//     success: true,
-//     message: 'User logged in successfully !',
-//     data: result,
-//   });
-// }
-// );
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Added to wishlist !',
+    data: result,
+  });
+}
+)
 
 
 const refreshToken = catchAsync(async (req: Request, res: Response) => {
@@ -147,5 +178,8 @@ export const UserController = {
   getMe,
   wishlist,
   readingList,
-  finishedBooks
+  finishedBooks,
+  getFinishedBooks,
+  getWishList,
+  getReadingList
 };
