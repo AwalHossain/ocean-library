@@ -15,8 +15,11 @@
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon, FunnelIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { Fragment, useState } from 'react'
+
+import { debounce } from 'lodash'
+import { Fragment, useEffect, useState } from 'react'
 import { BookCard } from '../components/BookCard'
+import { useFilterBooksQuery } from '../redux/feature/filter/filterApi'
 import { useAppSelector } from '../redux/hooks'
 
 const sortOptions = [
@@ -38,8 +41,34 @@ function classNames(...classes: string[]) {
 
 export default function Books() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
-
+  const [genre, setGenre] = useState('')
+  const [publicationYear, setPublicationYear] = useState('')
+  const [searchQuery, setSearchQuery] = useState('');
   const { book } = useAppSelector(state => state.bookState)
+
+  const searchParams = new URLSearchParams();
+  if (searchQuery) searchParams.append('searchTerm', searchQuery);
+  if (genre) searchParams.append('genre', genre);
+  if (publicationYear) searchParams.append('publicationYear', publicationYear);
+
+  const { data: books, refetch, isFetching, isSuccess } = useFilterBooksQuery(
+    `?${searchParams.toString()}`
+  );
+
+  const debouncedRefetch = debounce(refetch, 500); 
+
+  useEffect(() => {
+      // Call the debounced function whenever searchQuery, genre, or publicationYear changes
+      debouncedRefetch();
+
+      // Clean up the debounced function on unmount
+      return () => {
+        debouncedRefetch.cancel();
+      };
+  }, [genre, publicationYear, searchQuery]);
+
+  console.log(books,'new debaounc');
+  
   return (
     <div className="bg-white">
       <div>
@@ -197,9 +226,16 @@ export default function Books() {
                 <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
                   <li
                   >
+        <input
+          className="border rounded-l py-2 px-4 w-64 focus:outline-none focus:ring focus:border-blue-300"
+          type="text"
+          placeholder="Search books"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
                     <select
-                      // onChange={(e) => dispatch(filter(e.target.value))}
-                      className="select border-2 border-slate-500 select-ghost w-full max-w-[200px]"
+                      onChange={(e) => setGenre((e.target.value))}
+                      className="select border-2 py-2 w-64 px-4 my-2 border-slate-500 select-ghost w-full max-w-[200px]"
                     >
                       <option disabled selected>
                         Pick a Genre
@@ -212,23 +248,43 @@ export default function Books() {
                         ))
                       }
                     </select>
-                    <button
-                      // onClick={() => dispatch(clearFilter())}
-                      className="btn btn-secondary"
-                    >
-                      Clear
-                    </button>
+
                   </li>
                   <li>
-                    Publication Year
+
+                    <select
+                      onChange={(e) => setPublicationYear((e.target.value))}
+                      className="select border-2 border-slate-500 select-ghost w-full max-w-[200px]"
+                    >
+                      <option disabled selected>
+                        Pick Publication Year
+                      </option>
+                      {
+                        book?.map((book) => (
+                          <option key={book._id} value={book.publicationYear}>
+                            {book.publicationYear}
+                          </option>
+                        ))
+                      }
+                    </select>
                   </li>
+                  <button
+                    // onClick={() => dispatch(clearFilter())}
+                    className="btn btn-secondary"
+                  >
+                    Clear
+                  </button>
                 </ul>
 
               </form>
 
               {/* Product grid */}
               <div className="lg:col-span-3">
-                <BookCard />
+                <BookCard
+                  books={books?.data.data}
+                 isFetching={isFetching}
+                 isSuccess = {isSuccess}
+                />
               </div>
             </div>
           </section>

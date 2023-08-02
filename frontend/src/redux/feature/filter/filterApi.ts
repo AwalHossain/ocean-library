@@ -9,7 +9,7 @@ const filterApi = api.injectEndpoints({
     endpoints: (builder) => ({
         filterBooks: builder.query({
             query: (data) => ({
-                url: `/book/filter/${data}`,
+                url: `/book/all/${data}`,
                 method: 'GET',
             })    
     }),

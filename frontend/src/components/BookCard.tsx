@@ -1,21 +1,27 @@
-import { useState } from 'react'
-import { useGetAllbooksQuery } from '../redux/feature/filter/filterApi'
-import { IBook } from '../types'
-import BookDetails from './BookDetails'
+import { IBook } from '../types';
+import BookDetails from './BookDetails';
 
-export const BookCard = () => {
-  const [data, setData] = useState([])
+interface BookCardProps {
+  books: IBook[];
+  isFetching: boolean;
+  isSuccess: boolean;
+}
 
-  const { data: books, isError, isLoading, isSuccess, } = useGetAllbooksQuery(undefined);
-  console.log(books, 'books fetching');
+export const BookCard = (
+  {
+    books,
+    isFetching,
+    isSuccess
+  }: BookCardProps
+) => {
 
   return (
     <div className='container'>
 
       <div className='grid grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-3 px-5'>
         {
-          isLoading ? <h1>Loading...</h1> :
-            books?.data.map((book: IBook) => <BookDetails book={book} key={book.id} />)
+          isFetching ? <h1>Loading...</h1> :
+           isSuccess && books.map((book: IBook) => <BookDetails book={book} key={book.id} />)
         }
 
       </div>
