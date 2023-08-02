@@ -42,24 +42,7 @@ const BookSchema = new Schema<IBook>({
       },
     },
   ],
-  wishlist: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Book',
-    },
-  ],
-  readingList: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Book',
-    },
-  ],
-  finishedList: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Book',
-    },
-  ],
+
 });
 
 export const Book = model<IBook, BookModel>('Book', BookSchema);

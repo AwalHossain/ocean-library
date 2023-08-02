@@ -15,9 +15,7 @@ export type IBook = {
   genre: string;
   publicationYear: string;
   reviews?: reviews[];
-  wishlist?: Schema.Types.ObjectId[];
-  readingList?: Schema.Types.ObjectId[];
-  finishedList?: Schema.Types.ObjectId[];
+
 };
 
 export type IbookFilters = {
