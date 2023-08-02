@@ -57,6 +57,47 @@ const loginUser: RequestHandler = catchAsync(
 );
 
 
+const wishlist = catchAsync(async (req: Request, res: Response) => {
+  const { productId } = req.body;
+  const user = req.user;
+  const result = await UserService.wishlist(user, productId);
+  
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Added to wishlist !',
+    data: result,
+  });
+}
+);
+
+const readingList = catchAsync(async (req: Request, res: Response) => {
+  const { productId } = req.body;
+  const user = req.user;
+  const result = await UserService.wishlist(user, productId);
+  
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Added to wishlist !',
+    data: result,
+  });
+}
+)
+const finishedBooks = catchAsync(async (req: Request, res: Response) => {
+  const { productId } = req.body;
+  const user = req.user;
+  const result = await UserService.finishedBooks(user, productId);
+  
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Added to wishlist !',
+    data: result,
+  });
+}
+)
+
 // const getMe: RequestHandler = catchAsync(async (req: Request, res: Response) => {
 
 //   const result = await UserService.getMe();
@@ -101,5 +142,8 @@ export const UserController = {
   createUser,
   loginUser,
   refreshToken,
-  getMe
+  getMe,
+  wishlist,
+  readingList,
+  finishedBooks
 };

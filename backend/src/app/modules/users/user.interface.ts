@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Model, Schema } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 export type IUser = {
   name: string;
@@ -7,8 +7,9 @@ export type IUser = {
   password: string;
   role: string;
   _id: string;
-  wishlist?: Schema.Types.ObjectId[];
-  readingList?: Schema.Types.ObjectId[];
+  wishlist?: Types.ObjectId[];
+  readingList?: Types.ObjectId[];
+  finishedBooks?: Types.ObjectId[];
 };
 
 export type ILoginUserResponse = {

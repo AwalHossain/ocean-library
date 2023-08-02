@@ -24,6 +24,25 @@ router.post(
   UserController.refreshToken
 );
 
+router.post(
+  '/wishlish',
+   auth(ENUM_USER_ROLE.USER),
+   UserController.wishlist
+);
+
+router.post(
+  '/readinglist',
+   auth(ENUM_USER_ROLE.USER),
+   UserController.readingList
+);
+router.post(
+  '/finishedBook',
+   auth(ENUM_USER_ROLE.USER),
+   UserController.finishedBooks
+);
+
+
+
 router.get(
   '/me',
   auth(ENUM_USER_ROLE.USER),

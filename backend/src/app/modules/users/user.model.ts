@@ -23,6 +23,25 @@ const UserSchema = new Schema<IUser>({
     enum: ['user', 'admin'],
     default: 'user',
   },
+  wishlist: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Book', 
+    },
+  ],
+  readingList: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Book',
+    },
+  ],
+
+  finishedBooks: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Book',
+    },
+  ],
 });
 
 UserSchema.statics.isUserExist = async function (

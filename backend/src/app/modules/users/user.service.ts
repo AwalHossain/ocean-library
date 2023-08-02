@@ -1,5 +1,6 @@
 import httpStatus from 'http-status';
-import { Secret } from 'jsonwebtoken';
+import { JwtPayload, Secret } from 'jsonwebtoken';
+import { Types } from 'mongoose';
 import config from '../../../config';
 import ApiError from '../../../errors/ApiError';
 import { jwtHelpers } from '../../../helpers/jwtHelpers';
@@ -75,6 +76,45 @@ const loginUser = async (user: IUser): Promise<ILoginUserResponse> => {
 };
 
 
+const wishlist =   async (user: JwtPayload | null, productId:string) => {
+
+    // want to push the product id in the wishlist
+
+    const existingUser = await User.findOne({email: user?.email});
+    if (!existingUser) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'User does not exist');
+    }
+
+    existingUser.wishlist?.push(new Types.ObjectId(productId));
+    await existingUser.save(); 
+
+  }
+
+
+  const readingList =   async (user: JwtPayload | null, productId:string) => {
+    // want to push the product id in the reading list
+
+    const existingUser = await User.findOne({email: user?.email});
+    if (!existingUser) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'User does not exist');
+    }
+
+    existingUser.readingList?.push(new Types.ObjectId(productId));
+    await existingUser.save(); 
+
+  }
+  const finishedBooks =   async (user: JwtPayload | null, productId:string) => {
+    // want to push the product id in the reading list
+
+    const existingUser = await User.findOne({email: user?.email});
+    if (!existingUser) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'User does not exist');
+    }
+
+    existingUser.readingList?.push(new Types.ObjectId(productId));
+    await existingUser.save(); 
+
+  }
 
 const refreshToken = async (token: string): Promise<ILoginUserResponse> => {
   //verify token
@@ -118,4 +158,7 @@ export const UserService = {
   createUser,
   loginUser,
   refreshToken,
+  wishlist,
+  readingList,
+  finishedBooks,
 };
