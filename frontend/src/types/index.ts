@@ -5,7 +5,7 @@ export interface IBook {
     price: string;
     rating: string;
     featured: boolean;
-    id: number;
+    _id: string;
   }
   
 

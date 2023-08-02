@@ -20,19 +20,25 @@ const router = createBrowserRouter([
                     <Home />
                 )
 
-            }
+            },
+            {
+                path: "/books", element:
+                    <AuthenticatedLayout allowedRoles={['user', 'admin']}>
+                        <Books />
+                    </AuthenticatedLayout>
+            },
         ]
     },
     {
         path: "/login",
         element: <Login />,
     },
-    {
-        path: "/books", element:
-            <AuthenticatedLayout allowedRoles={['user', 'admin']}>
-                <Books />
-            </AuthenticatedLayout>
-    },
+    // {
+    //     path: "/books", element:
+    //         <AuthenticatedLayout allowedRoles={['user', 'admin']}>
+    //             <Books />
+    //         </AuthenticatedLayout>
+    // },
     {
         path: "/signup",
         element: <Signup />,

@@ -21,7 +21,7 @@ export const BookCard = (
       <div className='grid grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-3 px-5'>
         {
           isFetching ? <h1>Loading...</h1> :
-           isSuccess && books.map((book: IBook) => <BookDetails book={book} key={book.id} />)
+           isSuccess && books.map((book: IBook) => <BookDetails book={book} key={book._id} />)
         }
 
       </div>

@@ -3,31 +3,29 @@
 import { Disclosure } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
-import { logout } from "../redux/feature/auth/userSlice";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger
-} from "./ui/dropdown-menu";
-
+import { useAppSelector } from "../redux/hooks";
+import SharedUserMenu from "./ShareMenus";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 const Navbar = () => {
-  const {user}  = useAppSelector(state => state.userState)
+  const { user } = useAppSelector(state => state.userState)
 
-  const dispatch = useAppDispatch();
-  const navigation = {
+  const navigation: { [key: string]: string } = {
     "Home": "/",
     "Books": "/books",
     "About": "/about",
+    "wishlist": "/wishlist",
+    "readingList": "/readingList",
+    "finishedBooks": "/finishedBooks",
   }
 
-  const handleLogout = () => {
-    dispatch(logout())
-  }
+    // Filter the navigation links based on the availability of the user
+    const filteredNavigation = user
+    ? navigation
+    : Object.fromEntries(Object.entries(navigation).filter(([key]) => key !== "wishlist" && key !== "readingList"  && key !== "finishedBooks"));
+
+
+
 
   return (
     <div className="w-full bg-slate-600">
@@ -78,36 +76,38 @@ const Navbar = () => {
                 <Disclosure.Panel className="flex flex-wrap w-full my-5 lg:hidden">
                   <>
                     {
-                      // map through all the navigation
-
-
+                      Object.entries(filteredNavigation).map(([key, value]) => (
+                        <Link key={key} to={value} className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 dark:focus:bg-gray-800 focus:outline-none">
+                          {key}
+                        </Link>
+                      ))
                     }
-       {/* <li className="ml-5">
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="outline-none">
-                    <Avatar>
-                      <AvatarImage src="https://github.com/shadcn.png" />
-                      <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuLabel>Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem className="cursor-pointer">
-                      Profile
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="cursor-pointer">
-                      Billing
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="cursor-pointer">
-                      Team
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="cursor-pointer">
-                      Subscription
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </li> */}
+                    <li className="ml-5">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger className="outline-none">
+                          <Avatar>
+                            <AvatarImage src="https://github.com/shadcn.png" />
+                            <AvatarFallback>CN</AvatarFallback>
+                          </Avatar>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuLabel>Account</DropdownMenuLabel>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem className="cursor-pointer">
+                            Profile
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="cursor-pointer">
+                            Billing
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="cursor-pointer">
+                            Team
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="cursor-pointer">
+                            Subscription
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </li>
                   </>
                 </Disclosure.Panel>
               </div>
@@ -116,50 +116,10 @@ const Navbar = () => {
         </Disclosure>
 
         {/* menu  */}
-        <div className="hidden text-center lg:flex lg:items-center">
-          <ul className="items-center justify-end flex-1 pt-6 list-none lg:pt-0 lg:flex">
-            {
-              Object.entries(navigation).map(([key, value]) => (
-                <Link key={key} to={value} className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 dark:focus:bg-gray-800 focus:outline-none">
-                {key}
-            </Link>
-                ))
-            }
-            
-          </ul>
-        </div>
 
-        <div className="hidden mr-3 space-x-4 lg:flex nav__item">
-          {
-            user?.email  ?
-            <li className="ml-5 ">
-            <DropdownMenu>  
-            <DropdownMenuTrigger className="focus:outline-blue-500 bg-gray-200 rounded-full p-1">
-                <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-slate-600">
-                <DropdownMenuLabel>Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="cursor-pointer">
-                  <Link 
-                  onClick={handleLogout}
-                  to="/Login">Logout</Link>
-                </DropdownMenuItem>
-  
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </li> : 
-          <>
-           <Link to="/Login">Login</Link>
-          </>
-          }
+        <SharedUserMenu user={user} navigation={navigation} />
+        {/* /* <ThemeChanger /> */}
 
-
-          {/* <ThemeChanger /> */}
-        </div>
       </nav>
     </div>
   );

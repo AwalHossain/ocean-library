@@ -5,9 +5,6 @@ function Home() {
 
     <div>
         <Hero />
-        <div>
-          Why the fucki i si
-        </div>
     </div>
   )
 }
