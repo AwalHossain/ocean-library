@@ -67,7 +67,11 @@ export default function Books() {
       };
   }, [genre, publicationYear, searchQuery]);
 
-  console.log(books,'new debaounc');
+  const handleClearFilters = () => {
+    setSearchQuery('');
+    setGenre('');
+    setPublicationYear('');
+  }
   
   return (
     <div className="bg-white">
@@ -269,7 +273,7 @@ export default function Books() {
                     </select>
                   </li>
                   <button
-                    // onClick={() => dispatch(clearFilter())}
+                    onClick={() => handleClearFilters()}
                     className="btn btn-secondary"
                   >
                     Clear
