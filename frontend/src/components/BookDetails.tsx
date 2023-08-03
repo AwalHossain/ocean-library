@@ -1,30 +1,32 @@
-import { HeartIcon } from "lucide-react";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { FaClipboardList } from "react-icons/fa6";
+import { HiOutlineClipboardList } from "react-icons/hi";
 import { toast } from "react-toastify";
-import { useAddToWishListMutation, useGetWishListQuery } from "../redux/feature/book/bookApi";
+import { useAddToReadingListMutation, useAddToWishListMutation, useGetReadingListQuery, useGetWishListQuery } from "../redux/feature/book/bookApi";
 import { useAppSelector } from "../redux/hooks";
 import { IBook } from "../types";
-
 
 const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
 
   // 👇 API Login Mutation
-  const [addToWishList] =
-    useAddToWishListMutation();
+  const [addToWishList] =useAddToWishListMutation();
+  const {data:wish} = useGetWishListQuery(undefined)
+  const [addToReadingList] = useAddToReadingListMutation();
+  const {data:finish } = useGetReadingListQuery(undefined)
+  // const {data: finishedList} = useGetFinishedListQuery(undefined)
 
-    const {data} = useGetWishListQuery(undefined)
-
-    const {wishlist}  = useAppSelector(state => state.wishListState)
+    const {wishlist,readingList}  = useAppSelector(state => state.userBookState)
     const {user}  = useAppSelector(state => state.userState)
     
   // Empty dependency array ensures this effect runs only once when the component mounts
   
     
-  const onWishlistClick = async (bookId: string) => {
+  const onAddWishlist = async (bookId: string) => {
     try {
       const result = await addToWishList({ bookId: bookId })
       console.log(result, 'result');
       
-      if (result.data?.success) {
+      if (result?.data?.success) {
         toast.success('Books added successfully')
       }
 
@@ -35,8 +37,40 @@ const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
   }
 
 
-  const wishlisted = wishlist?.some((wishlistBook: IBook) => wishlistBook._id === book._id);
+  const onRemoveFromWishlist = async (bookId: string) => {
+    try {
+ 
 
+    } catch (error) {
+      toast.error('Failed to add book to wishlist');
+    }
+
+  }
+const wishlisted = wishlist?.some((wishlistBook: IBook) => wishlistBook._id === book._id);
+
+
+ const onAddToReadingList = async (bookId: string) => {
+  try {
+    const result = await addToReadingList({ bookId: bookId })
+    console.log(result, 'result');
+    
+    if (result?.data?.success) {
+      toast.success('Books added ReadingList')
+    }
+
+  } catch (error) {
+    toast.error('Failed to add book to readinglist');
+  }
+ }
+
+ const onUpdateReadinglist = async (bookId: string) => {
+
+ }
+
+ const readinglisted = readingList?.some((readingListBook: IBook) => readingListBook._id === book._id);
+
+//  console.log(readinglist, 'readinglist');
+ 
 
 const verifiedUser = user?.email;
   
@@ -56,14 +90,23 @@ const verifiedUser = user?.email;
             {/* Wishlist Button */}
           {
             verifiedUser && 
-            <div>
-            {
-              
-              wishlisted  ? <p>"wishlisted" </p> :
-              <button onClick={() => onWishlistClick(book._id)}  className="transition ease-out duration-150">
-                <HeartIcon  className="w-6 h-6" /> 
-            </button>
-            }
+            <div className=" flex justify-end space-x-2">
+                <button className="btn btn-circle text-info text-2xl">
+                {readinglisted ? (
+                  <FaClipboardList onClick={()=>onUpdateReadinglist(book._id)} />
+                ) : (
+                  <HiOutlineClipboardList onClick={()=>onAddToReadingList(book._id)} />
+                )}
+              </button>
+
+              <button className="btn btn-circle text-info text-2xl"> 
+              {wishlisted ? 
+                (<AiFillHeart onClick={()=>onRemoveFromWishlist(book._id)} />)
+              : 
+               ( <AiOutlineHeart onClick={()=>onAddWishlist(book._id)} />)
+              }
+              </button>
+            
             </div>
           }
             {/* Delete Button */}
