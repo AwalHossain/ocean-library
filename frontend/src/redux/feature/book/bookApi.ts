@@ -5,6 +5,14 @@ import { setReadingList, setWishList } from "./bookSlice";
 
 const bookApi = api.injectEndpoints({
     endpoints: (builder) => ({
+      addBook: builder.mutation({
+        query: (data) => ({
+          url: "book/add",
+          method: "POST",
+          credentials: "include",
+          body: data,
+        })
+      }),
         addToWishList: builder.mutation({
             query: (data) => ({
                 url: "users/wishlist",
@@ -27,7 +35,6 @@ const bookApi = api.injectEndpoints({
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log(data,"bookapi test");   
           dispatch(setWishList(data.wishlist));
           
           // dispatch(setUser(data));
@@ -65,8 +72,7 @@ const bookApi = api.injectEndpoints({
         result.data,
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
-          const { data } = await queryFulfilled;
-          console.log(data,"readinglist testing");   
+          const { data } = await queryFulfilled;  
           dispatch(setReadingList(data.readingList));
           
           // dispatch(setUser(data));
@@ -105,7 +111,9 @@ const bookApi = api.injectEndpoints({
 })
 
 
-export const { useAddToWishListMutation, useGetWishListQuery,useAddToReadingListMutation, useGetReadingListQuery,
+export const { 
+  useAddBookMutation,
+  useAddToWishListMutation, useGetWishListQuery,useAddToReadingListMutation, useGetReadingListQuery,
   useAddToFinishedListMutation, useGetFinishedListQuery,
   useRemoveFromReadingListMutation,useRemoveFromWishListMutation
 } = bookApi;

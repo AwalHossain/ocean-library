@@ -29,7 +29,7 @@ const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
       console.log(result, 'result');
       
       if (result?.data?.success) {
-        toast.success('Books added successfully')
+        toast.success('Books added to Wishlist successfully')
       }
 
     } catch (error) {

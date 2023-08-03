@@ -18,6 +18,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 
 import { debounce } from 'lodash'
 import { Fragment, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { BookCard } from '../components/BookCard'
 import { useFilterBooksQuery } from '../redux/feature/filter/filterApi'
 import { useAppSelector } from '../redux/hooks'
@@ -158,6 +159,11 @@ export default function Books() {
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-12">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900">
+              <Link to="/addbook">
+              Add Book
+              </Link>
+            </h1>
 
             <div className="flex items-center">
               <Menu as="div" className="relative inline-block text-left">
@@ -220,7 +226,7 @@ export default function Books() {
 
           <section aria-labelledby="products-heading" className="pb-24 pt-6">
             <h2 id="products-heading" className="sr-only">
-              Products
+              AddBook
             </h2>
 
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">

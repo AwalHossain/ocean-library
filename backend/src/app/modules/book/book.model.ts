@@ -14,15 +14,7 @@ const BookSchema = new Schema<IBook>({
     type: String,
     required: true,
   },
-  price: {
-    type: String,
-    required: true,
-  },
   publicationYear: {
-    type: String,
-    required: true,
-  },
-  rating: {
     type: String,
     required: true,
   },
@@ -42,8 +34,8 @@ const BookSchema = new Schema<IBook>({
       },
     },
   ],
-  bookAddedBy: {
-    type: Schema.Types.ObjectId,
+  addedBy: {
+    type: String,
     ref: 'User',
     required: true,
   }
