@@ -11,9 +11,9 @@ const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
   // 👇 API Login Mutation
   const [addToWishList] =useAddToWishListMutation();
   const {data:wish} = useGetWishListQuery(undefined)
+  const [removeFromWishList] = useRemoveFromWishListMutation();
   const [addToReadingList] = useAddToReadingListMutation();
   const {data:finish } = useGetReadingListQuery(undefined)
-  const [removeFromWishList] = useRemoveFromWishListMutation();
   const [removeFromReadingList] = useRemoveFromReadingListMutation()
   // const {data: finishedList} = useGetFinishedListQuery(undefined)
 
@@ -167,8 +167,6 @@ const verifiedUser = user?.email;
         </div>
       </div>
     </div>
-
-
   )
 }
 
