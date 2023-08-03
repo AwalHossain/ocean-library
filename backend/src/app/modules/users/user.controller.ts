@@ -157,7 +157,7 @@ const removeFromReadingList = catchAsync(async (req: Request, res: Response) => 
 const finishedBooks = catchAsync(async (req: Request, res: Response) => {
   const { bookId } = req.body;
   const user = req.user;
-  console.log(bookId, 'bookId');
+  console.log(bookId, 'bookId finished book');
   const result = await UserService.finishedBooks(user, bookId);
 
   sendResponse(res, {

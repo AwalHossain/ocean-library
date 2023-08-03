@@ -1,12 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import { Wishlist } from "../components/Wishlist";
 import AuthenticatedLayout from "../layout/AuthenticatedLayout";
 import AddBook from "../pages/AddBook";
 import Books from "../pages/Books";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import ReadlingList from "../pages/ReadingList";
 import Signup from "../pages/Signup";
+import { Wishlist } from "../pages/Wishlist";
 
 
 const router = createBrowserRouter([
@@ -33,6 +34,12 @@ const router = createBrowserRouter([
                 path: "/wishlist", element:
                     <AuthenticatedLayout allowedRoles={['user', 'admin']}>
                         <Wishlist />
+                    </AuthenticatedLayout>
+            },
+            {
+                path: "/readinglist", element:
+                    <AuthenticatedLayout allowedRoles={['user', 'admin']}>
+                        <ReadlingList />
                     </AuthenticatedLayout>
             },
             {

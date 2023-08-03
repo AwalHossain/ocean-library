@@ -15,7 +15,7 @@ const Navbar = () => {
     "Books": "/books",
     "About": "/about",
     "wishlist": "/wishlist",
-    "readingList": "/readingList",
+    "readinglist": "/readinglist",
     "finishedBooks": "/finishedBooks",
   }
 

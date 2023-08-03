@@ -1,9 +1,9 @@
 import { FaClipboardList } from 'react-icons/fa6'
 import { toast } from 'react-toastify'
+import Container from '../components/container'
 import { useGetWishListQuery, useRemoveFromWishListMutation } from '../redux/feature/book/bookApi'
 import { useAppSelector } from '../redux/hooks'
 import { IBook } from '../types'
-import Container from './container'
 
 export const Wishlist = () => {
     const { data: wishlist } = useGetWishListQuery(undefined)

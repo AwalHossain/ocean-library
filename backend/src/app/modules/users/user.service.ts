@@ -167,7 +167,7 @@ const finishedBooks = async (user: JwtPayload | null, bookId: string) => {
   if (!existingUser) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'User does not exist');
   }
-  existingUser.readingList?.push((bookId));
+  existingUser.finishedBooks?.push((bookId));
   await existingUser.save();
 }
 
@@ -175,7 +175,6 @@ const finishedBooks = async (user: JwtPayload | null, bookId: string) => {
 const getFinishedBooks = async (user: JwtPayload | null) => {
   //get the reading list product
   const existingUser = await User.findOne({ email: user?.email }).populate('finishedBooks');
-
   return existingUser;
 }
 
