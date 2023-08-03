@@ -2,7 +2,7 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { FaClipboardList } from "react-icons/fa6";
 import { HiOutlineClipboardList } from "react-icons/hi";
 import { toast } from "react-toastify";
-import { useAddToReadingListMutation, useAddToWishListMutation, useGetReadingListQuery, useGetWishListQuery } from "../redux/feature/book/bookApi";
+import { useAddToReadingListMutation, useAddToWishListMutation, useGetReadingListQuery, useGetWishListQuery, useRemoveFromReadingListMutation, useRemoveFromWishListMutation } from "../redux/feature/book/bookApi";
 import { useAppSelector } from "../redux/hooks";
 import { IBook } from "../types";
 
@@ -13,6 +13,8 @@ const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
   const {data:wish} = useGetWishListQuery(undefined)
   const [addToReadingList] = useAddToReadingListMutation();
   const {data:finish } = useGetReadingListQuery(undefined)
+  const [removeFromWishList] = useRemoveFromWishListMutation();
+  const [removeFromReadingList] = useRemoveFromReadingListMutation()
   // const {data: finishedList} = useGetFinishedListQuery(undefined)
 
     const {wishlist,readingList}  = useAppSelector(state => state.userBookState)
@@ -39,10 +41,14 @@ const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
 
   const onRemoveFromWishlist = async (bookId: string) => {
     try {
- 
+   const result = await removeFromWishList(bookId)
+
+   if (result?.data?.success) {
+        toast.success('Books removed from wishlist')
+      }
 
     } catch (error) {
-      toast.error('Failed to add book to wishlist');
+      toast.error('Failed to remove book from wishlist');
     }
 
   }
@@ -51,7 +57,7 @@ const wishlisted = wishlist?.some((wishlistBook: IBook) => wishlistBook._id === 
 
  const onAddToReadingList = async (bookId: string) => {
   try {
-    const result = await addToReadingList({ bookId: bookId })
+    const result = await addToReadingList({bookId})
     console.log(result, 'result');
     
     if (result?.data?.success) {
@@ -64,7 +70,17 @@ const wishlisted = wishlist?.some((wishlistBook: IBook) => wishlistBook._id === 
  }
 
  const onUpdateReadinglist = async (bookId: string) => {
+  try {
+    const result = await removeFromReadingList(bookId)
+    console.log(result, 'result');
+    
+    if (result?.data?.success) {
+      toast.success('Books remove from ReadingList')
+    }
 
+  } catch (error) {
+    toast.error('Failed to remove book from readinglist');
+  }
  }
 
  const readinglisted = readingList?.some((readingListBook: IBook) => readingListBook._id === book._id);
@@ -93,17 +109,17 @@ const verifiedUser = user?.email;
             <div className=" flex justify-end space-x-2">
                 <button className="btn btn-circle text-info text-2xl">
                 {readinglisted ? (
-                  <FaClipboardList onClick={()=>onUpdateReadinglist(book._id)} />
+                  < AiFillHeart onClick={()=>onUpdateReadinglist(book._id)} />
                 ) : (
-                  <HiOutlineClipboardList onClick={()=>onAddToReadingList(book._id)} />
+                  < AiOutlineHeart onClick={()=>onAddToReadingList(book._id)} />
                 )}
               </button>
 
               <button className="btn btn-circle text-info text-2xl"> 
               {wishlisted ? 
-                (<AiFillHeart onClick={()=>onRemoveFromWishlist(book._id)} />)
+                (< FaClipboardList onClick={()=>onRemoveFromWishlist(book._id)} />)
               : 
-               ( <AiOutlineHeart onClick={()=>onAddWishlist(book._id)} />)
+               ( < HiOutlineClipboardList onClick={()=>onAddWishlist(book._id)} />)
               }
               </button>
             

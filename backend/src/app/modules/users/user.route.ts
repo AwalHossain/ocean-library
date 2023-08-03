@@ -34,6 +34,11 @@ router.get(
    auth(ENUM_USER_ROLE.USER),
    UserController.getWishList
 );
+router.patch(
+  '/wishlist/:bookId',
+   auth(ENUM_USER_ROLE.USER),
+   UserController.removeFromWishlist
+);
 
 router.post(
   '/readinglist',
@@ -44,6 +49,11 @@ router.get(
   '/readinglist',
    auth(ENUM_USER_ROLE.USER),
    UserController.getReadingList
+);
+router.patch(
+  '/readinglist/:bookId',
+   auth(ENUM_USER_ROLE.USER),
+   UserController.removeFromReadingList
 );
 router.post(
   '/finishedBook',

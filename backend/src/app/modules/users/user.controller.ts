@@ -86,16 +86,35 @@ const getWishList = catchAsync(async (req: Request, res: Response) => {
 }
 )
 
+const removeFromWishlist = catchAsync(async (req: Request, res: Response) => {
 
-const readingList = catchAsync(async (req: Request, res: Response) => {
-  const { productId } = req.body;
   const user = req.user;
-  const result = await UserService.wishlist(user, productId);
+
+  const { bookId } = req.params;
+  console.log(bookId,'bookis');
+  
+  const result = await UserService.removeFromWishlist(user, bookId);
 
   sendResponse(res, {
     statusCode: 200,
     success: true,
-    message: 'Added to wishlist !',
+    message: 'Remove from the Wishlist !',
+    data: result,
+  })
+}
+)
+
+
+const readingList = catchAsync(async (req: Request, res: Response) => {
+  const { bookId } = req.body;
+  const user = req.user;
+  const result = await UserService.readingList(user, bookId);
+  
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Added to Readinglist !',
     data: result,
   });
 }
@@ -109,11 +128,31 @@ const getReadingList = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: 200,
     success: true,
-    message: 'Added to wishlist !',
+    message: 'get the Readin list !',
     data: result,
   });
 }
 )
+
+const removeFromReadingList = catchAsync(async (req: Request, res: Response) => {
+
+  const user = req.user;
+
+  const { bookId } = req.params;
+  console.log(bookId, 'from readinglist');
+  
+  const result = await UserService.removeFromReadingList(user, bookId);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Remove from the Readinglist !',
+    data: result,
+  })
+}
+)
+
+
 
 const finishedBooks = catchAsync(async (req: Request, res: Response) => {
   const { bookId } = req.body;
@@ -181,5 +220,8 @@ export const UserController = {
   finishedBooks,
   getFinishedBooks,
   getWishList,
-  getReadingList
+  getReadingList,
+  removeFromReadingList,
+  removeFromWishlist,
+
 };

@@ -34,6 +34,16 @@ const bookApi = api.injectEndpoints({
         } catch (error) {}
       }, 
     }),
+
+    removeFromWishList: builder.mutation({
+        query: (data) => ({
+            url: `users/wishlist/${data}`,
+            method: "PATCH",
+            credentials: "include",
+        }),
+        invalidatesTags: ["Wishlist"],
+    }),
+
     addToReadingList: builder.mutation({
         query: (data) => ({
             url: "users/readinglist",
@@ -63,6 +73,16 @@ const bookApi = api.injectEndpoints({
         } catch (error) {}
       }, 
       }),
+
+      removeFromReadingList: builder.mutation({
+        query: (data) => ({
+            url: `users/readinglist/${data}`,
+            method: "PATCH",
+            credentials: "include",
+        }),
+        invalidatesTags: ["readingList"],
+    }),
+
     
       addToFinishedList: builder.mutation({
         query: (data) => ({
@@ -87,6 +107,7 @@ const bookApi = api.injectEndpoints({
 
 export const { useAddToWishListMutation, useGetWishListQuery,useAddToReadingListMutation, useGetReadingListQuery,
   useAddToFinishedListMutation, useGetFinishedListQuery,
+  useRemoveFromReadingListMutation,useRemoveFromWishListMutation
 } = bookApi;
 
 
