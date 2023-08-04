@@ -11,7 +11,7 @@ const createUser: RequestHandler = catchAsync(
     console.log(userData, 'userData');
 
     const result = await UserService.createUser(userData);
-    const { refreshToken, ...others } = result;
+    // const { refreshToken, ...others } = result;
 
     // set refresh token into cookie
     const cookieOptions = {
@@ -25,7 +25,7 @@ const createUser: RequestHandler = catchAsync(
       statusCode: 200,
       success: true,
       message: 'User logged in successfully !',
-      data: others,
+      data: result,
     });
   }
 );

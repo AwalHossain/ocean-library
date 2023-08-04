@@ -9,10 +9,7 @@ type IAuthMiddleware = {
 
 const AuthMiddleware:React.FC<IAuthMiddleware> = ({children}) => {
     const cookie = Cookies.get('refreshToken')
-    const { isLoading } = userApi.endpoints.getMe.useQuery(null, {
-        skip: !cookie,
-      });
-      console.log(isLoading, "checkingo");
+    const {  isLoading } = userApi.endpoints.getMe.useQuery(null);
       
 
    if (isLoading) {

@@ -17,12 +17,17 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-
                 element: (
-
                     <Home />
                 )
-
+            },
+            {
+                path: "/login",
+                element: <Login />,
+            },
+            {
+                path: "/signup",
+                element: <Signup />,
             },
             {
                 path: "/books", element:
@@ -49,20 +54,6 @@ const router = createBrowserRouter([
                     </AuthenticatedLayout>
             },
         ]
-    },
-    {
-        path: "/login",
-        element: <Login />,
-    },
-    // {
-    //     path: "/books", element:
-    //         <AuthenticatedLayout allowedRoles={['user', 'admin']}>
-    //             <Books />
-    //         </AuthenticatedLayout>
-    // },
-    {
-        path: "/signup",
-        element: <Signup />,
     },
     {
         path: "*",
