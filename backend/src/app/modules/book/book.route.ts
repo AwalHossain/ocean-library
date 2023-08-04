@@ -20,6 +20,11 @@ BookController.getSingleBook);
 router.patch('/review/:bookId',
 BookController.addReview);
 
-
+router.patch('/:bookId',
+BookController.editBook
+)
+router.delete('/:bookId',
+BookController.deleteBook
+)
 
 export const BookRoutes = router;

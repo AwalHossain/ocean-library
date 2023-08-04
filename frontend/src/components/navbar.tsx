@@ -13,7 +13,6 @@ const Navbar = () => {
   const navigation: { [key: string]: string } = {
     "Home": "/",
     "Books": "/books",
-    "About": "/about",
     "wishlist": "/wishlist",
     "readinglist": "/readinglist",
     "finishedBooks": "/finishedBooks",

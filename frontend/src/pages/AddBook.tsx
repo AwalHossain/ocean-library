@@ -26,8 +26,8 @@ export default function AddBook() {
   
     useEffect(() => {
       if (isSuccess)
-        toast.success("Successfully added the book 📘", { id: "addBook" });
-      if (isError) toast.error("Failed to add the book 😔", { id: "error" });
+        toast.success("Successfully added the book 📘");
+      if (isError) toast.error("Failed to add the book 😔");
     }, [isSuccess, isError]);
   
     return (
@@ -71,7 +71,7 @@ export default function AddBook() {
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
                   {...register("genre", { required: "Genre is required" })}
                 >
-                  <option defaultValue>Self-Help</option>
+                  <option selected>Self-Help</option>
                   <option>Fiction</option>
                   <option>Non-Fiction</option>
                   <option>Religion</option>

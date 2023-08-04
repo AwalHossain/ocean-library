@@ -6,81 +6,93 @@ import { setBook, setReviews } from "./filterSlice";
 
 
 const filterApi = api.injectEndpoints({
-    endpoints: (builder) => ({
-      addReview: builder.mutation({
-        query(data) {
-          return {
-            url: `book/review/${data.bookId}`,
-            method: "PATCH",
-            credentials: "include",
-            body: data
-          }
-        },
-        invalidatesTags: ["Reviews"],
-      }),
-      getSingleBook: builder.query({
-        query(data) {
-          return {
-            url: `book/${data}`,
-            method: "GET",
-            credentials: "include",
-          };
-        },
-        providesTags:['Reviews'],
-        transformResponse: (result: { data: IBook }) =>
-          result.data,
-        async onQueryStarted(args, { dispatch, queryFulfilled }) {
-          try {
-            const { data } = await queryFulfilled; 
-            
-            dispatch(setReviews(data.reviews));
-            // dispatch(setUser(data));
-          } catch (error) {}
-        }, 
-      }),
-        filterBooks: builder.query({
-          query(data) {
-            return {
-              url: `book/all/${data}`,
-              credentials: "include",
-            };
-          },
-          transformResponse: (result: { data: {data:IBook}  }) =>
-          result.data,
-        async onQueryStarted(args, { dispatch, queryFulfilled }) {
-          try {
-            const { data } = await queryFulfilled; 
-            dispatch(setBook(data.data));
-            
-            // dispatch(setUser(data));
-          } catch (error) {}
-        },   
+  endpoints: (builder) => ({
+    addReview: builder.mutation({
+      query(data) {
+        return {
+          url: `book/review/${data.bookId}`,
+          method: "PATCH",
+          credentials: "include",
+          body: data
+        }
+      },
+      invalidatesTags: ["Reviews"],
     }),
-        getAllbooks: builder.query({
-            query() {
-                return {
-                  url: `book/all?page=${1}&limit=${10}&sortBy=${'createdAt'}&sortOrder=${'asc'}`,
-                  credentials: "include",
-                };
-              },
-              transformResponse: (result: { data: {data:IBook}  }) =>
-              result.data,
-            async onQueryStarted(args, { dispatch, queryFulfilled }) {
-              try {
-                const { data } = await queryFulfilled;
-                console.log(data.data,"chekolo");   
-                dispatch(setBook(data.data));
-                
-                // dispatch(setUser(data));
-              } catch (error) {}
-            },
+    getSingleBook: builder.query({
+      query(data) {
+        return {
+          url: `book/${data}`,
+          method: "GET",
+          credentials: "include",
+        };
+      },
+      providesTags: ['Reviews'],
+      transformResponse: (result: { data: IBook }) =>
+        result.data,
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+
+          dispatch(setReviews(data.reviews));
+          // dispatch(setUser(data));
+        } catch (error) { }
+      },
+    }),
+    filterBooks: builder.query({
+      query(data) {
+        return {
+          url: `book/all/${data}`,
+          credentials: "include",
+        };
+      },
+      transformResponse: (result: { data: { data: IBook } }) =>
+        result.data,
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setBook(data.data));
+
+          // dispatch(setUser(data));
+        } catch (error) { }
+      },
+    }),
+    editBook: builder.mutation({
+      query(data) {
+        return {
+          url: `book/${data.bookId}`,
+          method: "PATCH",
+          credentials: "include",
+          body: data
+        }
+      }
+      // invalidatesTags: ["Books"],
+    }),
+    getAllbooks: builder.query({
+      query() {
+        return {
+          url: `book/all?page=${1}&limit=${10}&sortBy=${'createdAt'}&sortOrder=${'asc'}`,
+          credentials: "include",
+        };
+      },
+      transformResponse: (result: { data: { data: IBook } }) =>
+        result.data,
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          console.log(data.data, "chekolo");
+          dispatch(setBook(data.data));
+
+          // dispatch(setUser(data));
+        } catch (error) { }
+      },
 
     })
 
-})
+  })
 
 })
 
 
 export const { useAddReviewMutation,
+  useEditBookMutation,
   useFilterBooksQuery, useGetAllbooksQuery, useGetSingleBookQuery } = filterApi;

@@ -113,9 +113,35 @@ const addReview = async (review: string, user: JwtPayload | null, bookId: string
   return book;
 }
 
+const editBook = async (id: string, data: IBook) => {
+
+  console.log(id,data);
+  
+
+  const book = await Book.findByIdAndUpdate(id, data, { new: true });
+
+  if (!book) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Book not found');
+  }
+
+  return book;
+}
+
+const deleteBook = async (id: string) => {
+  const book = await Book.findByIdAndDelete(id);
+
+  if (!book) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Book not found');
+  }
+
+  return book;
+}
+
 export const bookService = {
   addBook,
   getAllBooks,
   getSingleBook,
   addReview,
+   editBook,
+   deleteBook
 };

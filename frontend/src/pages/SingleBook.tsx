@@ -9,9 +9,7 @@ import { useGetSingleBookQuery } from '../redux/feature/filter/filterApi';
 const SingleBook = () => {
   const { id } = useParams()
   const { data: book, isLoading, isSuccess } = useGetSingleBookQuery(id)
-  // const book = data?.data;
 
-  console.log(book, 'data');
   return (
     book && isSuccess ? (
       <>

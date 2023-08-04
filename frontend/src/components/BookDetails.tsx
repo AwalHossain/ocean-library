@@ -144,7 +144,7 @@ const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
                 <div className="flex items-center gap-x-2 mt-8">
                   <h4 className="font-semibold">Action Center :</h4>
                   <button
-                    // onClick={handleUpdateBook}
+                    onClick={() => navigate(`/update-book/${book._id}`)}
                     className="bg-cyan-700 hover:bg-cyan-800 p-2 rounded-full tooltip"
                     data-tip="Update Book"
                   >

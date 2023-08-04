@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
+import UpdateBook from "../components/UpdateBook";
 import AuthenticatedLayout from "../layout/AuthenticatedLayout";
 import AddBook from "../pages/AddBook";
 import Books from "../pages/Books";
@@ -32,13 +33,17 @@ const router = createBrowserRouter([
             },
             {
                 path: "/books", element:
-                    <AuthenticatedLayout allowedRoles={['user', 'admin']}>
+  
                         <Books />
-                    </AuthenticatedLayout>
             },
             {
                 path: "/book-details/:id", element:
                         <SingleBook />
+   
+            },
+            {
+                path: "/update-book/:bookId", element:
+                        <UpdateBook />
    
             },
             {
