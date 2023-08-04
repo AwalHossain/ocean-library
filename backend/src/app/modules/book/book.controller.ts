@@ -24,6 +24,7 @@ const getAllBooks = catchAsync(async (req: Request, res: Response) => {
   
   const filters = pick(req.query, bookFilterableFields);
   const paginationOptions = pick(req.query, paginationFields);
+  console.log(filters,'che', paginationOptions);
   
   const result = await bookService.getAllBooks(filters, paginationOptions);
 

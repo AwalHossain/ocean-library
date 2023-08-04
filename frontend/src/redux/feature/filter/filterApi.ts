@@ -59,7 +59,7 @@ const filterApi = api.injectEndpoints({
         getAllbooks: builder.query({
             query() {
                 return {
-                  url: "book/all",
+                  url: `book/all?page=${1}&limit=${10}&sortBy=${'createdAt'}&sortOrder=${'asc'}`,
                   credentials: "include",
                 };
               },

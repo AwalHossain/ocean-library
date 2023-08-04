@@ -13,14 +13,11 @@ auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
 validateRequest(bookValidation.bookZodSchema),
 BookController.addBook);
 router.get('/all',
-auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
 BookController.getAllBooks);
 router.get('/:id',
-auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
 BookController.getSingleBook);
 
 router.patch('/review/:bookId',
-auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
 BookController.addReview);
 
 

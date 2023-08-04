@@ -12,27 +12,27 @@ import DeleteModal from "./DeleteModal";
 const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
 
   // 👇 API Login Mutation
-  const [addToWishList] =useAddToWishListMutation();
-  const {data:wish} = useGetWishListQuery(undefined)
+  const [addToWishList] = useAddToWishListMutation();
+  const { data: wish } = useGetWishListQuery(undefined)
   const [removeFromWishList] = useRemoveFromWishListMutation();
   const [addToReadingList] = useAddToReadingListMutation();
-  const {data:finish } = useGetReadingListQuery(undefined)
+  const { data: finish } = useGetReadingListQuery(undefined)
   const [removeFromReadingList] = useRemoveFromReadingListMutation()
   // const {data: finishedList} = useGetFinishedListQuery(undefined)
   const [showModal, setShowModal] = useState(false);
 
-  
-    const {wishlist,readingList}  = useAppSelector(state => state.userBookState)
-    const {user}  = useAppSelector(state => state.userState)
-    
+
+  const { wishlist, readingList } = useAppSelector(state => state.userBookState)
+  const { user } = useAppSelector(state => state.userState)
+
   // Empty dependency array ensures this effect runs only once when the component mounts
-  
-    
+
+
   const onAddWishlist = async (bookId: string) => {
     try {
       const result = await addToWishList({ bookId: bookId })
       console.log(result, 'result');
-      
+
       if (result?.data?.success) {
         toast.success('Books added to Wishlist successfully')
       }
@@ -46,9 +46,9 @@ const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
 
   const onRemoveFromWishlist = async (bookId: string) => {
     try {
-   const result = await removeFromWishList(bookId)
+      const result = await removeFromWishList(bookId)
 
-   if (result?.data?.success) {
+      if (result?.data?.success) {
         toast.success('Books removed from wishlist')
       }
 
@@ -57,131 +57,131 @@ const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
     }
 
   }
-const wishlisted = wishlist?.some((wishlistBook: IBook) => wishlistBook._id === book._id);
+  const wishlisted = wishlist?.some((wishlistBook: IBook) => wishlistBook._id === book._id);
 
 
- const onAddToReadingList = async (bookId: string) => {
-  try {
-    const result = await addToReadingList({bookId})
-    console.log(result, 'result');
-    
-    if (result?.data?.success) {
-      toast.success('Books added ReadingList')
+  const onAddToReadingList = async (bookId: string) => {
+    try {
+      const result = await addToReadingList({ bookId })
+      console.log(result, 'result');
+
+      if (result?.data?.success) {
+        toast.success('Books added ReadingList')
+      }
+
+    } catch (error) {
+      toast.error('Failed to add book to readinglist');
     }
-
-  } catch (error) {
-    toast.error('Failed to add book to readinglist');
   }
- }
 
- const onUpdateReadinglist = async (bookId: string) => {
-  try {
-    const result = await removeFromReadingList(bookId)
-    console.log(result, 'result');
-    
-    if (result?.data?.success) {
-      toast.success('Books remove from ReadingList')
+  const onUpdateReadinglist = async (bookId: string) => {
+    try {
+      const result = await removeFromReadingList(bookId)
+      console.log(result, 'result');
+
+      if (result?.data?.success) {
+        toast.success('Books remove from ReadingList')
+      }
+
+    } catch (error) {
+      toast.error('Failed to remove book from readinglist');
     }
-
-  } catch (error) {
-    toast.error('Failed to remove book from readinglist');
   }
- }
 
- const readinglisted = readingList?.some((readingListBook: IBook) => readingListBook._id === book._id);
+  const readinglisted = readingList?.some((readingListBook: IBook) => readingListBook._id === book._id);
 
-//  console.log(readinglist, 'readinglist');
- 
+  //  console.log(readinglist, 'readinglist');
 
 
-const navigate = useNavigate();
 
-const verifiedUser = user?.email 
-const athorizedUser = user?.email && book?.addedBy === user.email;
+  const navigate = useNavigate();
+
+  const verifiedUser = user?.email
+  const athorizedUser = user?.email && book?.addedBy === user.email;
   console.log(athorizedUser, 'athorizedUser', book, user?.email);
-  
+
   return (
     <>
 
-    <div key={key} className="flex flex-col md:flex-col items-center md:items-start border border-gray-200 rounded-lg p-4 shadow-md">
-      <div className="flex items-center md:justify-center mb-4 md:mb-0 md:mr-4">
-        <img
-          className="h-[240px] w-[170px] object-cover md:w-48 md:h-64 lws-bookThumbnail"
-          src={book.thumbnail}
-          alt="book"
-        />
-      </div>
-      <div className="flex flex-col justify-center">
-        <div className="flex items-center justify-between mb-2">
+      <div key={key} className="flex flex-col md:flex-col items-center md:items-start border border-gray-200 rounded-lg p-4 shadow-md">
+        <div className="flex items-center md:justify-center mb-4 md:mb-0 md:mr-4">
+          <img
+            className="h-[240px] w-[170px] object-cover md:w-48 md:h-64 lws-bookThumbnail"
+            src={book.thumbnail}
+            alt="book"
+          />
+        </div>
+        <div className="flex flex-col justify-center">
+          <div className="flex items-center justify-between mb-2">
 
-          <div className="text-gray-500 space-x-2">
-            {/* Wishlist Button */}
-          {
-            verifiedUser && 
-            <div>
-            <div className=" flex justify-end space-x-2">
-                <button className="btn btn-circle text-info text-2xl">
-                {readinglisted ? (
-                  < AiFillHeart onClick={()=>onUpdateReadinglist(book._id)} />
-                ) : (
-                  < AiOutlineHeart onClick={()=>onAddToReadingList(book._id)} />
-                )}
-              </button>
+            <div className="text-gray-500 space-x-2">
+              {/* Wishlist Button */}
+              {
+                verifiedUser &&
+                <div>
+                  <div className=" flex justify-end space-x-2">
+                    <button className="btn btn-circle text-info text-2xl">
+                      {readinglisted ? (
+                        < AiFillHeart onClick={() => onUpdateReadinglist(book._id)} />
+                      ) : (
+                        < AiOutlineHeart onClick={() => onAddToReadingList(book._id)} />
+                      )}
+                    </button>
 
-              <button className="btn btn-circle text-info text-2xl"> 
-              {wishlisted ? 
-                (< FaClipboardList onClick={()=>onRemoveFromWishlist(book._id)} />)
-              : 
-               ( < HiOutlineClipboardList onClick={()=>onAddWishlist(book._id)} />)
+                    <button className="btn btn-circle text-info text-2xl">
+                      {wishlisted ?
+                        (< FaClipboardList onClick={() => onRemoveFromWishlist(book._id)} />)
+                        :
+                        (< HiOutlineClipboardList onClick={() => onAddWishlist(book._id)} />)
+                      }
+                    </button>
+
+                  </div>
+                </div>
               }
-              </button>
-            
+              {
+                athorizedUser &&
+                <div className="flex items-center gap-x-2 mt-8">
+                  <h4 className="font-semibold">Action Center :</h4>
+                  <button
+                    // onClick={handleUpdateBook}
+                    className="bg-cyan-700 hover:bg-cyan-800 p-2 rounded-full tooltip"
+                    data-tip="Update Book"
+                  >
+                    <FaPencil className="text-white" />
+                  </button>
+                  <button
+                    onClick={() => setShowModal(true)}
+                    className="bg-red-700 hover:bg-red-800 p-2 rounded-full tooltip"
+                    data-tip="Delete Book"
+                  >
+                    <FaTrash className="text-white" />
+                  </button>
+                </div>
+              }
             </div>
+
+            <div className="text-gray-500 space-x-2">
             </div>
-          }
-          {
-            athorizedUser && 
-            <div className="flex items-center gap-x-2 mt-8">
-            <h4 className="font-semibold">Action Center :</h4>
-            <button
-              // onClick={handleUpdateBook}
-              className="bg-cyan-700 hover:bg-cyan-800 p-2 rounded-full tooltip"
-              data-tip="Update Book"
-            >
-              <FaPencil className="text-white" />
-            </button>
-            <button
-              onClick={() => setShowModal(true)}
-              className="bg-red-700 hover:bg-red-800 p-2 rounded-full tooltip"
-              data-tip="Delete Book"
-            >
-              <FaTrash className="text-white" />
-            </button>
-          </div>
-          }
           </div>
 
-          <div className="text-gray-500 space-x-2">
-          </div>
-        </div>
-
-        <div className="space-y-2 mt-1 md:mt-0">
-          <h4 className="text-lg md:text-xl font-semibold capitalize">{book.title}</h4>
-          <p className="text-sm md:text-base text-gray-600">{book.author}</p>
-          <div className="flex space-x-1 md:space-x-2">
-            {/* Render stars dynamically based on book rating */}
-            <Link
-        to={`/book-details/${book._id}`}
-        className="bg-blue-500 text-white px-4 py-2 rounded-md font-bold hover:bg-blue-600"
-      >
-        See Details
-      </Link>
+          <div className="space-y-2 mt-1 md:mt-0">
+            <h4 className="text-lg md:text-xl font-semibold capitalize">{book.title}</h4>
+            <p className="text-sm md:text-base text-gray-600">{book.author}</p>
+            <div className="flex space-x-1 md:space-x-2">
+              {/* Render stars dynamically based on book rating */}
+              <Link
+                to={`/book-details/${book._id}`}
+                className="bg-blue-500 text-white px-4 py-2 rounded-md font-bold hover:bg-blue-600"
+              >
+                See Details
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-    </div>
       {showModal && <DeleteModal book={book} setShowModal={setShowModal} />}
-     </>
+    </>
   )
 }
 
