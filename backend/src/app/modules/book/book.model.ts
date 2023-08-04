@@ -24,8 +24,8 @@ const BookSchema = new Schema<IBook>({
   },
   reviews: [
     {
-      userId: {
-        type: Schema.Types.ObjectId,
+      email: {
+        type: String,
         ref: 'User',
       },
       review: {
@@ -37,7 +37,6 @@ const BookSchema = new Schema<IBook>({
   addedBy: {
     type: String,
     ref: 'User',
-    required: true,
   }
     
 });

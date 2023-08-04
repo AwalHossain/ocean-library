@@ -7,6 +7,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import ReadlingList from "../pages/ReadingList";
 import Signup from "../pages/Signup";
+import SingleBook from "../pages/SingleBook";
 import { Wishlist } from "../pages/Wishlist";
 
 
@@ -34,6 +35,11 @@ const router = createBrowserRouter([
                     <AuthenticatedLayout allowedRoles={['user', 'admin']}>
                         <Books />
                     </AuthenticatedLayout>
+            },
+            {
+                path: "/book-details/:id", element:
+                        <SingleBook />
+   
             },
             {
                 path: "/wishlist", element:

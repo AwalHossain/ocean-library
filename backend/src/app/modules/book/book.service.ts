@@ -1,4 +1,5 @@
 import httpStatus from 'http-status';
+import { JwtPayload } from 'jsonwebtoken';
 import { SortOrder } from 'mongoose';
 import ApiError from '../../../errors/ApiError';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
@@ -84,7 +85,7 @@ const getAllBooks = async (
 };
 
 const getSingleBook = async (id: string) => {
-  const book = await Book.findById(id);
+  const book = await Book.findById(id).populate('reviews._id');
 
   if (!book) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Book not found');
@@ -93,8 +94,27 @@ const getSingleBook = async (id: string) => {
   return book;
 };
 
+const addReview = async (review: string, user: JwtPayload | null, bookId: string) => {
+  const book = await Book.findById(bookId);
+
+  if (!book) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Book not found');
+  }
+const email = user?.email;
+
+console.log({email, review},'checking');
+const payload = {email, review};
+
+  book?.reviews?.push({email,review});
+
+  await book.save();
+
+  return book;
+}
+
 export const bookService = {
   addBook,
   getAllBooks,
   getSingleBook,
+  addReview,
 };

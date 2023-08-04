@@ -1,7 +1,7 @@
-import { Model, Schema } from 'mongoose';
+import { Model } from 'mongoose';
 
 export type reviews = {
-  userId: Schema.Types.ObjectId;
+  email: string;
   review: string;
 };
 

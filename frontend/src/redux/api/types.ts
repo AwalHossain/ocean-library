@@ -24,3 +24,9 @@ export type IUser = {
     finishedList?: string[];
     _id: string;
   };
+
+
+  export type IReview = {
+    _id: string;
+    review: string
+  }

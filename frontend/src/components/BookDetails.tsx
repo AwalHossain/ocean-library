@@ -1,6 +1,7 @@
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { FaClipboardList } from "react-icons/fa6";
 import { HiOutlineClipboardList } from "react-icons/hi";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAddToReadingListMutation, useAddToWishListMutation, useGetReadingListQuery, useGetWishListQuery, useRemoveFromReadingListMutation, useRemoveFromWishListMutation } from "../redux/feature/book/bookApi";
 import { useAppSelector } from "../redux/hooks";
@@ -91,6 +92,8 @@ const wishlisted = wishlist?.some((wishlistBook: IBook) => wishlistBook._id === 
 const verifiedUser = user?.email;
   
   return (
+    <>
+    <Link to={`/book-details/${book._id}`} className="text-black">
     <div key={key} className="flex flex-col md:flex-col items-center md:items-start border border-gray-200 rounded-lg p-4 shadow-md">
       <div className="flex items-center md:justify-center mb-4 md:mb-0 md:mr-4">
         <img
@@ -163,10 +166,11 @@ const verifiedUser = user?.email;
           <div className="flex space-x-1 md:space-x-2">
             {/* Render stars dynamically based on book rating */}
           </div>
-          <p className="text-base md:text-lg font-semibold text-indigo-500">{book.price}</p>
         </div>
       </div>
     </div>
+     </Link>
+     </>
   )
 }
 

@@ -19,6 +19,10 @@ router.get('/:id',
 auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
 BookController.getSingleBook);
 
+router.patch('/review/:bookId',
+auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
+BookController.addReview);
+
 
 
 export const BookRoutes = router;
