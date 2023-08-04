@@ -1,4 +1,5 @@
 export type IBook = {
+  addedBy?: string;
   title: string;
   author: string;
   thumbnail: string;
@@ -9,6 +10,7 @@ export type IBook = {
   publicationYear: string;
   reviews?: string[];
   _id: string;
+  // addedby: string;
 };
 
   export interface IUser{

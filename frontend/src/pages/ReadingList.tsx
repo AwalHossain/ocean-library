@@ -36,7 +36,9 @@ export default function ReadlingList() {
                 </tr>
               </thead>
               <tbody>
-                {readingList?.map((book:IBook, idx:number) => (
+                {
+                readingList?.length! > 0 ?
+                readingList?.map((book:IBook, idx:number) => (
                   <tr key={book._id} className={idx % 2 === 0 ? "bg-neutral-light" : ""}>
                     <td className="px-4 py-2">{idx + 1}</td>
                     <td className="px-4 py-2">{book.title}</td>
@@ -64,7 +66,13 @@ export default function ReadlingList() {
                       </button>
                     </td>
                   </tr>
-                ))}
+                ))
+                        : (
+                          <div className='flex flex-col items-center justify-center my-12'>
+                              <h1 className='text-3xl font-bold text-gray-600'>No Books in ReadingList</h1>
+                          </div>
+                      )
+              }
               </tbody>
             </table>
           </div>

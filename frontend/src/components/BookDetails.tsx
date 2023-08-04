@@ -1,11 +1,13 @@
+import { useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { FaClipboardList } from "react-icons/fa6";
+import { FaClipboardList, FaPencil, FaTrash } from "react-icons/fa6";
 import { HiOutlineClipboardList } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAddToReadingListMutation, useAddToWishListMutation, useGetReadingListQuery, useGetWishListQuery, useRemoveFromReadingListMutation, useRemoveFromWishListMutation } from "../redux/feature/book/bookApi";
 import { useAppSelector } from "../redux/hooks";
 import { IBook } from "../types";
+import DeleteModal from "./DeleteModal";
 
 const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
 
@@ -17,7 +19,9 @@ const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
   const {data:finish } = useGetReadingListQuery(undefined)
   const [removeFromReadingList] = useRemoveFromReadingListMutation()
   // const {data: finishedList} = useGetFinishedListQuery(undefined)
+  const [showModal, setShowModal] = useState(false);
 
+  
     const {wishlist,readingList}  = useAppSelector(state => state.userBookState)
     const {user}  = useAppSelector(state => state.userState)
     
@@ -89,11 +93,16 @@ const wishlisted = wishlist?.some((wishlistBook: IBook) => wishlistBook._id === 
 //  console.log(readinglist, 'readinglist');
  
 
-const verifiedUser = user?.email;
+
+const navigate = useNavigate();
+
+const verifiedUser = user?.email 
+const athorizedUser = user?.email && book?.addedBy === user.email;
+  console.log(athorizedUser, 'athorizedUser', book, user?.email);
   
   return (
     <>
-    <Link to={`/book-details/${book._id}`} className="text-black">
+
     <div key={key} className="flex flex-col md:flex-col items-center md:items-start border border-gray-200 rounded-lg p-4 shadow-md">
       <div className="flex items-center md:justify-center mb-4 md:mb-0 md:mr-4">
         <img
@@ -109,6 +118,7 @@ const verifiedUser = user?.email;
             {/* Wishlist Button */}
           {
             verifiedUser && 
+            <div>
             <div className=" flex justify-end space-x-2">
                 <button className="btn btn-circle text-info text-2xl">
                 {readinglisted ? (
@@ -127,36 +137,31 @@ const verifiedUser = user?.email;
               </button>
             
             </div>
+            </div>
           }
-            {/* Delete Button */}
-            {/* <button onClick={() => handleDelete(book.id)} className="transition ease-out duration-150">
-            <TrashIcon className="w-6 h-6" />
-          </button> */}
+          {
+            athorizedUser && 
+            <div className="flex items-center gap-x-2 mt-8">
+            <h4 className="font-semibold">Action Center :</h4>
+            <button
+              // onClick={handleUpdateBook}
+              className="bg-cyan-700 hover:bg-cyan-800 p-2 rounded-full tooltip"
+              data-tip="Update Book"
+            >
+              <FaPencil className="text-white" />
+            </button>
+            <button
+              onClick={() => setShowModal(true)}
+              className="bg-red-700 hover:bg-red-800 p-2 rounded-full tooltip"
+              data-tip="Delete Book"
+            >
+              <FaTrash className="text-white" />
+            </button>
+          </div>
+          }
           </div>
 
           <div className="text-gray-500 space-x-2">
-            <button onClick={() => handleClick(book._id)} className="transition ease-out duration-150">
-              <svg
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                {/* <!-- SVG path for the edit icon --> */}
-              </svg>
-            </button>
-            <button onClick={() => handleDelete(book._id)} className="transition ease-out duration-150">
-              <svg
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                {/* <!-- SVG path for the delete icon --> */}
-              </svg>
-            </button>
           </div>
         </div>
 
@@ -165,11 +170,17 @@ const verifiedUser = user?.email;
           <p className="text-sm md:text-base text-gray-600">{book.author}</p>
           <div className="flex space-x-1 md:space-x-2">
             {/* Render stars dynamically based on book rating */}
+            <Link
+        to={`/book-details/${book._id}`}
+        className="bg-blue-500 text-white px-4 py-2 rounded-md font-bold hover:bg-blue-600"
+      >
+        See Details
+      </Link>
           </div>
         </div>
       </div>
     </div>
-     </Link>
+      {showModal && <DeleteModal book={book} setShowModal={setShowModal} />}
      </>
   )
 }

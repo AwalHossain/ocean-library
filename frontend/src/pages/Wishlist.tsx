@@ -34,7 +34,7 @@ export const Wishlist = () => {
             <div className='grid grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-3 px-5'>
 
                 {
-                    verifiedUser &&
+                    verifiedUser && wishlist?.wishlist.length >0 ?
                     wishlist?.wishlist?.map((book: IBook, index: number) => <div key={index} className="flex flex-col md:flex-col items-center md:items-start border border-gray-200 rounded-lg p-4 shadow-md">
                         <div className="flex items-center md:justify-center mb-4 md:mb-0 md:mr-4">
                             <img
@@ -100,6 +100,11 @@ export const Wishlist = () => {
                             </div>
                         </div>
                     </div>)
+                    : (
+                        <div className='flex flex-col items-center justify-center my-12'>
+                            <h1 className='text-3xl font-bold text-gray-600'>No Books in Wishlist</h1>
+                        </div>
+                    )
                 }
             </div>
 
