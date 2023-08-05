@@ -3,12 +3,18 @@
 import { Disclosure } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
-import { useAppSelector } from "../redux/hooks";
+import { logout } from "../redux/feature/auth/userSlice";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import SharedUserMenu from "./ShareMenus";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 const Navbar = () => {
   const { user } = useAppSelector(state => state.userState)
+  const dispatch = useAppDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   const navigation: { [key: string]: string } = {
     "Home": "/",
@@ -18,10 +24,10 @@ const Navbar = () => {
     "Addbook": "/addBook",
   }
 
-    // Filter the navigation links based on the availability of the user
-    const filteredNavigation = user
+  // Filter the navigation links based on the availability of the user
+  const filteredNavigation = user
     ? navigation
-    : Object.fromEntries(Object.entries(navigation).filter(([key]) => key !== "wishlist" && key !== "readingList"  && key !== "addbook"));
+    : Object.fromEntries(Object.entries(navigation).filter(([key]) => key !== "wishlist" && key !== "readinglist" && key !== "Addbook"));
 
 
 
@@ -45,7 +51,7 @@ const Navbar = () => {
                         className="w-8"
                       /> */}
                     </span>
-                    <span>Nextly</span>
+                    <span>Bookly</span>
                   </span>
                 </a>
 
@@ -93,16 +99,9 @@ const Navbar = () => {
                           <DropdownMenuLabel>Account</DropdownMenuLabel>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem className="cursor-pointer">
-                            Profile
-                          </DropdownMenuItem>
-                          <DropdownMenuItem className="cursor-pointer">
-                            Billing
-                          </DropdownMenuItem>
-                          <DropdownMenuItem className="cursor-pointer">
-                            Team
-                          </DropdownMenuItem>
-                          <DropdownMenuItem className="cursor-pointer">
-                            Subscription
+                            <Link onClick={handleLogout} to="/Login">
+                              Logout
+                            </Link>
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>

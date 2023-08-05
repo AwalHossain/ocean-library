@@ -1,17 +1,4 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
+
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon, FunnelIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import { XMarkIcon } from '@heroicons/react/24/outline'
@@ -56,16 +43,16 @@ export default function Books() {
     `?${searchParams.toString()}`
   );
 
-  const debouncedRefetch = debounce(refetch, 500); 
+  const debouncedRefetch = debounce(refetch, 500);
 
   useEffect(() => {
-      // Call the debounced function whenever searchQuery, genre, or publicationYear changes
-      debouncedRefetch();
+    // Call the debounced function whenever searchQuery, genre, or publicationYear changes
+    debouncedRefetch();
 
-      // Clean up the debounced function on unmount
-      return () => {
-        debouncedRefetch.cancel();
-      };
+    // Clean up the debounced function on unmount
+    return () => {
+      debouncedRefetch.cancel();
+    };
   }, [genre, publicationYear, searchQuery]);
 
   const handleClearFilters = () => {
@@ -73,7 +60,7 @@ export default function Books() {
     setGenre('');
     setPublicationYear('');
   }
-  
+
   return (
     <div className="bg-white">
       <div>
@@ -158,12 +145,26 @@ export default function Books() {
 
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-12">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900">
-              <Link to="/addbook">
-              Add Book
-              </Link>
-            </h1>
+
+
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-indigo-700 leading-tight mt-8 mb-4 relative">
+                New Arrivals
+                <svg className="hidden md:inline absolute -top-8 right-0 h-8 w-8 text-yellow-500 animate-bounce" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path d="M10 18a8 8 0 100-16 8 8 0 000 16z" />
+                  <path fillRule="evenodd" d="M10 3a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M10 5a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M10 7a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+                </svg>
+              </h1>
+
+              {/* Add Book Link */}
+              <h1 className="text-4xl md:text-3xl font-bold tracking-tight text-indigo-700 leading-tight mb-4">
+                <Link to="/addbook" className="hover:text-indigo-900 transition-colors duration-300">
+                  Add Book
+                </Link>
+              </h1>
+
+
 
             <div className="flex items-center">
               <Menu as="div" className="relative inline-block text-left">
@@ -177,7 +178,7 @@ export default function Books() {
                   </Menu.Button>
                 </div>
 
-                <Transition
+                {/* <Transition
                   as={Fragment}
                   enter="transition ease-out duration-100"
                   enterFrom="transform opacity-0 scale-95"
@@ -185,8 +186,8 @@ export default function Books() {
                   leave="transition ease-in duration-75"
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
-                >
-                  <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+                > */}
+                {/* <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
                       {sortOptions.map((option) => (
                         <Menu.Item key={option.name}>
@@ -206,7 +207,7 @@ export default function Books() {
                       ))}
                     </div>
                   </Menu.Items>
-                </Transition>
+                </Transition> */}
               </Menu>
 
               <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
@@ -225,9 +226,6 @@ export default function Books() {
           </div>
 
           <section aria-labelledby="products-heading" className="pb-24 pt-6">
-            <h2 id="products-heading" className="sr-only">
-              AddBook
-            </h2>
 
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
@@ -236,13 +234,13 @@ export default function Books() {
                 <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
                   <li
                   >
-        <input
-          className="border rounded-l py-2 px-4 w-64 focus:outline-none focus:ring focus:border-blue-300"
-          type="text"
-          placeholder="Search books"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
+                    <input
+                      className="border rounded-l py-2 px-4 w-64 focus:outline-none focus:ring focus:border-blue-300"
+                      type="text"
+                      placeholder="Search books"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
                     <select
                       onChange={(e) => setGenre((e.target.value))}
                       className="select border-2 py-2 w-64 px-4 my-2 border-slate-500 select-ghost w-full max-w-[200px]"
@@ -280,10 +278,11 @@ export default function Books() {
                   </li>
                   <button
                     onClick={() => handleClearFilters()}
-                    className="btn btn-secondary"
+                    className="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-md focus:outline-none focus:ring focus:ring-gray-300"
                   >
-                    Clear
+                    Clear Filter
                   </button>
+
                 </ul>
 
               </form>
@@ -292,8 +291,8 @@ export default function Books() {
               <div className="lg:col-span-3">
                 <BookCard
                   books={books?.data}
-                 isFetching={isFetching}
-                 isSuccess = {isSuccess}
+                  isFetching={isFetching}
+                  isSuccess={isSuccess}
                 />
               </div>
             </div>

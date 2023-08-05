@@ -18,12 +18,15 @@ router.get('/:id',
 BookController.getSingleBook);
 
 router.patch('/review/:bookId',
+auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
 BookController.addReview);
 
 router.patch('/:bookId',
+auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
 BookController.editBook
 )
 router.delete('/:bookId',
+auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
 BookController.deleteBook
 )
 
