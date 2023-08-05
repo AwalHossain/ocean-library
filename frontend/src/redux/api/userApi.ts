@@ -9,7 +9,7 @@ const cookie = Cookies.get('refreshToken')
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://newbook-ten.vercel.app/api/v1/",
+    baseUrl: "https://bookish-server-production.up.railway.app/api/v1",
     credentials: "include",
     prepareHeaders: (headers, {  }) => {
       // const token = cookie
