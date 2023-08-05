@@ -9,7 +9,7 @@ import cookieParser from 'cookie-parser';
 const app: Application = express();
 
 app.use(cors({
-  origin: 'http://127.0.0.1:4000',
+  origin: '*',
   credentials: true,
 }));
 app.use(cookieParser());
@@ -18,8 +18,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use('/api/v1/users/', UserRoutes);
-// app.use('/api/v1/academic-semesters', AcademicSemesterRoutes);
+
 app.use('/api/v1', routes);
 
 //Testing

@@ -9,7 +9,7 @@ const cookie = Cookies.get('refreshToken')
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/v1/",
+    baseUrl: "https://bookish-liard.vercel.app/api/v1/",
     credentials: "include",
     prepareHeaders: (headers, { getState }) => {
       // const token = cookie
