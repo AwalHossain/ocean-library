@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { BsArrowReturnRight } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -17,6 +17,10 @@ type IReview = {
 
 }
 
+type ReviewFormInputs = {
+    data: IReview;
+
+}
 
 
 const Reviews: React.FC<ReviewsProps> = ({ bookId }) => {
@@ -33,12 +37,15 @@ const Reviews: React.FC<ReviewsProps> = ({ bookId }) => {
   const { user } = useAppSelector((state) => state.userState);
 
 
-  const onSubmit = (data: ReviewFormInputs) => {
+
+
+  const onSubmit: SubmitHandler<ReviewFormInputs> = (data) => {
     const payload = { email: user?.email, ...data, bookId };
     console.log(payload, 'checkin');
-    addReview(payload)
+    addReview(payload);
     // reset();
   };
+  
   // console.log(reviews.review,'reviews');
 
   useEffect(() => {
@@ -57,7 +64,7 @@ const Reviews: React.FC<ReviewsProps> = ({ bookId }) => {
         <h4 className="text-xl font-semibold">User Reviews:</h4>
         <div className="bg-gray-300 h-[0.5px]" />
         <div className="mt-3">
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit as SubmitHandler<FieldValues>)}>
             <div className="flex flex-col md:flex-row md:gap-3 items-end">
               <textarea
                 rows={4}
@@ -103,8 +110,8 @@ const Reviews: React.FC<ReviewsProps> = ({ bookId }) => {
                 <div className="mt-6">
                   <h2 className="text-2xl font-semibold mb-4">Reviews:</h2>
                   <div className="space-y-4">
-                    {book.reviews.map((review) => (
-                      <div key={review?._id} className="bg-white rounded-lg shadow-md p-4">
+                    {book.reviews.map((review,index) => (
+                      <div key={index} className="bg-white rounded-lg shadow-md p-4">
                         <h4 className="font-medium text-accent text-sm mb-2">{review?.email}</h4>
                         <div className="flex items-center mt-1">
                           <BsArrowReturnRight className="text-lg text-slate-400" />
@@ -114,7 +121,6 @@ const Reviews: React.FC<ReviewsProps> = ({ bookId }) => {
                     ))}
                   </div>
                 </div>
-
               )
             }
 

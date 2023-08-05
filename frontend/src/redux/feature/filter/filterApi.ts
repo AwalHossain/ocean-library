@@ -29,7 +29,7 @@ const filterApi = api.injectEndpoints({
       providesTags: ['Reviews'],
       transformResponse: (result: { data: IBook }) =>
         result.data,
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
 
@@ -46,9 +46,9 @@ const filterApi = api.injectEndpoints({
         };
       },
       providesTags: ['Books'],
-      transformResponse: (result: { data: { data: IBook } }) =>
+      transformResponse: (result: { data: { data: IBook[] } }) =>
         result.data,
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           dispatch(setBook(data.data));
@@ -86,9 +86,9 @@ const filterApi = api.injectEndpoints({
         };
       },
       providesTags: ['Books'],
-      transformResponse: (result: { data: { data: IBook } }) =>
+      transformResponse: (result: { data: { data: IBook[] } }) =>
         result.data,
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           console.log(data.data, "chekolo");

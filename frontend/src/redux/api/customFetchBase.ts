@@ -1,13 +1,13 @@
 import {
-    BaseQueryFn,
-    FetchArgs,
-    fetchBaseQuery,
-    FetchBaseQueryError,
+  BaseQueryFn,
+  FetchArgs,
+  fetchBaseQuery,
+  FetchBaseQueryError,
 } from '@reduxjs/toolkit/query';
 import { Mutex } from 'async-mutex';
 import { logout } from '../feature/auth/userSlice';
   
-  const baseUrl = `http://127.0.0.1:3000/api/v1/`;
+  const baseUrl = `https://bookish-awalhossain.vercel.app/api/v1/`;
   
   // Create a new mutex
   const mutex = new Mutex();

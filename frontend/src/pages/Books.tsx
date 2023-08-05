@@ -6,9 +6,10 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 import { debounce } from 'lodash'
 import { Fragment, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { BookCard } from '../components/BookCard'
+import BookDetails from '../components/BookDetails'
 import { useFilterBooksQuery } from '../redux/feature/filter/filterApi'
 import { useAppSelector } from '../redux/hooks'
+import { IBook } from '../types'
 
 const sortOptions = [
   { name: 'Most Popular', href: '#', current: true },
@@ -41,7 +42,12 @@ export default function Books() {
 
   const { data: books, refetch, isFetching, isSuccess } = useFilterBooksQuery(
     `?${searchParams.toString()}`
-  );
+  )
+
+ // Check if books is defined before assigning it to bookContent
+
+let bookContent: IBook[] = books?.data ?? [];
+
 
   const debouncedRefetch = debounce(refetch, 500);
 
@@ -147,22 +153,22 @@ export default function Books() {
           <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-12">
 
 
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-indigo-700 leading-tight mt-8 mb-4 relative">
-                New Arrivals
-                <svg className="hidden md:inline absolute -top-8 right-0 h-8 w-8 text-yellow-500 animate-bounce" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path d="M10 18a8 8 0 100-16 8 8 0 000 16z" />
-                  <path fillRule="evenodd" d="M10 3a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
-                  <path fillRule="evenodd" d="M10 5a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
-                  <path fillRule="evenodd" d="M10 7a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
-                </svg>
-              </h1>
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-indigo-700 leading-tight mt-8 mb-4 relative">
+              New Arrivals
+              <svg className="hidden md:inline absolute -top-8 right-0 h-8 w-8 text-yellow-500 animate-bounce" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path d="M10 18a8 8 0 100-16 8 8 0 000 16z" />
+                <path fillRule="evenodd" d="M10 3a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+                <path fillRule="evenodd" d="M10 5a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+                <path fillRule="evenodd" d="M10 7a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+              </svg>
+            </h1>
 
-              {/* Add Book Link */}
-              <h1 className="text-4xl md:text-3xl font-bold tracking-tight text-indigo-700 leading-tight mb-4">
-                <Link to="/addbook" className="hover:text-indigo-900 transition-colors duration-300">
-                  Add Book
-                </Link>
-              </h1>
+            {/* Add Book Link */}
+            <h1 className="text-4xl md:text-3xl font-bold tracking-tight text-indigo-700 leading-tight mb-4">
+              <Link to="/addbook" className="hover:text-indigo-900 transition-colors duration-300">
+                Add Book
+              </Link>
+            </h1>
 
 
 
@@ -289,11 +295,17 @@ export default function Books() {
 
               {/* Product grid */}
               <div className="lg:col-span-3">
-                <BookCard
-                  books={books?.data}
-                  isFetching={isFetching}
-                  isSuccess={isSuccess}
-                />
+                <div className='container'>
+
+                  <div className='grid grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-3 px-5'>
+                    {
+                      isFetching ? <h1>Loading...</h1> :
+                        isSuccess && bookContent?.map((book: IBook, index: number) => <BookDetails book={book} key={index} />)
+                    }
+
+                  </div>
+                </div>
+
               </div>
             </div>
           </section>

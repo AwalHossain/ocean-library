@@ -27,7 +27,7 @@ function Signup() {
 
         setAuthLoading(true);
         try {
-            const { data: res } = await registerUser(data);
+            const { data: res } = await registerUser(data) as { data: any };
             console.log(res, "ree");
 
             const cookie = res.data.refreshToken;

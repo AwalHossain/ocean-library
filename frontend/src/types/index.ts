@@ -1,3 +1,5 @@
+import { IReview } from "../redux/api/types";
+
 export type IBook = {
   addedBy?: string;
   title: string;
@@ -8,7 +10,7 @@ export type IBook = {
   featured: boolean;
   genre: string;
   publicationYear: string;
-  reviews?: string[];
+  reviews?: IReview[];
   _id: string;
   // addedby: string;
 };

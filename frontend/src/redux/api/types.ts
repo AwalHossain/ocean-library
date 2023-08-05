@@ -18,7 +18,7 @@ export type IUser = {
     featured: boolean;
     genre: string;
     publicationYear: string;
-    reviews?: string[];
+    reviews?: IReview[];
     wishlist?: string[];
     readingList?: string[];
     finishedList?: string[];
@@ -28,5 +28,6 @@ export type IUser = {
 
   export type IReview = {
     _id: string;
-    review: string
+    email: string;
+    review: string;
   }

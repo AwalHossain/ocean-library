@@ -77,7 +77,7 @@ const Hero = () => {
 
 const AmazonLogo = () => (
   <img
-    src={amazonLogo}
+    src={'amazonLogo'}
     alt="Amazon Logo"
     className="h-8 object-contain opacity-70"
   />
@@ -85,7 +85,7 @@ const AmazonLogo = () => (
 
 const MicrosoftLogo = () => (
   <img
-    src={microsoftLogo}
+    src={''}
     alt="Microsoft Logo"
     className="h-8 object-contain opacity-70"
   />
@@ -93,7 +93,7 @@ const MicrosoftLogo = () => (
 
 const NetflixLogo = () => (
   <img
-    src={netflixLogo}
+    src={''}
     alt="Netflix Logo"
     className="h-8 object-contain opacity-70"
   />
@@ -101,7 +101,7 @@ const NetflixLogo = () => (
 
 const SonyLogo = () => (
   <img
-    src={sonyLogo}
+    src={'sonyLogo'}
     alt="Sony Logo"
     className="h-8 object-contain opacity-70"
   />

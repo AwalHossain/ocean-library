@@ -9,9 +9,9 @@ const cookie = Cookies.get('refreshToken')
 export const api = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://bookish-liard.vercel.app/api/v1/",
+        baseUrl: "https://bookish-awalhossain.vercel.app/api/v1/",
         credentials: "include",
-        prepareHeaders: (headers, { getState }) => {
+        prepareHeaders: (headers, { }) => {
           // const token = cookie
           if (cookie) {
            // include token in req header

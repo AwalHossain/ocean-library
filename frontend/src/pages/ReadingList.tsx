@@ -15,8 +15,10 @@ export default function ReadlingList() {
     const result = await addToFinishedList(payload);
     console.log(result,'result');
     
-     if ( result?.data?.success)
-      toast.success("Congratulation! You've read another book ");
+    if ((result as { data: any; }).data?.success) {
+       toast.success("Congratulation! You've read another book ");
+       
+    }
     };
   
     return (

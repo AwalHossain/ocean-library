@@ -6,10 +6,12 @@ import { useAppSelector } from '../redux/hooks'
 import { IBook } from '../types'
 
 export const Wishlist = () => {
-    const { data: wishlist } = useGetWishListQuery(undefined)
+    const { data } = useGetWishListQuery(undefined)
     const { user } = useAppSelector(state => state.userState)
     const [removeFromWishList] = useRemoveFromWishListMutation();
 
+   // Check if 'data' is defined and then extract the array using optional chaining and nullish coalescing
+const wishlist: IBook[] = data?.wishlist ?? [];
 
     console.log('hellog from wish', wishlist);
 
@@ -17,7 +19,7 @@ export const Wishlist = () => {
         try {
             const result = await removeFromWishList(bookId)
 
-            if (result?.data?.success) {
+            if ((result as { data: any; }).data?.success) {
                 toast.success('Books removed from wishlist')
             }
 
@@ -34,8 +36,8 @@ export const Wishlist = () => {
             <div className='grid grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-3 px-5'>
 
                 {
-                    verifiedUser && wishlist?.wishlist.length >0 ?
-                    wishlist?.wishlist?.map((book: IBook, index: number) => <div key={index} className="flex flex-col md:flex-col items-center md:items-start border border-gray-200 rounded-lg p-4 shadow-md">
+                    verifiedUser && wishlist.length >0 ?
+                    wishlist?.map((book: IBook, index: number) => <div key={index} className="flex flex-col md:flex-col items-center md:items-start border border-gray-200 rounded-lg p-4 shadow-md">
                         <div className="flex items-center md:justify-center mb-4 md:mb-0 md:mr-4">
                             <img
                                 className="h-[240px] w-[170px] object-cover md:w-48 md:h-64 lws-bookThumbnail"

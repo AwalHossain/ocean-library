@@ -1,3 +1,5 @@
+
+
 import { useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { FaClipboardList, FaPencil, FaTrash } from "react-icons/fa6";
@@ -31,12 +33,9 @@ const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
   const onAddWishlist = async (bookId: string) => {
     try {
       const result = await addToWishList({ bookId: bookId })
-      console.log(result, 'result');
-
-      if (result?.data?.success) {
-        toast.success('Books added to Wishlist successfully')
-      }
-
+      if ((result as { data: any; }).data?.success) {
+        toast.success('Books added to Wishlist successfully');
+      }      
     } catch (error) {
       toast.error('Failed to add book to wishlist');
     }
@@ -48,7 +47,7 @@ const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
     try {
       const result = await removeFromWishList(bookId)
 
-      if (result?.data?.success) {
+      if ((result as { data: any; }).data?.success) {
         toast.success('Books removed from wishlist')
       }
 
@@ -65,7 +64,7 @@ const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
       const result = await addToReadingList({ bookId })
       console.log(result, 'result');
 
-      if (result?.data?.success) {
+      if ((result as { data: any; }).data?.success) {
         toast.success('Books added ReadingList')
       }
 
@@ -79,7 +78,7 @@ const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
       const result = await removeFromReadingList(bookId)
       console.log(result, 'result');
 
-      if (result?.data?.success) {
+      if ((result as { data: any; }).data?.success) {
         toast.success('Books remove from ReadingList')
       }
 

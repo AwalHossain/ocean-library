@@ -30,9 +30,9 @@ const bookApi = api.injectEndpoints({
         credentials: "include",
       }),
       providesTags: ['Wishlist'],
-      transformResponse: (result: { data: { wishlist: IBook } }) =>
+      transformResponse: (result: { data: { wishlist: IBook[] } }) =>
         result.data,
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           dispatch(setWishList(data.wishlist));
@@ -70,7 +70,7 @@ const bookApi = api.injectEndpoints({
       providesTags: ['readingList'],
       transformResponse: (result: { data: { readingList: IBook } }) =>
         result.data,
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           dispatch(setReadingList(data.readingList));
@@ -108,7 +108,7 @@ const bookApi = api.injectEndpoints({
       providesTags: ['finishedList'],
       transformResponse: (result: { data: { finishedBooks: IBook } }) =>
       result.data,
-    async onQueryStarted(args, { dispatch, queryFulfilled }) {
+    async onQueryStarted(_args, { dispatch, queryFulfilled }) {
       try {
         const { data } = await queryFulfilled;
         dispatch(setFinishedList(data.finishedBooks));

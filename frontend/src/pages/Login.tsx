@@ -28,16 +28,17 @@ function Login() {
 
 
 
-    const handelLogin = async (data: IUser): Promise<void> => {
-        console.log(data, 'data');
+    const handelLogin = async (payload: IUser): Promise<void> => {
 
         setAuthLoading(true);
         try {
-            const { data: res } = await loginUser(data);
-            console.log(res, "ree");
-
-            const cookie = res.data.refreshToken;
-            Cookies.set("refreshToken", cookie, { expires: 365 });
+            const { data: res } = await loginUser(payload) as { data: any };
+    
+            // Use optional chaining to safely access the 'data' property
+            const cookie = res?.data?.refreshToken;
+            if (cookie) {
+                Cookies.set("refreshToken", cookie, { expires: 365 });
+            }
         } catch (error) {
             console.log(error);
         } finally {
