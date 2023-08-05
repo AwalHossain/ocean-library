@@ -1,0 +1,26 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserRoutes = void 0;
+const express_1 = require("express");
+const user_1 = require("../../../enums/user");
+const auth_1 = __importDefault(require("../../middlewares/auth"));
+const validateRequest_1 = __importDefault(require("../../middlewares/validateRequest"));
+const user_controller_1 = require("./user.controller");
+const user_validation_1 = require("./user.validation");
+const router = (0, express_1.Router)();
+router.post('/create', (0, validateRequest_1.default)(user_validation_1.UserValidation.loginRegistrationZodSchema), user_controller_1.UserController.createUser);
+router.post('/login', (0, validateRequest_1.default)(user_validation_1.UserValidation.loginRegistrationZodSchema), user_controller_1.UserController.loginUser);
+router.post('/refresh-token', (0, validateRequest_1.default)(user_validation_1.UserValidation.refreshTokenZodSchema), (0, auth_1.default)(user_1.ENUM_USER_ROLE.USER), user_controller_1.UserController.refreshToken);
+router.post('/wishlist', (0, auth_1.default)(user_1.ENUM_USER_ROLE.USER), user_controller_1.UserController.wishlist);
+router.get('/wishlist', (0, auth_1.default)(user_1.ENUM_USER_ROLE.USER), user_controller_1.UserController.getWishList);
+router.patch('/wishlist/:bookId', (0, auth_1.default)(user_1.ENUM_USER_ROLE.USER), user_controller_1.UserController.removeFromWishlist);
+router.post('/readinglist', (0, auth_1.default)(user_1.ENUM_USER_ROLE.USER), user_controller_1.UserController.readingList);
+router.get('/readinglist', (0, auth_1.default)(user_1.ENUM_USER_ROLE.USER), user_controller_1.UserController.getReadingList);
+router.patch('/readinglist/:bookId', (0, auth_1.default)(user_1.ENUM_USER_ROLE.USER), user_controller_1.UserController.removeFromReadingList);
+router.post('/finishedBook', (0, auth_1.default)(user_1.ENUM_USER_ROLE.USER), user_controller_1.UserController.finishedBooks);
+router.get('/finishedBook', (0, auth_1.default)(user_1.ENUM_USER_ROLE.USER), user_controller_1.UserController.getFinishedBooks);
+router.get('/me', (0, auth_1.default)(user_1.ENUM_USER_ROLE.USER), user_controller_1.UserController.getMe);
+exports.UserRoutes = router;
