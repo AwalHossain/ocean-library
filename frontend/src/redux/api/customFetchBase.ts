@@ -7,7 +7,7 @@ import {
 import { Mutex } from 'async-mutex';
 import { logout } from '../feature/auth/userSlice';
   
-  const baseUrl = `https://bookish-awalhossain.vercel.app/api/v1/`;
+  const baseUrl = `https://newbook-ten.vercel.app/api/v1/`;
   
   // Create a new mutex
   const mutex = new Mutex();

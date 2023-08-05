@@ -9,7 +9,7 @@ import cookieParser from 'cookie-parser';
 const app: Application = express();
 
 app.use(cors({
-  origin: '*',
+  origin: 'https://bookishly.netlify.app',
   credentials: true,
 }));
 app.use(cookieParser());
