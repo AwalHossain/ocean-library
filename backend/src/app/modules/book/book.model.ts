@@ -39,6 +39,10 @@ const BookSchema = new Schema<IBook>({
     ref: 'User',
   }
     
-});
+},
+  {
+    timestamps: true,
+  }
+);
 
 export const Book = model<IBook, BookModel>('Book', BookSchema);

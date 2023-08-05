@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAddBookMutation } from "../redux/feature/book/bookApi";
 import { useAppSelector } from "../redux/hooks";
 import { IBook } from "../types";
 
 export default function AddBook() {
-    const [addBook, { isSuccess, isError /* isLoading */ }] =useAddBookMutation();
+    const [addBook, { isSuccess, isError ,isLoading  }] =useAddBookMutation();
     const { user } = useAppSelector((state) => state.userState);
   
     const {
@@ -15,12 +16,17 @@ export default function AddBook() {
       formState: { errors },
       reset,
     } = useForm<IBook>();
+    const navigate = useNavigate();
   
     const onSubmit = (data: IBook) => {
       const payload = { ...data, addedBy: user?.email };
       console.log(payload);
       
       addBook(payload);
+        
+      setTimeout(()=>{
+        navigate('/books')
+      },2000)
     //   reset();
     };
   
@@ -41,7 +47,7 @@ export default function AddBook() {
                 </label>
                 <input
                   type="text"
-                  placeholder="Paramoy Life"
+                  placeholder="Book Name"
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
                   {...register("title", { required: "Title is required" })}
                 />
@@ -55,7 +61,7 @@ export default function AddBook() {
                 </label>
                 <input
                   type="text"
-                  placeholder="Jhankar Mahbub"
+                  placeholder="Book Author Name"
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
                   {...register("author", { required: "Author is required" })}
                 />
@@ -125,12 +131,25 @@ export default function AddBook() {
           )}
         </div>
               <div className="mt-6">
+                {
+                  isLoading ? (
+                    <button
+                    type="submit"
+                    disabled
+                    className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none"
+                  >
+                    Loading....
+                  </button>
+                  ): (
+
                 <button
                   type="submit"
                   className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none"
                 >
                   Add Book
                 </button>
+                  )
+                }
               </div>
             </form>
           </div>

@@ -41,10 +41,11 @@ const filterApi = api.injectEndpoints({
     filterBooks: builder.query({
       query(data) {
         return {
-          url: `book/all/${data}`,
+          url: `book/all/${data}&sortBy=${'createdAt'}&sortOrder=${'desc'}`,
           credentials: "include",
         };
       },
+      providesTags: ['Books'],
       transformResponse: (result: { data: { data: IBook } }) =>
         result.data,
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
@@ -67,13 +68,24 @@ const filterApi = api.injectEndpoints({
       }
       // invalidatesTags: ["Books"],
     }),
+    deleteBook: builder.mutation({
+      query(data) {
+        return {
+          url: `book/${data}`,
+          method: "DELETE",
+          credentials: "include",
+        }
+      },
+      invalidatesTags: ["Books"],
+    }),
     getAllbooks: builder.query({
       query() {
         return {
-          url: `book/all?page=${1}&limit=${10}&sortBy=${'createdAt'}&sortOrder=${'asc'}`,
+          url: `book/all?page=${1}&limit=${10}&sortBy=${'createdAt'}&sortOrder=${'desc'}`,
           credentials: "include",
         };
       },
+      providesTags: ['Books'],
       transformResponse: (result: { data: { data: IBook } }) =>
         result.data,
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
@@ -94,5 +106,6 @@ const filterApi = api.injectEndpoints({
 
 
 export const { useAddReviewMutation,
+  useDeleteBookMutation,
   useEditBookMutation,
   useFilterBooksQuery, useGetAllbooksQuery, useGetSingleBookQuery } = filterApi;

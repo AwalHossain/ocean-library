@@ -15,13 +15,13 @@ const Navbar = () => {
     "Books": "/books",
     "wishlist": "/wishlist",
     "readinglist": "/readinglist",
-    "finishedBooks": "/finishedBooks",
+    "Addbook": "/addBook",
   }
 
     // Filter the navigation links based on the availability of the user
     const filteredNavigation = user
     ? navigation
-    : Object.fromEntries(Object.entries(navigation).filter(([key]) => key !== "wishlist" && key !== "readingList"  && key !== "finishedBooks"));
+    : Object.fromEntries(Object.entries(navigation).filter(([key]) => key !== "wishlist" && key !== "readingList"  && key !== "addbook"));
 
 
 

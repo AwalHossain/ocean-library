@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import { useDeleteBookMutation } from "../redux/feature/filter/filterApi";
 import { IBook } from "../types";
 
 
@@ -7,12 +10,19 @@ interface IDeleteModalProps {
 }
 
 export default function DeleteModal({ book, setShowModal }: IDeleteModalProps) {
-//   const [deleteBook] = useDeleteBookMutation();
+  const [deleteBook,{isLoading, isSuccess}] = useDeleteBookMutation();
 
   const onDeleteBook = () => {
-    // deleteBook(book._id);
+    deleteBook(book._id);
     setShowModal(false);
   };
+
+
+  useEffect(() => {
+    if(isSuccess){
+      toast.success("Book deleted successfully");
+    }
+  },[isSuccess])
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
