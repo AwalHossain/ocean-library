@@ -19,7 +19,7 @@ const createUser: RequestHandler = catchAsync(
       httpOnly: true,
     };
 
-    res.cookie('refreshToken', refreshToken, cookieOptions);
+    // res.cookie('refreshToken', refreshToken, cookieOptions);
 
     sendResponse(res, {
       statusCode: 200,
@@ -45,7 +45,7 @@ const loginUser: RequestHandler = catchAsync(
 
     };
 
-    res.cookie('refreshToken', refreshToken, cookieOptions);
+    // res.cookie('refreshToken', refreshToken, cookieOptions);
 
     sendResponse(res, {
       statusCode: 200,
