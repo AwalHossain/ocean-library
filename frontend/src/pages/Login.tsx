@@ -36,7 +36,9 @@ function Login() {
     
             // Use optional chaining to safely access the 'data' property
             const cookie = res?.data?.refreshToken;
+            
             if (cookie) {
+                console.log(cookie,"checking");
                 Cookies.set("refreshToken", cookie, { expires: 365 });
             }
         } catch (error) {

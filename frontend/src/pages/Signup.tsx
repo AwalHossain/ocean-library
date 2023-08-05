@@ -30,8 +30,11 @@ function Signup() {
             const { data: res } = await registerUser(data) as { data: any };
             console.log(res, "ree");
 
-            const cookie = res.data.refreshToken;
-            Cookies.set("refreshToken", cookie, { expires: 365 });
+            const cookie = res?.data?.refreshToken;
+            if(cookie){
+                Cookies.set("refreshToken", cookie, { expires: 365 });
+            
+            }
         } catch (error) {
             console.log(error);
         } finally {

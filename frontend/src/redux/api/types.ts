@@ -22,6 +22,7 @@ export type IUser = {
     wishlist?: string[];
     readingList?: string[];
     finishedList?: string[];
+    addedBy?: string;
     _id: string;
   };
 

@@ -26,7 +26,7 @@ const filterApi = api.injectEndpoints({
           credentials: "include",
         };
       },
-      providesTags: ['Reviews'],
+      providesTags: ['Reviews', 'Books'],
       transformResponse: (result: { data: IBook }) =>
         result.data,
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {

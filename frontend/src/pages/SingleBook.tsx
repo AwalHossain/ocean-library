@@ -1,15 +1,31 @@
 // BookDetails.tsx
 
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { FaPencil, FaTrash } from 'react-icons/fa6';
+import { useNavigate, useParams } from 'react-router-dom';
+import DeleteModal from '../components/DeleteModal';
 import Reviews from '../components/Reviews';
 import Container from '../components/container';
 import { useGetSingleBookQuery } from '../redux/feature/filter/filterApi';
+import { useAppSelector } from '../redux/hooks';
 
 
 const SingleBook = () => {
   const { id } = useParams()
-  const { data: book, isLoading, isSuccess } = useGetSingleBookQuery(id)
+  const { data: book, isLoading, isSuccess, isFetching,refetch } = useGetSingleBookQuery(id)
+  const [showModal, setShowModal] = useState(false);
 
+  const navigate = useNavigate();
+  const { user } = useAppSelector(state => state.userState)
+  const athorizedUser = user?.email && book?.addedBy === user.email;
+  
+    
+    // refetch()
+    useEffect(() => {
+      refetch()
+    },[showModal])
+ 
+  
   return (
     book && isSuccess ? (
       <>
@@ -54,6 +70,26 @@ const SingleBook = () => {
                 </div>
                 )} */}
             </div>
+            {
+                athorizedUser &&
+                <div className="flex items-center gap-x-2 mt-8">
+                  <h4 className="font-semibold">Action Center :</h4>
+                  <button
+                    onClick={() => navigate(`/update-book/${book._id}`)}
+                    className="bg-cyan-700 hover:bg-cyan-800 p-2 rounded-full tooltip"
+                    data-tip="Update Book"
+                  >
+                    <FaPencil className="text-white" />
+                  </button>
+                  <button
+                    onClick={() => setShowModal(true)}
+                    className="bg-red-700 hover:bg-red-800 p-2 rounded-full tooltip"
+                    data-tip="Delete Book"
+                  >
+                    <FaTrash className="text-white" />
+                  </button>
+                </div>
+              }
           </div>
         </Container>
         <div className='flex justify-center py-5'>
@@ -61,10 +97,11 @@ const SingleBook = () => {
           <Reviews bookId={book._id} />
           {/* <Review /> */}
         </div>
+        {showModal && <DeleteModal book={book} setShowModal={setShowModal} />}
       </>
 
     ) : (
-      <div>Loading...</div>
+      isFetching ? <div>Loading...</div>: <h2>No Book Found</h2>
     )
 
   )

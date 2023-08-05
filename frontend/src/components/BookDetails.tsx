@@ -97,7 +97,6 @@ const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
 
   const verifiedUser = user?.email
   const athorizedUser = user?.email && book?.addedBy === user.email;
-  console.log(athorizedUser, 'athorizedUser', book, user?.email);
 
   return (
     <>
