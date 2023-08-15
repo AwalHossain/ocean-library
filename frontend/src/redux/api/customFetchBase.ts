@@ -7,7 +7,7 @@ import {
 import { Mutex } from 'async-mutex';
 import { logout } from '../feature/auth/userSlice';
   
-  const baseUrl = `https://bookish-server.onrender.com/api/v1`;
+  const baseUrl = `http://127.0.0.1:5000/api/v1`;
   
   // Create a new mutex
   const mutex = new Mutex();

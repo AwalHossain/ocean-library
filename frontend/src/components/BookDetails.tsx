@@ -14,10 +14,10 @@ import DeleteModal from "./DeleteModal";
 const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
 
   // 👇 API Login Mutation
-  const [addToWishList] = useAddToWishListMutation();
+  const [addToWishList,{isLoading:wishLoad}] = useAddToWishListMutation();
   const { data: wish } = useGetWishListQuery(undefined)
   const [removeFromWishList] = useRemoveFromWishListMutation();
-  const [addToReadingList] = useAddToReadingListMutation();
+  const [addToReadingList,{isLoading:readingLoad}] = useAddToReadingListMutation();
   const { data: finish } = useGetReadingListQuery(undefined)
   const [removeFromReadingList] = useRemoveFromReadingListMutation()
   // const {data: finishedList} = useGetFinishedListQuery(undefined)
@@ -118,6 +118,8 @@ const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
                 verifiedUser &&
                 <div>
                   <div className=" flex justify-end space-x-2">
+                    {
+                    readingLoad  ? <span>Load...</span> :
                     <button className="btn btn-circle text-info text-2xl">
                       {readinglisted ? (
                         < AiFillHeart onClick={() => onUpdateReadinglist(book._id)} />
@@ -125,7 +127,9 @@ const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
                         < AiOutlineHeart onClick={() => onAddToReadingList(book._id)} />
                       )}
                     </button>
-
+                    }
+                    {
+                      wishLoad ? <span>Load...</span> :
                     <button className="btn btn-circle text-info text-2xl">
                       {wishlisted ?
                         (< FaClipboardList onClick={() => onRemoveFromWishlist(book._id)} />)
@@ -133,6 +137,7 @@ const BookDetails = ({ book, key }: { book: IBook, key: number }) => {
                         (< HiOutlineClipboardList onClick={() => onAddWishlist(book._id)} />)
                       }
                     </button>
+                    }
 
                   </div>
                 </div>
