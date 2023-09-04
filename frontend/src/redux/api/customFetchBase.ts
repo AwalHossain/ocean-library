@@ -7,7 +7,7 @@ import {
 import { Mutex } from 'async-mutex';
 import { logout } from '../feature/auth/userSlice';
   
-  const baseUrl = `http://127.0.0.1:5000/api/v1`;
+  const baseUrl = process.env.REACT_APP_BASE_URL || "https://bookish-server-production.up.railway.app/api/v1";
   
   // Create a new mutex
   const mutex = new Mutex();

@@ -6,10 +6,14 @@ import { IUser } from "./types";
 
 const cookie = Cookies.get('refreshToken')
 
+
+const BASE_URL ="https://bookend-awalho.vercel.app/api/v1"
+console.log();
+
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://127.0.0.1:5000/api/v1",
+    baseUrl: BASE_URL,
     credentials: "include",
     prepareHeaders: (headers, {  }) => {
       // const token = cookie

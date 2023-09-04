@@ -77,6 +77,7 @@ function Login() {
 
     return (
         <div className="flex  h-screen items-center justify-center bg-gray-100 py-10">
+            
             <form
                 onSubmit={handleSubmit(handelLogin)}
                 className="mx-6 flex w-full flex-col space-y-6 rounded-lg border bg-white px-7 py-10 shadow-lg lg:w-2/5"
@@ -85,6 +86,12 @@ function Login() {
                 <div className="mx-auto w-44">
                     <img className="mx-auto" src={logo} alt="logo" />
                 </div>
+
+                <div className="bg-gray-200 rounded-lg p-3 mb-6">
+              <p className="font-semibold">Default Login Credentials:</p>
+              <p>Email: admin@admin.com</p>
+              <p>Password: 123456</p>
+            </div>
 
                 {authLoading && (
                     <div>
