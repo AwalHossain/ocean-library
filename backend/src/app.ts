@@ -7,9 +7,12 @@ import routes from './app/routes';
 import cookieParser from 'cookie-parser';
 
 const app: Application = express();
-
+const allowedOrigins = [
+  'https://bookish-server-production.up.railway.app',
+  'http://127.0.0.1:5173'
+]
 app.use(cors({
-  origin: 'http://127.0.0.1:5173',
+  origin: allowedOrigins,
   credentials: true,
 }));
 app.use(cookieParser());
