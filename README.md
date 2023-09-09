@@ -16,20 +16,6 @@ Bookish is a web application that allows users to discover, review, and manage b
 - Add books: Logged-in users can add books to the website by providing the title, author, genre, publication date, and other information.
 - Delete books: Logged-in users can delete books they have added to the website.
 
-## Installation
-
-To run the frontend site, follow these steps:
-
-1. Navigate to the `frontend` folder.
-2. Run `yarn add` to download the required node modules.
-3. Run `yarn dev` to start the frontend server.
-
-To run the backend site, follow these steps:
-
-1. Navigate to the `backend` folder.
-2. Run `yarn add` to download the required dependencies.
-3. Run `yarn dev` to start the backend server.
-
 ## Usage
 
 Bookish is designed with simplicity in mind, offering an intuitive user interface and straightforward code structure.
@@ -56,6 +42,22 @@ Bookish is designed with simplicity in mind, offering an intuitive user interfac
 
 ### Delete books
 - Logged-in users have the ability to remove books they have added to the website.
+
+
+## Installation
+
+To run the frontend site, follow these steps:
+
+1. Navigate to the `frontend` folder.
+2. Run `yarn add` to download the required node modules.
+3. Run `yarn dev` to start the frontend server.
+
+To run the backend site, follow these steps:
+
+1. Navigate to the `backend` folder.
+2. Run `yarn add` to download the required dependencies.
+3. Run `yarn dev` to start the backend server.
+
 
 ## Contributing
 
