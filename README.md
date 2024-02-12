@@ -6,15 +6,8 @@
 ## live-link: https://bookishly.netlify.app/
 
 ## Description
+Bookish is a user-friendly web application designed to cater to book enthusiasts by providing a platform for discovering, reviewing, and managing books. With a focus on simplicity and intuitive design, Bookish offers a range of features to enhance the user experience. At its core, Bookish enables users to explore a vast collection of books through various means. Whether browsing through a comprehensive list or conducting targeted searches by title, author, or genre, users can easily find books of interest. Additionally, the application provides robust filtering options, allowing users to refine their search results based on specific criteria such as title, author, genre, and publication date
 
-Bookish is a web application that allows users to discover, review, and manage books. It offers the following features:
-
-- View books: Users can browse a list of all books on the website, or they can search for books by title, author, or genre.
-- Filter books: Users can filter the list of books by title, author, genre, publication date, and other criteria.
-- Add reviews: Logged-in users can add reviews for books they have read. Reviews should include a rating, a brief summary, and any other thoughts the user has about the book.
-- Wishlist: Logged-in users can add books to their wishlist and reading list.
-- Add books: Logged-in users can add books to the website by providing the title, author, genre, publication date, and other information.
-- Delete books: Logged-in users can delete books they have added to the website.
 
 ## Usage
 
