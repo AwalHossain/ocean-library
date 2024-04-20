@@ -1,17 +1,17 @@
-import { Outlet } from 'react-router-dom'
-import Footer from '../components/Footer'
-import Navbar from '../components/navbar'
+import { Header } from "@/components/header";
+import { Outlet } from "react-router-dom";
+import Footer from "../components/Footer";
 
-const MainLayout= () => {
+const MainLayout = () => {
   return (
-    <div>
-        <Navbar />
-        <div className="pt-16">
+    <div className="">
+      <Header />
+      <div className="py-16 md:container px-2">
         <Outlet />
       </div>
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default MainLayout
+export default MainLayout;
