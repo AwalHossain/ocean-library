@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    font-family: "poppins", sans-serif;
+    font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -34,6 +34,7 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+    background-color: #fff;
   }
 
   .dark {
@@ -85,5 +86,11 @@
   }
   .bg-main {
     @apply bg-[#5A471D];
+  }
+  .bg-book {
+    @apply bg-[#d8d8d84d];
+  }
+  .bg-hover {
+    @apply bg-[#D8D8D8];
   }
 }
