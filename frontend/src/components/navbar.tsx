@@ -1,15 +1,20 @@
-
-
 import { Disclosure } from "@headlessui/react";
 import { Link } from "react-router-dom";
-import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { logout } from "../redux/feature/auth/userSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import SharedUserMenu from "./ShareMenus";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 const Navbar = () => {
-  const { user } = useAppSelector(state => state.userState)
+  const { user } = useAppSelector((state) => state.userState);
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {
@@ -17,23 +22,25 @@ const Navbar = () => {
   };
 
   const navigation: { [key: string]: string } = {
-    "Home": "/",
-    "Books": "/books",
-    "wishlist": "/wishlist",
-    "readinglist": "/readinglist",
-    "Addbook": "/addBook",
-  }
+    Home: "/",
+    Books: "/books",
+    wishlist: "/wishlist",
+    readinglist: "/readinglist",
+    Addbook: "/addBook",
+  };
 
   // Filter the navigation links based on the availability of the user
   const filteredNavigation = user
     ? navigation
-    : Object.fromEntries(Object.entries(navigation).filter(([key]) => key !== "wishlist" && key !== "readinglist" && key !== "Addbook"));
-
-
-
+    : Object.fromEntries(
+        Object.entries(navigation).filter(
+          ([key]) =>
+            key !== "wishlist" && key !== "readinglist" && key !== "Addbook"
+        )
+      );
 
   return (
-    <div className="w-full bg-slate-600">
+    <div className="w-full bg-[#feeacf] text-[#4A4E69]">
       <nav className="container relative flex flex-wrap items-center justify-between p-8 mx-auto lg:justify-between xl:px-0">
         {/* Logo  */}
         <Disclosure>
@@ -41,7 +48,7 @@ const Navbar = () => {
             <>
               <div className="flex flex-wrap items-center justify-between w-full lg:w-auto">
                 <a href="/">
-                  <span className="flex items-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100">
+                  <span className="flex items-center space-x-2 text-2xl font-medium text-[#4A4E69] dark:text-gray-100">
                     <span>
                       {/* <img
                         src="/img/logo.svg"
@@ -57,11 +64,13 @@ const Navbar = () => {
 
                 <Disclosure.Button
                   aria-label="Toggle Menu"
-                  className="px-2 py-1 ml-auto text-gray-500 rounded-md lg:hidden hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:text-gray-300 dark:focus:bg-trueGray-700">
+                  className="px-2 py-1 ml-auto rounded-md lg:hidden  focus:bg-indigo-100 focus:outline-none dark:text-gray-300 dark:focus:bg-trueGray-700"
+                >
                   <svg
                     className="w-6 h-6 fill-current"
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24">
+                    viewBox="0 0 24 24"
+                  >
                     {open && (
                       <path
                         fillRule="evenodd"
@@ -80,13 +89,15 @@ const Navbar = () => {
 
                 <Disclosure.Panel className="flex flex-wrap w-full my-5 lg:hidden">
                   <>
-                    {
-                      Object.entries(filteredNavigation).map(([key, value]) => (
-                        <Link key={key} to={value} className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 dark:focus:bg-gray-800 focus:outline-none">
-                          {key}
-                        </Link>
-                      ))
-                    }
+                    {Object.entries(filteredNavigation).map(([key, value]) => (
+                      <Link
+                        key={key}
+                        to={value}
+                        className="w-full px-4 py-2 -ml-4  rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 dark:focus:bg-gray-800 focus:outline-none"
+                      >
+                        {key}
+                      </Link>
+                    ))}
                     <li className="ml-5">
                       <DropdownMenu>
                         <DropdownMenuTrigger className="outline-none">
@@ -117,10 +128,9 @@ const Navbar = () => {
 
         <SharedUserMenu user={user} navigation={navigation} />
         {/* /* <ThemeChanger /> */}
-
       </nav>
     </div>
   );
-}
+};
 
 export default Navbar;
