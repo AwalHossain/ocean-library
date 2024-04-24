@@ -9,7 +9,7 @@
     box-sizing: border-box;
   }
   :root {
-    font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
+    font-family: "Helvetica", sans-serif;
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -90,6 +90,9 @@
   }
   .secondary-color {
     @apply text-[#747544];
+  }
+  .tertiary-color {
+    @apply text-[#5A471D];
   }
 
   .bg-main {
