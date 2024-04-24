@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
   :root {
     font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
     --background: 0 0% 100%;
@@ -40,6 +45,8 @@
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
+
+    --hover-color: #d8d8d84d;
 
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
@@ -84,6 +91,7 @@
   .secondary-color {
     @apply text-[#747544];
   }
+
   .bg-main {
     @apply bg-[#5A471D];
   }

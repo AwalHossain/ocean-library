@@ -3,7 +3,8 @@ import { useAppSelector } from "../redux/hooks";
 import { IBook } from "../types";
 import DeleteModal from "./DeleteModal";
 import ItemRegistry from "./ItemRegistry";
-import { HoverBook } from "./card/hoverCard";
+import { HoverChevron } from "./card/hoverChevron";
+import { Separator } from "./ui/separator";
 
 const BookDetails = ({ book, key }: { book: IBook; key: number }) => {
   // const {data: finishedList} = useGetFinishedListQuery(undefined)
@@ -29,8 +30,12 @@ const BookDetails = ({ book, key }: { book: IBook; key: number }) => {
           </div>
         </div>
         <div className="flex flex-col justify-center">
-          <div className="flex items-center justify-between mb-2">
-            <HoverBook />
+          <div className="flex items-center justify-center mb-2">
+            <div className="bg-[#3d9363] w-auto pl-2 text-white antialiased h-[28px] flex text-[13px] justify-center items-center">
+              <span className="inline-block pr-[18px]">Want to read</span>
+              <Separator orientation="vertical" />
+              <HoverChevron />
+            </div>
             <div className="text-gray-500 space-x-2">
               {/* Wishlist & readinglist Button */}
               <ItemRegistry book={book} />
