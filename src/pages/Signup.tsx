@@ -163,7 +163,7 @@ function Signup() {
         </p>
         <Link to="/login" className="block w-full mx-auto text-center">
           <button className="w-[200px] p-3 rounded-full border font-medium border-[#8b7414] secondary-color mx-auto">
-            Sign up
+            Login
           </button>
         </Link>
         {/* </div> */}
