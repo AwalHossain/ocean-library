@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useAppSelector } from "../redux/hooks";
 import { IBook } from "../types";
 import DeleteModal from "./DeleteModal";
@@ -22,12 +23,14 @@ const BookDetails = ({ book, key }: { book: IBook; key: number }) => {
         className="w-[180px] bg-book space-x-1 border-red-400 border"
       >
         <div className="">
-          <h4 className="text-[13px] font-bold text-center my-[6px] text-[#181818]">
-            Fiction
-          </h4>
-          <div className="w-[150px] h-[230px] m-auto">
-            <img className="w-full h-full" src={book.thumbnail} alt="book" />
-          </div>
+          <Link to={`/book-details/${book._id}`}>
+            <h4 className="text-[13px] font-bold text-center my-[6px] text-[#181818]">
+              Fiction
+            </h4>
+            <div className="w-[150px] h-[230px] m-auto">
+              <img className="w-full h-full" src={book.thumbnail} alt="book" />
+            </div>
+          </Link>
         </div>
         <div className="flex flex-col justify-center">
           <div className="flex items-center justify-center mb-2">
