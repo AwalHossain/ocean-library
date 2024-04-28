@@ -3,7 +3,7 @@ import { Star } from "lucide-react";
 const ReviewContent = () => {
   return (
     <>
-      <section className="flex justify-between">
+      <section className="flex justify-between items-center mt-3">
         <div className="flex my-4">
           <Star size={20} fill="#e87400" stroke="#e87400" />
           <Star size={20} fill="#e87400" stroke="#e87400" />
@@ -15,7 +15,7 @@ const ReviewContent = () => {
         </div>
       </section>
       <section>
-        <span className="Formatted text-[1rem]">
+        <span className="Formatted text-[14px]">
           Hell House stands alone, ominous and waiting. After thirty years, four
           more dare to enter what has been labeled the Mount Everest of haunted
           houses. Make it five, cause I'm going with them.
