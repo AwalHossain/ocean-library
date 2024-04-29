@@ -36,7 +36,7 @@ export function HoverContent() {
               setValue(currentValue === value ? "" : currentValue);
               setOpen(false);
             }}
-            className="text-[13px] p-0 m-0! hover:bg-red-600!"
+            className="text-[13px] p-0 m-0! cursor-pointer aria-selected:bg-slate-400"
           >
             <Check
               className={cn(
