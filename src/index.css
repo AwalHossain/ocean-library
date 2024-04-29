@@ -104,6 +104,9 @@
   .bg-main {
     @apply bg-[#5A471D];
   }
+  .bg-minor {
+    @apply bg-[#747544];
+  }
   .bg-book {
     @apply bg-[#d8d8d84d];
   }
