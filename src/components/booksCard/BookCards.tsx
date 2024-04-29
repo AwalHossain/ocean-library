@@ -1,6 +1,7 @@
 import { useGetAllbooksQuery } from "@/redux/feature/filter/filterApi";
 import { IBook } from "@/types";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { HoverChevron } from "../card/hoverChevron";
 import { Separator } from "../ui/separator";
 
@@ -42,11 +43,13 @@ const BookCards = () => {
               // }}
             >
               <div className="h-[250px]">
-                <img
-                  src={book.thumbnail}
-                  alt={book.title}
-                  className=" rounded-md w-full h-full object-cover"
-                />
+                <Link to={`/book-details/${book._id}`}>
+                  <img
+                    src={book.thumbnail}
+                    alt={book.title}
+                    className=" rounded-md w-full h-full object-cover"
+                  />
+                </Link>
               </div>
               <div className="mt-4 text-center ">
                 <div
