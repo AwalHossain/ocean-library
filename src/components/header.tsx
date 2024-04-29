@@ -23,6 +23,7 @@ import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 // import { Logo } from "../logo";
 import logo from "@/assets/logo.png";
+import { logout } from "@/redux/feature/auth/userSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { mainMenu } from "./config/menu";
 
@@ -33,11 +34,20 @@ export function Header() {
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {
-    // dispatch(logout());
+    dispatch(logout());
   };
 
+  // Filter the navigation links based on the availability of the user
+
+  const filteredNavigation = user
+    ? mainMenu
+    : mainMenu.filter((item) => !item.protected);
+
   return (
-    <header className="primary-color supports-backdrop-blur:bg-background/60 sticky top-0 z-50 w-full border-b bg-background/90 backdrop-blur">
+    <header
+      style={{}}
+      className="primary-color supports-backdrop-blur:bg-background/60 sticky top-0 z-50 w-full border-b bg-background/90 backdrop-blur"
+    >
       <div className="container px-4 md:px-8 flex h-14 items-center">
         <div className="mr-4 hidden md:flex">
           <NavLink to="/" className="mr-6 flex items-center space-x-2">
@@ -63,7 +73,7 @@ export function Header() {
               className="flex items-center space-x-2"
             >
               {/* <Logo /> */}
-              logo
+              <img src={logo} alt="logo" className="w-40" />
             </NavLink>
             <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-8 pl-8">
               <Accordion
@@ -72,7 +82,7 @@ export function Header() {
                 className="w-full"
                 defaultValue={
                   "item-" +
-                  mainMenu.findIndex((item) =>
+                  filteredNavigation.findIndex((item) =>
                     item.items !== undefined
                       ? item.items
                           .filter((subitem) => subitem.to !== undefined)
@@ -83,7 +93,7 @@ export function Header() {
                 }
               >
                 <div className="flex flex-col space-y-3">
-                  {mainMenu.map((menu, index) =>
+                  {filteredNavigation.map((menu, index) =>
                     menu.items !== undefined ? (
                       <AccordionItem
                         key={index}
@@ -116,7 +126,7 @@ export function Header() {
                                       "block justify-start py-1 h-auto font-normal hover:text-primary",
                                       isActive
                                         ? "text-foreground"
-                                        : "text-foreground/60"
+                                        : "text-white"
                                     )
                                   }
                                 >
@@ -163,7 +173,7 @@ export function Header() {
             {/* <CommandMenu /> */}
           </div>
           <nav className="md:flex items-center space-x-3 text-sm  primary-color hidden">
-            {mainMenu.map((menu, index) =>
+            {filteredNavigation.map((menu, index) =>
               menu.items !== undefined ? (
                 <DropdownMenu key={index}>
                   <DropdownMenuTrigger
@@ -212,10 +222,16 @@ export function Header() {
                   to={menu.to ?? ""}
                   className={({ isActive }) =>
                     cn(
-                      "text-sm  transition-colors font-medium hover:bg-main hover:text-white px-2 py-1 rounded-[25px]",
-                      isActive ? "primary-color" : "primary-color"
+                      "text-[16px]  transition-colors font-normal hover:bg-main hover:text-white px-2 py-1 rounded-[25px]",
+                      isActive
+                        ? "primary-color font-medium"
+                        : "secondary-color "
                     )
                   }
+                  style={{
+                    fontFamily:
+                      "Lato, 'Helvetica Neue', 'Helvetica', sans-serif",
+                  }}
                 >
                   {menu.title}
                 </NavLink>
@@ -248,17 +264,30 @@ export function Header() {
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end" forceMount>
+                <DropdownMenuContent className="w-56 " align="end" forceMount>
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none">shadcn</p>
+                      <p className="text-sm font-medium leading-none">
+                        {user?.name}
+                      </p>
                       <p className="text-xs leading-none text-muted-foreground">
-                        m@example.com
+                        {user?.email}
                       </p>
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>Log out</DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="cursor-pointer"
+                  >
+                    Profile
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="cursor-pointer"
+                  >
+                    Log out
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
