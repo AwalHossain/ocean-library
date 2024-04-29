@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/carousel";
 import { useGetAllbooksQuery } from "@/redux/feature/filter/filterApi";
 import { IBook } from "@/types";
+import { Link } from "react-router-dom";
 
 export default function BookCardCarousel() {
   const { data } = useGetAllbooksQuery(undefined);
@@ -40,19 +41,26 @@ export default function BookCardCarousel() {
             }}
           >
             <div className="max-w-[220px] h-[305px] transform hover:scale-105 transition-transform duration-200 ease-in-out mx-auto">
-              <img
-                src={book.thumbnail}
-                alt={book.title}
-                className=" rounded-md w-full h-full "
-              />
+              <Link to={`/book-details/${book._id}`}>
+                <img
+                  src={book.thumbnail}
+                  alt={book.title}
+                  className=" rounded-md w-full h-full "
+                />
+              </Link>
             </div>
             <div className="mt-4 text-center ">
-              <h3 className="text-[1rem] font-semibold text-gray-900">
-                {book.title}
-              </h3>
-              <p className="text-[0.8em] font-normal tracking-wide text-gray-900">
-                {book.author}
-              </p>
+              <Link
+                to={`/book-details/${book._id}`}
+                className="hover:underline"
+              >
+                <h3 className="text-[1rem] font-semibold text-gray-900">
+                  {book.title}
+                </h3>
+                <p className="text-[0.8em] font-normal tracking-wide text-gray-900">
+                  {book.author}
+                </p>
+              </Link>
               <div className="flex justify-center items-center space-x-1">
                 {Array.from({ length: book.rating }, (_, index) => (
                   <svg
