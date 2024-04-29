@@ -87,7 +87,7 @@ const Navbar = () => {
                   </svg>
                 </Disclosure.Button>
 
-                <Disclosure.Panel className="flex flex-wrap w-full my-5 lg:hidden">
+                <div className="flex flex-wrap w-full my-5 lg:hidden">
                   <>
                     {Object.entries(filteredNavigation).map(([key, value]) => (
                       <Link
@@ -118,7 +118,7 @@ const Navbar = () => {
                       </DropdownMenu>
                     </li>
                   </>
-                </Disclosure.Panel>
+                </div>
               </div>
             </>
           )}
