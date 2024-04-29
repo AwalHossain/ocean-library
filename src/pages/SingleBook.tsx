@@ -1,7 +1,8 @@
 // BookDetails.tsx
 
+import BookCardCarousel from "@/components/booksCard/BookCardCarousel";
 import BookMetadata from "@/components/booksCard/BookMetadata";
-import { CarouselSize } from "@/components/booksCard/Carousel";
+import ButtonWithSeparator from "@/components/booksCard/ButtonSeparator";
 import UserReviews from "@/components/reviews/Reviews";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -53,15 +54,7 @@ const SingleBook = () => {
               <BookMetadata meta={meta} />
             </div>
             <div className="py-5 xl:px-10">
-              <button
-                style={{
-                  fontFamily: '"Montserrat", sans-serif',
-                  fontWeight: "500",
-                }}
-                className="w-full p-3 rounded-full border font-medium bg-page text-white mx-auto"
-              >
-                Write a review
-              </button>
+              <ButtonWithSeparator />
             </div>
           </div>
         </div>
@@ -132,8 +125,9 @@ const SingleBook = () => {
           </div>
         </div>
       </div>
-      <div className="container ">
-        <CarouselSize />
+      <div className="container my-20">
+        <h2 className="text-2xl font-semibold">Related Books</h2>
+        <BookCardCarousel />
       </div>
 
       {showModal && <DeleteModal book={book} setShowModal={setShowModal} />}
