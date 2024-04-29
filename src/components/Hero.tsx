@@ -1,4 +1,5 @@
 import bookImg from "@/assets/hero.svg";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -9,21 +10,19 @@ const Hero = () => {
             <h1 className="text-[36px] hidden md:block font-bold leading-snug tracking-tight secondary-color lg:leading-tight xl:leading-tight dark:text-white">
               Discover New Books for Every Taste
             </h1>
-            <p className="py-5 text-[12px] sm:text-[18px] leading-normal secondary-color dark:text-gray-300">
+            <p className="py-5 text-[16px] sm:text-[18px] leading-normal secondary-color dark:text-gray-300">
               Explore our vast collection of books, from classic literature to
               the latest bestsellers. Whether you love fiction, non-fiction, or
               poetry, we have something for every book lover.
             </p>
 
             <div className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row">
-              <a
-                href="https://example.com/bookstore"
-                target="_blank"
-                rel="noopener"
+              <Link
+                to="/browse"
                 className="px-8 py-4 text-lg font-medium text-center text-white bg-main rounded-md "
               >
                 Explore Now
-              </a>
+              </Link>
             </div>
           </div>
         </div>
