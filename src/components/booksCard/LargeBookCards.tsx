@@ -7,6 +7,8 @@ import {
 } from "@/components/ui/carousel";
 import { useGetAllbooksQuery } from "@/redux/feature/filter/filterApi";
 import { IBook } from "@/types";
+import { Link } from "react-router-dom";
+import { Button } from "../ui/button";
 
 export default function LargeBookCards() {
   const { data } = useGetAllbooksQuery(undefined);
@@ -41,7 +43,7 @@ export default function LargeBookCards() {
           >
             <div className="flex flex-col md:flex-row bg-[#e8e0c6] w-full md:space-x-8 rounded">
               <div className="w-full md:w-[30%] lg:w-[40%] ">
-                <div className=" max-w-[250px] lg:w-[320px] mx-auto h-[350px] transform hover:scale-105 transition-transform duration-200 ease-in-out">
+                <div className=" max-w-[250px] lg:w-[320px] mx-auto h-[350px] p-4 md:p-0 transform hover:scale-105 transition-transform duration-200 ease-in-out">
                   <img
                     src={book.thumbnail}
                     alt={book.title}
@@ -79,6 +81,13 @@ export default function LargeBookCards() {
                     A-honor roll student, award-winning swimmer, and small-town
                     star destined for greatness. There weren’t
                   </span>
+                </div>
+                <div className="mt-2">
+                  <Link to={`/book-details/${book._id}`}>
+                    <Button className="bg-minor hover:bg-main">
+                      Read More
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
