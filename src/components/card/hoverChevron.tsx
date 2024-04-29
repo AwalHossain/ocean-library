@@ -18,7 +18,7 @@ export function HoverChevron() {
       <HoverCardTrigger asChild onClick={handleClick}>
         <ChevronDown className="text-white cursor-pointer inline-block w-auto h-auto" />
       </HoverCardTrigger>
-      <HoverCardContent className="w-auto max-h-[250px] p-1.5 border-2 border-[#4444444d] ">
+      <HoverCardContent className="w-auto max-h-[250px] p-1.5 border-2 border-[#4444444d]">
         <HoverContent />
       </HoverCardContent>
     </HoverCard>
