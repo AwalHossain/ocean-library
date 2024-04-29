@@ -1,7 +1,8 @@
 import { useGetAllbooksQuery } from "@/redux/feature/filter/filterApi";
 import { IBook } from "@/types";
-import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
-import React, { useState } from "react";
+import { useState } from "react";
+import { HoverChevron } from "../card/hoverChevron";
+import { Separator } from "../ui/separator";
 
 interface BookCardProps {
   books: {
@@ -12,7 +13,7 @@ interface BookCardProps {
   }[];
 }
 
-const BookCard: React.FC<BookCardProps> = () => {
+const BookCards = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { data, isFetching, isSuccess } = useGetAllbooksQuery(undefined);
 
@@ -30,19 +31,17 @@ const BookCard: React.FC<BookCardProps> = () => {
 
   return (
     <div className="flex items-center justify-between">
-      <button
-        onClick={handlePrevious}
-        disabled={currentIndex === 0}
-        className="disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        <ChevronLeftIcon className="h-6 w-6 text-gray-500" />
-      </button>
-
-      <div className="w-full overflow-hidden">
-        <div className="flex space-x-6">
+      <div className="w-full">
+        <div className="flex flex-wrap justify-center items-center ">
           {books.map((book, index) => (
-            <div key={index} className={`flex flex-col items-center `}>
-              <div className="w-[205px] h-[305px]">
+            <div
+              key={index}
+              className={`w-[150px] sm:w-[180px] p-2 sm:p-4 h-[330px] bg-book m-[10px]`}
+              // style={{
+              //   margin: "10px 10px",
+              // }}
+            >
+              <div className="h-[250px]">
                 <img
                   src={book.thumbnail}
                   alt={book.title}
@@ -50,12 +49,26 @@ const BookCard: React.FC<BookCardProps> = () => {
                 />
               </div>
               <div className="mt-4 text-center ">
-                <h3 className="text-[1rem] font-semibold text-gray-900">
-                  {book.title}
-                </h3>
-                <p className="text-[0.9rem] font-medium text-gray-900">
+                <div
+                  className="bg-[#3d9363] pl-2 text-white
+                 antialiased h-[28px] flex text-[13px] w-full"
+                >
+                  <span className="inline-block pr-5px sm:pr-[18px] w-[80%] cursor-pointer">
+                    Want to read
+                  </span>
+                  <Separator orientation="vertical" />
+                  <div className="w-[20%]">
+                    <HoverChevron />
+                  </div>
+                </div>
+                {/* <h3 className="text-[1rem] font-semibold text-gray-900">
+                  {book.title.length > 20
+                    ? book.title.slice(0, 20) + "..."
+                    : book.title.slice(0, 20)}
+                </h3> */}
+                {/* <p className="text-[0.9rem] font-medium text-gray-900">
                   {book.author}
-                </p>
+                </p> */}
                 <div className="flex justify-center items-center space-x-1">
                   {Array.from({ length: book.rating }, (_, index) => (
                     <svg
@@ -74,16 +87,8 @@ const BookCard: React.FC<BookCardProps> = () => {
           ))}
         </div>
       </div>
-
-      <button
-        onClick={handleNext}
-        disabled={currentIndex === books.length - 1}
-        className="disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        <ChevronRightIcon className="h-6 w-6 text-gray-500" />
-      </button>
     </div>
   );
 };
 
-export default BookCard;
+export default BookCards;
