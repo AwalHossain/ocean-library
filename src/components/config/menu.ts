@@ -5,6 +5,7 @@ interface NavItem {
   disabled?: boolean;
   external?: boolean;
   label?: string;
+  protected?: boolean;
 }
 
 interface NavItemWithChildren extends NavItem {
@@ -14,29 +15,21 @@ interface NavItemWithChildren extends NavItem {
 export const mainMenu: NavItemWithChildren[] = [
   {
     title: "Home",
-    to: "",
+    to: "/",
   },
   {
     title: "My Books",
-    // items: [
-    //   {
-    //     title: "Sample",
-    //     to: "/sample",
-    //   },
-    //   {
-    //     title: "Sample Dua",
-    //     to: "/#",
-    //   },
-    // ],
-    to: "",
+    to: "/book-shelf",
+    protected: true,
   },
   {
     title: "Browse",
-    to: "empty",
+    to: "/browse",
   },
   {
     title: "Dashboard",
-    to: "empty",
+    to: "/dashboard",
+    protected: true,
   },
 ];
 
