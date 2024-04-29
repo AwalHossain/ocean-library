@@ -1,10 +1,11 @@
 import AuthLayout from "@/layout/AuthLayout";
+import BookShelf from "@/pages/BookShelf";
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import UpdateBook from "../components/UpdateBook";
 import AuthenticatedLayout from "../layout/AuthenticatedLayout";
 import AddBook from "../pages/AddBook";
-import Books from "../pages/Books";
+import BrowseBook from "../pages/BrowseBook";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import ReadlingList from "../pages/ReadingList";
@@ -22,8 +23,8 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/books",
-        element: <Books />,
+        path: "/browse",
+        element: <BrowseBook />,
       },
       {
         path: "/book-details/:id",
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/update-book/:bookId",
         element: <UpdateBook />,
+      },
+      {
+        path: "/book-shelf",
+        element: <BookShelf />,
       },
       {
         path: "/wishlist",
