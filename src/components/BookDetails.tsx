@@ -7,7 +7,12 @@ import ItemRegistry from "./ItemRegistry";
 import { HoverChevron } from "./card/hoverChevron";
 import { Separator } from "./ui/separator";
 
-const BookDetails = ({ book, key }: { book: IBook; key: number }) => {
+interface BookDetailsProps {
+  book: IBook;
+  key: string;
+}
+
+const BookDetails = ({ book, key }: BookDetailsProps) => {
   // const {data: finishedList} = useGetFinishedListQuery(undefined)
   const [showModal, setShowModal] = useState(false);
 
