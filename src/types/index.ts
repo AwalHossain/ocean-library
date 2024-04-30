@@ -15,11 +15,12 @@ export type IBook = {
   // addedby: string;
 };
 
-  export interface IUser{
-    name?: string;
-    email: string ;
-    password: string;
-    wishlist?: string[];
-    readingList?: string[];
-    finishedList?: string[];
-  } 
+export interface IUser {
+  name?: string;
+  email: string;
+  password: string;
+  wishlist?: string[];
+  readingList?: string[];
+  finishedList?: string[];
+  _id: string;
+}
