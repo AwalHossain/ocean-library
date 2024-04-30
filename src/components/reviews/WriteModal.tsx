@@ -4,12 +4,16 @@ import {
   DialogHeader,
 } from "@/components/ui/dialog";
 
+import { useAddReviewMutation } from "@/redux/feature/filter/filterApi";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { Button } from "../ui/button";
 import EditorComponent from "./EditorComponent";
 import StarRating from "./StartRating";
 
 export default function WriteModal() {
+  const [addReview, {  error, isLoading }] = useAddReviewMutation();
+  const { id } = useParams();
   // Catch Rating value
   const [code, setCode] = useState("hellllo");
   const [rating, setRating] = useState(0);
@@ -28,13 +32,15 @@ export default function WriteModal() {
     //this.quill.setSelection(cursorPosition + 1);
   };
 
-  const hanldSubmit = () => {
+  const hanldSubmit = async () => {
     console.log(code);
     const data = {
       rating: rating,
-      content: code,
+      description: code,
+      bookId: id,
     };
     console.log(data, "review data");
+    await addReview(data);
   };
 
   return (
@@ -54,7 +60,7 @@ export default function WriteModal() {
       <div className="grid gap-4 py-4"></div>
       <DialogFooter>
         <Button type="submit" onClick={hanldSubmit}>
-          Save changes
+          {isLoading ? "Loading..." : "Submit"}
         </Button>
       </DialogFooter>
     </>
