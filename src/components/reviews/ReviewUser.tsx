@@ -1,4 +1,12 @@
-function ReviewUser() {
+interface ReviewUserProps {
+  user:
+    | {
+        name: string;
+        email: string;
+      }
+    | undefined;
+}
+function ReviewUser({ ReviewUser }: ReviewUserProps) {
   return (
     <>
       {" "}
