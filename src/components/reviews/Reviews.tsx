@@ -1,8 +1,16 @@
+import { useGetSingleBookQuery } from "@/redux/feature/filter/filterApi";
+import { useParams } from "react-router-dom";
 import ReviewContent from "./ReviewContent";
 import ReviewUser from "./ReviewUser";
 import WriteReview from "./WriteReview";
 
 const Reviews = () => {
+  const { id } = useParams();
+  const { data } = useGetSingleBookQuery(id);
+  const reviews = data?.reviews ?? [];
+
+  console.log(reviews, "reviews");
+
   return (
     <div>
       <div className="my-10">
@@ -29,17 +37,17 @@ const Reviews = () => {
           }}
         >
           {/* profile */}
-          {Array.from({ length: 3 }).map((_, index) => (
+          {reviews.map((review) => (
             <>
               <div className="md:col-span-2">
                 {/* Avatar */}
                 <div className="flex md:flex-col md:justify-center items-center md:space-y-2">
-                  <ReviewUser />
+                  <ReviewUser user={review?.userId} />
                 </div>
               </div>
               {/* content */}
               <section className="md:col-span-6 xl:pr-6">
-                <ReviewContent />
+                <ReviewContent review={review} />
                 <div className="bg-gray-300 h-[0.5px] my-5" />
               </section>
             </>
