@@ -4,31 +4,33 @@ import BookCardCarousel from "@/components/booksCard/BookCardCarousel";
 import BookMetadata from "@/components/booksCard/BookMetadata";
 import ButtonWithSeparator from "@/components/booksCard/ButtonSeparator";
 import UserReviews from "@/components/reviews/Reviews";
-import { useEffect, useState } from "react";
+import { setUserPrefernce } from "@/redux/feature/book/bookSlice";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import DeleteModal from "../components/DeleteModal";
 import { useGetSingleBookQuery } from "../redux/feature/filter/filterApi";
-import { useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 const SingleBook = () => {
   const { id } = useParams();
+  const dispatch = useAppDispatch();
   const {
     data: book,
     isLoading,
     isSuccess,
     isFetching,
-    refetch,
   } = useGetSingleBookQuery(id);
   const [showModal, setShowModal] = useState(false);
 
   const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.userState);
-  const athorizedUser = user?.email && book?.addedBy === user.email;
+
+  const userData = book?.userPreference;
+  const result = userData?.find((item: any) => item.user === user?._id);
+  dispatch(setUserPrefernce(result?.status ? result?.status : "want to read"));
+  console.log(result, "result", book, "book");
 
   // refetch()
-  useEffect(() => {
-    refetch();
-  }, [showModal]);
 
   const meta = {
     title: book?.title ?? "No Title",
@@ -54,7 +56,9 @@ const SingleBook = () => {
               <BookMetadata meta={meta} />
             </div>
             <div className="py-5 xl:px-10">
-              <ButtonWithSeparator />
+              <ButtonWithSeparator
+                status={result ? result.status : undefined}
+              />
             </div>
           </div>
         </div>
