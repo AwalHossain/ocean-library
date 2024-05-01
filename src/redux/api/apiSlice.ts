@@ -12,7 +12,7 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     credentials: "include",
-    prepareHeaders: (headers, {}) => {
+    prepareHeaders: (headers) => {
       // const token = cookie
       if (cookie) {
         // include token in req header
@@ -28,6 +28,7 @@ export const api = createApi({
     "Wishlist",
     "finishedList",
     "readingList",
+    "filter",
   ],
   endpoints: () => ({}),
 });
