@@ -18,9 +18,27 @@ const bookApi = api.injectEndpoints({
         credentials: "include",
         body: data,
       }),
-      invalidatesTags: ["Wishlist"],
+      invalidatesTags: ["Books"],
     }),
+    getAllbooks: builder.query({
+      query() {
+        return {
+          url: `book/all?page=${1}&limit=${10}&sortBy=${"createdAt"}&sortOrder=${"desc"}`,
+          credentials: "include",
+        };
+      },
+      providesTags: ["Books"],
+      transformResponse: (result: { data: { data: IBook[] } }) => result.data,
+      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          console.log(data.data, "chekolo");
+          dispatch(setBook(data.data));
 
+          // dispatch(setUser(data));
+        } catch (error) {}
+      },
+    }),
     getWishList: builder.query({
       query: () => ({
         url: "users/wishlist",
@@ -125,4 +143,5 @@ export const {
   useGetFinishedListQuery,
   useRemoveFromReadingListMutation,
   useRemoveFromWishListMutation,
+  useGetAllbooksQuery,
 } = bookApi;
