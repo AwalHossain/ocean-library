@@ -5,7 +5,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { useGetAllbooksQuery } from "@/redux/feature/filter/filterApi";
+import { useGetAllbooksQuery } from "@/redux/feature/book/bookApi";
 import { IBook } from "@/types";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
