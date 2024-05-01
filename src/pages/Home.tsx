@@ -1,7 +1,7 @@
 import BookCardCarousel from "@/components/booksCard/BookCardCarousel";
 import LargeBookCards from "@/components/booksCard/LargeBookCards";
+import { useGetAllbooksQuery } from "@/redux/feature/book/bookApi";
 import Hero from "../components/Hero";
-import { useGetAllbooksQuery } from "../redux/feature/filter/filterApi";
 import { IBook } from "../types";
 
 function Home() {
