@@ -2,7 +2,7 @@
 import { useAddToPrefernceMutation } from "@/redux/feature/book/bookApi";
 import { setUserPrefernce } from "@/redux/feature/book/bookSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { Pencil } from "lucide-react";
+import { LucideTrash2, Pencil } from "lucide-react";
 import { useParams } from "react-router-dom";
 
 interface DataProps {
@@ -47,7 +47,7 @@ export default function ModalContent() {
         {dataObj.map((item) => (
           <li
             key={item.value}
-            className="hover:bg-gray-200 w-full p-2 cursor-pointer border-2 m-2"
+            className="hover:bg-gray-200 w-full p-2 cursor-pointer border-2 rounded-3xl m-2 text-center"
             onClick={() => handleClick(item)}
           >
             {isLoading ? (
@@ -56,16 +56,20 @@ export default function ModalContent() {
               <span>
                 {userPreference !== "want to read" ? (
                   userPreference === item.label ? (
-                    <span className="text-green-500">
-                      {" "}
-                      <Pencil
-                        size={16}
-                        className="text-slate-400 inline-block"
-                      />{" "}
-                      {item.label}
-                    </span>
+                    <>
+                      <span className="text-green-500">
+                        {" "}
+                        <Pencil
+                          size={16}
+                          className="text-slate-400 inline-block"
+                        />{" "}
+                        {item.label}
+                      </span>
+                    </>
                   ) : (
-                    <span>{item.label} </span>
+                    <>
+                      <span>{item.label} </span>
+                    </>
                   )
                 ) : (
                   <span>{item.label}</span>
@@ -74,6 +78,17 @@ export default function ModalContent() {
             )}
           </li>
         ))}
+        {userPreference !== "want to read" && (
+          <li className="hover:bg-gray-200 w-full p-2 cursor-pointer m-2 mx-auto text-center">
+            <span>
+              <LucideTrash2
+                size={16}
+                className="text-red-500 inline-block mx-auto"
+              />
+              Remove from my shelf
+            </span>
+          </li>
+        )}
       </ul>
     </div>
   );
