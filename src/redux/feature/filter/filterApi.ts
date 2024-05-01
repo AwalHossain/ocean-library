@@ -31,7 +31,9 @@ const filterApi = api.injectEndpoints({
 
           dispatch(setReviews(data.reviews));
           // dispatch(setUser(data));
-        } catch (error) {}
+        } catch (error) {
+          console.log(error);
+        }
       },
     }),
     filterBooks: builder.query({
@@ -41,7 +43,7 @@ const filterApi = api.injectEndpoints({
           credentials: "include",
         };
       },
-      providesTags: ["Books"],
+      providesTags: ["filter"],
       transformResponse: (result: { data: { data: IBook[] } }) => result.data,
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
@@ -49,7 +51,9 @@ const filterApi = api.injectEndpoints({
           dispatch(setBook(data.data));
 
           // dispatch(setUser(data));
-        } catch (error) {}
+        } catch (error) {
+          console.log(error);
+        }
       },
     }),
     editBook: builder.mutation({
@@ -73,25 +77,6 @@ const filterApi = api.injectEndpoints({
       },
       invalidatesTags: ["Books"],
     }),
-    getAllbooks: builder.query({
-      query() {
-        return {
-          url: `book/all?page=${1}&limit=${10}&sortBy=${"createdAt"}&sortOrder=${"desc"}`,
-          credentials: "include",
-        };
-      },
-      providesTags: ["Books"],
-      transformResponse: (result: { data: { data: IBook[] } }) => result.data,
-      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-          console.log(data.data, "chekolo");
-          dispatch(setBook(data.data));
-
-          // dispatch(setUser(data));
-        } catch (error) {}
-      },
-    }),
   }),
 });
 
@@ -100,6 +85,5 @@ export const {
   useDeleteBookMutation,
   useEditBookMutation,
   useFilterBooksQuery,
-  useGetAllbooksQuery,
   useGetSingleBookQuery,
 } = filterApi;
