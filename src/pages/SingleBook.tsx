@@ -5,6 +5,7 @@ import BookMetadata from "@/components/booksCard/BookMetadata";
 import ButtonWithSeparator from "@/components/booksCard/ButtonSeparator";
 import UserReviews from "@/components/reviews/Reviews";
 import { setUserPrefernce } from "@/redux/feature/book/bookSlice";
+import { IItem } from "@/types";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import DeleteModal from "../components/DeleteModal";
@@ -26,7 +27,7 @@ const SingleBook = () => {
   const { user } = useAppSelector((state) => state.userState);
 
   const userData = book?.userPreference;
-  const result = userData?.find((item: any) => item.user === user?._id);
+  const result = userData?.find((item: IItem) => item.user === user?._id);
   dispatch(setUserPrefernce(result?.status ? result?.status : "want to read"));
   console.log(result, "result", book, "book");
 
