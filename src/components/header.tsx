@@ -43,6 +43,10 @@ export function Header() {
     ? mainMenu
     : mainMenu.filter((item) => !item.protected);
 
+  const handeDashboard = () => {
+    // navigate("/dashboard");
+  };
+
   return (
     <header
       style={{}}
@@ -172,6 +176,18 @@ export function Header() {
           <div className="w-full flex-1 md:w-auto md:flex-none">
             {/* <CommandMenu /> */}
           </div>
+          <nav className="flex items-center space-x-2">
+            <div
+              className={cn(
+                buttonVariants({
+                  variant: "ghost",
+                }),
+                "w-9 px-0"
+              )}
+            >
+              <span>Search</span>
+            </div>
+          </nav>
           <nav className="md:flex items-center space-x-3 text-sm  primary-color hidden">
             {filteredNavigation.map((menu, index) =>
               menu.items !== undefined ? (
@@ -217,24 +233,26 @@ export function Header() {
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
-                <NavLink
-                  key={index}
-                  to={menu.to ?? ""}
-                  className={({ isActive }) =>
-                    cn(
-                      "text-[16px]  transition-colors font-normal hover:bg-main hover:text-white px-2 py-1 rounded-[25px]",
-                      isActive
-                        ? "primary-color font-medium"
-                        : "secondary-color "
-                    )
-                  }
-                  style={{
-                    fontFamily:
-                      "Lato, 'Helvetica Neue', 'Helvetica', sans-serif",
-                  }}
-                >
-                  {menu.title}
-                </NavLink>
+                <>
+                  <NavLink
+                    key={index}
+                    to={menu.to ?? ""}
+                    className={({ isActive }) =>
+                      cn(
+                        "text-[16px]  transition-colors font-normal hover:bg-main hover:text-white px-2 py-1 rounded-[25px]",
+                        isActive
+                          ? "primary-color font-medium"
+                          : "secondary-color "
+                      )
+                    }
+                    style={{
+                      fontFamily:
+                        "Lato, 'Helvetica Neue', 'Helvetica', sans-serif",
+                    }}
+                  >
+                    {menu.title}
+                  </NavLink>
+                </>
               )
             )}
           </nav>
@@ -248,8 +266,7 @@ export function Header() {
                   "w-9 px-0"
                 )}
               >
-                {/* <Icons.gitHub className="h-4 w-4" /> */}
-                <span className="sr-only">GitHub</span>
+                <span>Search</span>
               </div>
             </a>
             {user ? (
@@ -277,10 +294,10 @@ export function Header() {
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
-                    onClick={handleLogout}
+                    onClick={handeDashboard}
                     className="cursor-pointer"
                   >
-                    Profile
+                    Dashboard
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={handleLogout}
