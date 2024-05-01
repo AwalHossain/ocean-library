@@ -1,7 +1,6 @@
 import { IReview } from "../redux/api/types";
 
 export type IBook = {
-  addedBy?: string;
   title: string;
   author: string;
   thumbnail: string;
@@ -11,8 +10,17 @@ export type IBook = {
   genre: string;
   publicationYear: string;
   reviews?: IReview[];
+  wishlist?: string[];
+  readingList?: string[];
+  finishedList?: string[];
+  addedBy?: string;
+  userPreference?: IItem[];
   _id: string;
-  // addedby: string;
+};
+
+export type IItem = {
+  status: string;
+  user: string;
 };
 
 export interface IUser {
