@@ -6,8 +6,11 @@ import * as React from "react";
 import { Command, CommandGroup, CommandItem } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
 import { useAddToPrefernceMutation } from "@/redux/feature/book/bookApi";
-import { setUserPrefernce } from "@/redux/feature/book/bookSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import {
+  setSavingPreference,
+  setUserPrefernce,
+} from "@/redux/feature/book/bookSlice";
+import { useAppDispatch } from "@/redux/hooks";
 
 const dataObj = [
   {
@@ -26,15 +29,11 @@ export function HoverContent({
   bookId: string;
   setUpdatingBookId: (id: string | null) => void;
 }) {
-  const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
   const [loadingItem, setLoadingItem] = React.useState<string | null>(null);
 
-  const [addToPrefernce, { isLoading, error, data }] =
-    useAddToPrefernceMutation();
+  const [addToPrefernce] = useAddToPrefernceMutation();
 
-  const { user } = useAppSelector((state) => state.userState);
-  const { userPreference } = useAppSelector((state) => state.userBookState);
   const dispatch = useAppDispatch();
 
   return (
@@ -46,12 +45,13 @@ export function HoverContent({
             value={item.value}
             onSelect={async (currentValue) => {
               setValue(currentValue === value ? "" : currentValue);
-              setOpen(false);
               dispatch(setUserPrefernce(item.label));
               setLoadingItem(item.value);
               setUpdatingBookId(bookId);
+              dispatch(setSavingPreference(true));
               await addToPrefernce({ status: item.value, bookId });
               setLoadingItem(null);
+              setSavingPreference(false);
               setUpdatingBookId(null);
             }}
             className="text-[13px] p-0 m-0! cursor-pointer aria-selected:bg-slate-400"
