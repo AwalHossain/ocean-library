@@ -23,7 +23,13 @@ const sortOptions = [
   },
 ];
 
-export default function SortBooks() {
+export default function SortBooks({
+  setSort,
+  sort,
+}: {
+  setSort: (value: string) => void;
+  sort?: string;
+}) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
 
@@ -34,15 +40,17 @@ export default function SortBooks() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full max-w-[150px] justify-between"
+          className="w-full max-w-[150px] justify-between text-[12px]"
         >
-          {value
-            ? sortOptions.find((framework) => framework.value === value)?.label
-            : "Sort by"}
+          {value ? (
+            sortOptions.find((framework) => framework.value === value)?.label
+          ) : (
+            <span className="text-[0.8rem] font-semibold">Sort by</span>
+          )}
           <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-[150px] p-0">
         <Command>
           <CommandGroup>
             {sortOptions.map((framework) => (
@@ -52,7 +60,9 @@ export default function SortBooks() {
                 onSelect={(currentValue) => {
                   setValue(currentValue === value ? "" : currentValue);
                   setOpen(false);
+                  setSort(currentValue);
                 }}
+                className="text-[12px]"
               >
                 {framework.label}
                 <CheckIcon
