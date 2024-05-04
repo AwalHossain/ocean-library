@@ -14,7 +14,7 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     credentials: "include",
-    prepareHeaders: (headers, {}) => {
+    prepareHeaders: (headers) => {
       // const token = cookie
       if (cookie) {
         // include token in req header
@@ -37,7 +37,9 @@ export const userApi = createApi({
         try {
           const { data } = await queryFulfilled;
           dispatch(setUser(data));
-        } catch (error) {}
+        } catch (error) {
+          console.error(error);
+        }
       },
     }),
   }),
