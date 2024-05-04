@@ -36,8 +36,8 @@ export function BookTabs() {
         </div> */}
         <div className="grid grid-cols-1 gap-5 justify-items-center">
           {Array.from({ length: 5 }).map((_, index) => (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 w-full items-center bg-[#e8e0c6] p-5">
-              <div className="w-[100px] h-[120px] md:w-[180px] md:h-[200px] sm:mx-auto">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 w-full items-center bg-[#e8e0c6] p-5">
+              <div className="w-[60px] h-[60px] md:w-[60px] md:h-[80px] sm:mx-auto">
                 <img
                   src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1503658901i/36121086.jpg"
                   className="w-full h-full"
@@ -48,7 +48,7 @@ export function BookTabs() {
                 <h2 className="text-xl font-semibold">Saving Noad</h2>
                 <p className="text-sm font-semibold">Lucinda Berry</p>
               </div>
-              <div className=" justify-center items-center space-x-1 hidden lg:flex">
+              <div className=" justify-center items-center space-x-1 hidden sm:flex">
                 {Array.from({ length: 3 }, (_, index) => (
                   <svg
                     key={index}
