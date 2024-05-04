@@ -1,20 +1,25 @@
 import { setUserPrefernce } from "@/redux/feature/book/bookSlice";
 
-import { useGetAllbooksQuery } from "@/redux/feature/book/bookApi";
 import { useAppSelector } from "@/redux/hooks";
 import { IBook, IItem } from "@/types";
+import { Check } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { HoverChevron } from "../card/hoverChevron";
 import { Separator } from "../ui/separator";
 
-const BookCards = () => {
-  const { data, isFetching, isSuccess } = useGetAllbooksQuery(undefined);
+interface CardProps {
+  bookContent: IBook[];
+}
+
+const BookCards = ({ bookContent }: CardProps) => {
+  const [openChevronBookId, setOpenChevronBookId] = useState<string | null>(
+    null
+  );
   const [updatingBookId, setUpdatingBookId] = useState<string | null>(null);
-  console.log(data, "data for invalidation");
 
   const { user } = useAppSelector((state) => state.userState);
-  const books: IBook[] = data?.data ?? [];
+  const books: IBook[] = bookContent ?? [];
 
   const getStatus = books.flatMap((item: IBook) =>
     item?.userPreference?.map((pref) => ({ ...pref, bookId: item._id }))
@@ -22,9 +27,6 @@ const BookCards = () => {
   const userPreferences = getStatus?.filter(
     (item: IItem | undefined) => item?.user && item?.user === user?._id
   );
-  // dispatch();
-
-  console.log(userPreferences, "userPreference", getStatus);
 
   return (
     <div className="flex items-center justify-between">
@@ -59,23 +61,47 @@ const BookCards = () => {
                 </div>
                 <div className="mt-4 text-center ">
                   <div
-                    className="bg-[#3d9363] pl-2 text-white
+                    className=" pl-2 text-white
                  antialiased h-[28px] flex text-[13px] w-full justify-center items-center"
                   >
-                    <span className="inline-block pr-5px sm:pr-[18px] w-[80%] cursor-pointer">
+                    <div
+                      className={`flex justify-center pr-5px sm:pr-[18px] w-[80%] h-full
+                      ${
+                        userPreference?.status
+                          ? "text-gray-900 border-2 border-gray-300 border-r-0 font-semibold"
+                          : "bg-[#3d9363]"
+                      }
+                    `}
+                    >
                       {isUpdating ? (
                         <span>saving...</span>
                       ) : userPreference?.status ? (
-                        userPreference?.status
+                        <>
+                          <span className="flex justify-center items-center">
+                            <Check
+                              size={20}
+                              className="text-[#3d9363] inline-block font-bold  "
+                              fontWeight={700}
+                            />
+                            {userPreference?.status}
+                          </span>
+                        </>
                       ) : (
-                        "want to read"
+                        <span
+                          className="flex justify-center items-center cursor-pointer"
+                          onClick={() => setOpenChevronBookId(book._id)}
+                        >
+                          want to read
+                        </span>
                       )}
-                    </span>
+                    </div>
                     <Separator orientation="vertical" />
-                    <div className="w-[20%]">
+                    <div className="w-[20%] bg-[#3d9363] h-full">
                       <HoverChevron
                         bookId={book._id}
                         setUpdatingBookId={setUpdatingBookId}
+                        openChevronBookId={openChevronBookId}
+                        setOpenChevronBookId={setOpenChevronBookId}
                       />
                     </div>
                   </div>
@@ -88,7 +114,7 @@ const BookCards = () => {
                   {book.author}
                 </p> */}
                   <div className="flex justify-center items-center space-x-1">
-                    {Array.from({ length: book.rating }, (_, index) => (
+                    {Array.from({ length: Number(book.rating) }, (_, index) => (
                       <svg
                         key={index}
                         className="h-4 w-4 text-yellow-400"
