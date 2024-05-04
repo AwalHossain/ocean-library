@@ -1,5 +1,6 @@
 import { api } from "../../api/apiSlice";
 import { IBook } from "../../api/types";
+import { setBook } from "../filter/filterSlice";
 
 const bookApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -36,26 +37,18 @@ const bookApi = api.injectEndpoints({
           dispatch(setBook(data.data));
 
           // dispatch(setUser(data));
-        } catch (error) {}
+        } catch (error) {
+          console.log(error);
+        }
       },
     }),
-    getWishList: builder.query({
+    getPreference: builder.query({
       query: () => ({
-        url: "users/wishlist",
+        url: "users/preferences",
         method: "GET",
         credentials: "include",
       }),
       providesTags: ["Wishlist"],
-      // transformResponse: (result: { data: { wishlist: IBook[] } }) =>
-      //   result.data,
-      // async onQueryStarted(_args, { dispatch, queryFulfilled }) {
-      //   try {
-      //     const { data } = await queryFulfilled;
-      //     dispatch(setWishList(data.wishlist));
-
-      //     // dispatch(setUser(data));
-      //   } catch (error) {}
-      // },
     }),
 
     removeFromWishList: builder.mutation({
@@ -136,7 +129,7 @@ const bookApi = api.injectEndpoints({
 export const {
   useAddBookMutation,
   useAddToPrefernceMutation,
-  useGetWishListQuery,
+  useGetPreferenceQuery,
   useAddToReadingListMutation,
   useGetReadingListQuery,
   useAddToFinishedListMutation,
