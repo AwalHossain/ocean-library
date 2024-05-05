@@ -1,10 +1,10 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ReadlingList from "@/pages/ReadingList";
 import { useGetPreferenceQuery } from "@/redux/feature/book/bookApi";
 import { IMyBooks } from "@/types";
 import { useState } from "react";
 import LoadingIcon from "../utils/LoadingIcon";
 import CurrentyReading from "./CurrentyReading";
+import ReadList from "./ReadList";
 
 export function BookTabs() {
   const [selectedTab, setSelectedTab] = useState("read");
@@ -32,7 +32,7 @@ export function BookTabs() {
 
   if (selectedTab === "read" && userReadPreference?.length > 0) {
     content = userReadPreference.map((item: IMyBooks) => (
-      <ReadlingList item={item} />
+      <ReadList item={item} key={item.book._id} />
     ));
   }
 
@@ -41,7 +41,7 @@ export function BookTabs() {
     userReadingPreference?.length > 0
   ) {
     content = userReadingPreference.map((item: IMyBooks) => (
-      <CurrentyReading item={item} />
+      <CurrentyReading item={item} key={item.book._id} />
     ));
   }
 
