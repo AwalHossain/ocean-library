@@ -13,6 +13,8 @@ export function BookTabs() {
 
   const userPreference = data?.data;
 
+  console.log(userPreference, "userPreference");
+
   const userReadPreference = data?.data.filter(
     (item: IMyBooks) => item.status === "read"
   );
