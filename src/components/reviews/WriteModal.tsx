@@ -12,7 +12,7 @@ import EditorComponent from "./EditorComponent";
 import StarRating from "./StartRating";
 
 export default function WriteModal() {
-  const [addReview, {  error, isLoading }] = useAddReviewMutation();
+  const [addReview, { isLoading }] = useAddReviewMutation();
   const { id } = useParams();
   // Catch Rating value
   const [code, setCode] = useState("hellllo");
