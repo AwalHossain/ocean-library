@@ -13,7 +13,7 @@ export default function Stepper({
   isSubmitted,
 }: StepperProps) {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center justify-center">
       {Array.from({ length: numOfSteps }, (_, i) => {
         const index = i + 1;
         const isActive = index === currentStep;
@@ -41,7 +41,7 @@ export default function Stepper({
             </div>
             {index !== numOfSteps && (
               <div
-                className={`w-20 h-1 ${
+                className={`w-52 h-1 ${
                   isActive ? "bg-yellow-700" : "bg-gray-400"
                 }`}
               ></div>
