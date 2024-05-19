@@ -1,12 +1,5 @@
 import { Button } from "@/components/ui/button";
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "@/components/ui/command";
-import {
   Form,
   FormControl,
   FormDescription,
@@ -15,43 +8,38 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { CaretSortIcon } from "@radix-ui/react-icons";
-import { CheckIcon } from "lucide-react";
-import React from "react";
+import { useAddBookMutation } from "@/redux/feature/book/bookApi";
+import { format } from "date-fns";
+import { CalendarIcon, X } from "lucide-react";
+import React, { useRef, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
+import { toast } from "react-toastify";
 import { z } from "zod";
+import { genres } from "../constant/data";
+import { Calendar } from "../ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { toast } from "../ui/use-toast";
+
 const accountFormSchema = z.object({
-  name: z
-    .string()
-    .min(2, {
-      message: "Name must be at least 2 characters.",
+  genre: z.array(
+    z
+      .string({
+        required_error: "Please enter a genre.",
+      })
+      .min(1, {
+        message: "Please enter at least one genre.",
+      })
+  ),
+
+  publicationYear: z
+    .date({
+      required_error: "Please enter a publication year.",
     })
-    .max(30, {
-      message: "Name must not be longer than 30 characters.",
-    }),
-  dob: z.date({
-    required_error: "A date of birth is required.",
-  }),
-  language: z.string({
-    required_error: "Please select a language.",
+    .transform((val) => new Date(val)),
+  status: z.enum(["popular", "Trendy", "Recommended", "Latest"], {
+    required_error: "Please select a status.",
   }),
 });
-
-const languages = [
-  { label: "English", value: "en" },
-  { label: "French", value: "fr" },
-  { label: "German", value: "de" },
-  { label: "Spanish", value: "es" },
-  { label: "Portuguese", value: "pt" },
-  { label: "Russian", value: "ru" },
-  { label: "Japanese", value: "ja" },
-  { label: "Korean", value: "ko" },
-  { label: "Chinese", value: "zh" },
-] as const;
 
 type AccountFormValues = z.infer<typeof accountFormSchema>;
 
@@ -59,35 +47,61 @@ interface StepOneProps {
   form: UseFormReturn<AccountFormValues>;
   onSubmit: (data: AccountFormValues) => void;
   handlePrevStep: () => void;
+  setIsSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const StepTwo: React.FC<StepOneProps> = ({
   form,
-  onSubmit,
   handlePrevStep,
+  setIsSubmitted,
 }) => {
-  function clickSubmit(data: AccountFormValues) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+  const [query, setQuery] = useState<string>("");
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [addBook, { isLoading, data }] = useAddBookMutation();
+
+  const handleGenreChange = (genres: string[]) => {
+    setSelectedGenres(genres);
+    form.setValue("genre", genres);
+  };
+
+  async function handleSubmit(data: AccountFormValues) {
+    console.log(data, "from newbook");
+
+    form.trigger();
+    setIsSubmitted(true);
+    const result = await addBook(data);
+    console.log(result, "result");
+    toast.success("Book added successfully");
+
+    toast.error("You submitted the following values:");
+    setIsSubmitted(true);
   }
+
+  const filteredTags = genres.filter(
+    (genre) =>
+      genre.toLocaleLowerCase().includes(query.toLocaleLowerCase().trim()) &&
+      !selectedGenres.includes(genre)
+  );
+
+  const isDisabled = !(
+    genres.filter((genre) =>
+      genre.toLocaleLowerCase().includes(query.toLocaleLowerCase().trim())
+    ).length === 0 && !selectedGenres.includes(query)
+  );
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <FormField
+      <form onSubmit={form.handleSubmit(handleSubmit)}>
+        {/* <FormField
           control={form.control}
-          name="name"
+          name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Genre</FormLabel>
               <FormControl>
-                <Input placeholder="Your name" {...field} />
+                <Input placeholder="Your Genre" {...field} />
               </FormControl>
               <FormDescription>
                 This is the name that will be displayed on your profile and in
@@ -96,73 +110,205 @@ const StepTwo: React.FC<StepOneProps> = ({
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
+
+        {/* Publication Year */}
         <FormField
           control={form.control}
-          name="language"
+          name="publicationYear"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Language</FormLabel>
+              <FormLabel>Publication Date</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
                     <Button
-                      variant="outline"
-                      role="combobox"
+                      variant={"outline"}
                       className={cn(
-                        "w-[200px] justify-between",
+                        "w-[240px] relative pl-3 text-left font-normal",
                         !field.value && "text-muted-foreground"
                       )}
                     >
-                      {field.value
-                        ? languages.find(
-                            (language) => language.value === field.value
-                          )?.label
-                        : "Select language"}
-                      <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      {field.value ? (
+                        format(field.value, "PPP")
+                      ) : (
+                        <span>Pick a date</span>
+                      )}
+                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
-                <PopoverContent className="w-[200px] p-0">
-                  <Command>
-                    <CommandInput placeholder="Search language..." />
-                    <CommandEmpty>No language found.</CommandEmpty>
-                    <CommandGroup>
-                      {languages.map((language) => (
-                        <CommandItem
-                          value={language.label}
-                          key={language.value}
-                          onSelect={() => {
-                            form.setValue("language", language.value);
-                          }}
-                        >
-                          <CheckIcon
-                            className={cn(
-                              "mr-2 h-4 w-4",
-                              language.value === field.value
-                                ? "opacity-100"
-                                : "opacity-0"
-                            )}
-                          />
-                          {language.label}
-                        </CommandItem>
-                      ))}
-                    </CommandGroup>
-                  </Command>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    captionLayout="dropdown-buttons"
+                    selected={field.value}
+                    onSelect={field.onChange}
+                    disabled={(date) =>
+                      date > new Date() || date < new Date("1900-01-01")
+                    }
+                    fromYear={1960}
+                    toYear={2030}
+                    initialFocus
+                  />
                 </PopoverContent>
               </Popover>
               <FormDescription>
-                This is the language that will be used in the dashboard.
+                Your date of birth is used to calculate your age.
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <button type="button" onClick={handlePrevStep}>
-          Next Step
-        </button>
-        <button type="submit">Submit</button>
+        <FormField
+          name="genre"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Genre</FormLabel>
+              <FormControl>
+                <div className="relative w-96">
+                  {selectedGenres.length > 0 && (
+                    <div className="text-xs flex flex-wrap gap-1 p-2 mb-2">
+                      {selectedGenres.map((genre) => {
+                        return (
+                          <div
+                            key={genre}
+                            className="rounded-full w-fit py-1.5 px-3 border border-gray-400
+                        bg-gray-100 flex items-center
+                        "
+                          >
+                            {genre}
+                            <div>
+                              <X
+                                onClick={() =>
+                                  setSelectedGenres(
+                                    selectedGenres.filter((g) => g !== genre)
+                                  )
+                                }
+                                onMouseDown={(e) => e.preventDefault()}
+                                className="ml-1 h-4 w-4 cursor-pointer hover:text-red-600"
+                              />
+                            </div>
+                          </div>
+                        );
+                      })}
+
+                      <div className="w-full text-right text-sm ">
+                        <span
+                          className="cursor-pointer p-1 mb-2 rounded-full"
+                          onClick={() => setSelectedGenres([])}
+                        >
+                          Clear all
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background flex items-center justify-between p-3  gap-2.5">
+                    <input
+                      type="text"
+                      placeholder="Enter genre"
+                      onChange={(e) => setQuery(e.target.value.trimStart())}
+                      className="bg-transparent text-sm flex-1 caret-rose-600 outline-none"
+                      onFocus={() => setMenuOpen(true)}
+                      onBlur={() => setMenuOpen(false)}
+                      ref={inputRef}
+                      value={query}
+                    />
+                    <button
+                      disabled={isDisabled}
+                      onClick={() => {
+                        setQuery("");
+                        setSelectedGenres([...selectedGenres, query]);
+                      }}
+                      className=" text-rose-500 cursor-pointer disabled:cursor-not-allowed disabled:text-gray-300"
+                    >
+                      + Add
+                    </button>
+                  </div>
+                  {/* menu's */}
+                  {menuOpen ? (
+                    <div className="rounded-lg border border-input bg-background absolute w-full max-h-52 mt-2 p-1 flex overflow-y-auto ">
+                      <ul className="w-full">
+                        {filteredTags.length ? (
+                          filteredTags.map((genre) => (
+                            <li
+                              key={genre}
+                              className="p-1 hover:bg-gray-200 cursor-pointer"
+                              onClick={() => {
+                                setMenuOpen(false);
+                                handleGenreChange([...selectedGenres, genre]);
+                                inputRef.current?.blur();
+                              }}
+                              onMouseDown={(e) => e.preventDefault()}
+                            >
+                              {genre}
+                            </li>
+                          ))
+                        ) : (
+                          <li className="p-1">No genre found</li>
+                        )}
+                      </ul>
+                    </div>
+                  ) : null}
+                </div>
+              </FormControl>
+              <div className="flex flex-wrap mt-2"></div>
+              <FormDescription>This is the genre of the book.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <div className="flex flex-wrap mt-2"></div>
+
+        <FormField
+          control={form.control}
+          name="status"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Status</FormLabel>
+              <FormControl>
+                <select
+                  {...field}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                >
+                  <option value="">Select a status</option>
+                  <option value="popular">Popular</option>
+                  <option value="Trendy">Trendy</option>
+                  <option value="Recommended">Recommended</option>
+                  <option value="Latest">Latest</option>
+                </select>
+              </FormControl>
+              <FormDescription>This is the status of the book.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <div className="flex justify-between mt-6">
+          <button
+            onClick={handlePrevStep}
+            className="bg-blue-600 text-white p-2 rounded-md"
+          >
+            Prev step
+          </button>
+
+          {isLoading ? (
+            <button className="bg-blue-600 text-white p-2 rounded-md">
+              Submitting...
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="bg-blue-600 text-white p-2 rounded-md"
+            >
+              Submit
+            </button>
+          )}
+        </div>
       </form>
     </Form>
   );
