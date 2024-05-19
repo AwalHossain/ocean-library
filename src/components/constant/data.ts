@@ -18,7 +18,7 @@ export const navItems: NavItem[] = [
     label: "Dashboard",
   },
   {
-    title: "Book Shelf lddoe p",
+    title: "Book Shelf",
     href: "/dashboard/shelf", // Updated
     icon: "book",
     label: "Book Shelf",
