@@ -1,4 +1,7 @@
 import React from "react";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Sidebar } from "./Sidebar";
 
 interface DashboardLayoutProps {
@@ -14,6 +17,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         </div>
         <div className="flex-1 max-w-xl mx-auto">
           <main className={` overflow-x-auto`}>{children}</main>
+          <ToastContainer />
         </div>
       </div>
     </div>
