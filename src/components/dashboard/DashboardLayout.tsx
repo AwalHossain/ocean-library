@@ -15,7 +15,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         <div className="sticky h-screen left-0 top-0">
           <Sidebar />
         </div>
-        <div className="flex-1 max-w-xl mx-auto">
+        <div className="flex-grow">
           <main className={` overflow-x-auto`}>{children}</main>
           <ToastContainer />
         </div>
