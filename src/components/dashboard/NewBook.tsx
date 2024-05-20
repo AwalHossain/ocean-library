@@ -56,16 +56,7 @@ export default function NewBook() {
   type AccountFormValues = z.infer<typeof accountFormSchema>;
 
   // This can come from your database or API.
-  const defaultValues: Partial<AccountFormValues> = {
-    // title: "",
-    // description: "",
-    // summary: "",
-    // thumbnail: "",
-    // genre: [],
-    // publicationYear: new Date(),
-    // status: "Latest",
-    // language: "",
-  };
+  const defaultValues: Partial<AccountFormValues> = {};
 
   const form = useForm<AccountFormValues>({
     resolver: zodResolver(accountFormSchema),
