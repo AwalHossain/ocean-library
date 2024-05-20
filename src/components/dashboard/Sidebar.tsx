@@ -4,7 +4,6 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 import { cn } from "@/lib/utils";
 import { ChevronRightCircle } from "lucide-react";
 import React from "react";
-import { useLocation } from "react-router-dom";
 import { navItems } from "../constant/data";
 import DashboardNav from "./DashboardNav";
 
@@ -16,7 +15,7 @@ import DashboardNav from "./DashboardNav";
 export function Sidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
 
-  const pathname = useLocation().pathname;
+  // const pathname = useLocation().pathname;
 
   const isSmallScreen = useMediaQuery("(max-width: 1024px)");
 
