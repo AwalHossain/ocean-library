@@ -8,6 +8,8 @@ OceanLibrary is a comprehensive <b>book management</b> web application built wit
 
 **Live Demo:** [https://oceanlibrary.netlify.app/](https://oceanlibrary.netlify.app/)
 
+
+
 ## Overview
 
 Bookish is a sophisticated web application designed for book enthusiasts. It provides a comprehensive platform for discovering, reviewing, and managing books. With an emphasis on user-friendly design and intuitive navigation, Bookish offers a plethora of features to enhance the user experience.
@@ -33,7 +35,13 @@ Bookish is a sophisticated web application designed for book enthusiasts. It pro
 ✅ **Component Composition**: Decomposed the user interface into smaller, reusable components for better code organization and maintainability.<br>
 ✅ **State Lifting**: Implemented state lifting to manage user preferences efficiently across multiple components.<br>
 
-## Getting Started
+## A Glimpse of site
+![image](https://github.com/AwalHossain/ocean-library/assets/80216813/3c35c78f-541e-46d7-a599-aafb883da43b)
+
+![image](https://github.com/AwalHossain/ocean-library/assets/80216813/4a16f86a-e200-4ece-aa26-ca68a6215414)
+
+![image](https://github.com/AwalHossain/ocean-library/assets/80216813/cbdabaa5-c744-4ad5-b11a-50c8a4a28a56)
+
 
 ### Frontend Setup
 
