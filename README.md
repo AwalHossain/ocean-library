@@ -1,7 +1,10 @@
-# Bookish: Your Personalized Book Discovery Platform
-
+# OceanLibrary
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+
+OceanLibrary is a comprehensive <b>book management</b> web application built with React.js, RTK Query, TypeScript on the frontend, and Node.js, Express.js, and MongoDB on the backend. It is designed for book enthusiasts, allowing users to explore a vast collection of books, <b>virtual</b> bookshelves to <b>categorize</b> books into "Read," "Currently Reading," "Want to Read," 
+
+
 
 **Live Demo:** [https://oceanlibrary.netlify.app/](https://oceanlibrary.netlify.app/)
 
@@ -11,26 +14,33 @@ Bookish is a sophisticated web application designed for book enthusiasts. It pro
 
 ## Key Features
 
-- **Book Discovery:** Browse through an extensive collection of books or conduct targeted searches by title, author, or genre.
-- **Advanced Filtering:** Refine your search results based on specific criteria such as title, author, genre, and publication date.
-- **Book Reviews:** Share your thoughts on books you've read by adding reviews, including a rating and a summary.
-- **Wishlist and Reading List:** Keep track of books you want to read or have read.
-- **Book Contribution:** Add new books to the platform, enriching the collection for all users.
-- **Book Management:** Remove books you've added to the platform.
+✅ **Personal Libraries**: Create virtual bookshelves to categorize books into "Read," "Currently Reading," "Want to Read,"<br>
+✅ **Reading progress**: Track progress and update statuses on books being read.<br>
+✅ **Recommendations**: Personalized book recommendations based on reading history<br>
+✅ **Book Discovery:** Browse through an extensive collection of books or conduct targeted searches by title, author, or genre.<br>
+✅ **Advanced Filtering:** Refine your search results based on specific criteria such as title, author, genre, and publication date.<br>
+✅ **Book Reviews:** Share your thoughts on books you've read by adding reviews, including a rating and a summary.<br>
+ **Admin Functionality**: Authorized administrators can create new books and update existing ones<br>
+
+ ## Technical Highlights
+
+✅ **Modern Frontend Stack**: Harnessed React's component-based architecture and unidirectional data flow for a modular and scalable single-page application (SPA).<br>
+✅ **State Management**: Utilized RTK Query's caching and reactive capabilities to efficiently manage application state and provide real-time updates.<br>
+✅ **TypeScript Integration**: Implemented TypeScript for enhanced code maintainability, better tooling, and improved developer productivity.<br>
+✅ **Express Server**: Constructed an Express server on the Node.js runtime environment, leveraging middleware design patterns for modular routing and controller logic.<br>
+✅ **NoSQL Database**: Composed a MongoDB document-oriented database for flexible data schemas and rapid prototyping, facilitated by Mongoose for schema validation and community support.<br>
+✅ **Transaction Management**: Employed Mongoose transactions to ensure atomicity, consistency, isolation, and durability (ACID) when updating user preferences across multiple collections.<br>
+✅ **Component Composition**: Decomposed the user interface into smaller, reusable components for better code organization and maintainability.<br>
+✅ **State Lifting**: Implemented state lifting to manage user preferences efficiently across multiple components.<br>
 
 ## Getting Started
 
 ### Frontend Setup
 
-1. Navigate to the `frontend` directory.
+1. Navigate to the `ocean-library` directory.
 2. Install the required node modules with `yarn add`.
 3. Start the frontend server with `yarn dev`.
 
-### Backend Setup
-
-1. Navigate to the `backend` directory.
-2. Install the required dependencies with `yarn add`.
-3. Start the backend server with `yarn dev`.
 
 ## Contributing
 
@@ -42,4 +52,4 @@ Bookish is licensed under the MIT License. For more details, please see the [LIC
 
 ## Contact
 
-We'd love to hear from you! If you have any questions, suggestions, or feedback, please contact us at [your.email@example.com](mailto:your.email@example.com).
+We'd love to hear from you! If you have any questions, suggestions, or feedback, please contact me.
